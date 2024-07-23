@@ -5,10 +5,12 @@ import {ButtonModule} from 'primeng/button'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalculadoraComponent } from './components/calculadora/calculadora.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalculadoraComponent
   ],
   imports: [
     BrowserModule,
