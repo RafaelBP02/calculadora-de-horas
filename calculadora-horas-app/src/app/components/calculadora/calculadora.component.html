@@ -8,16 +8,21 @@
     <input
       type="text"
       pInputText
+      name="entrada"
+      [(ngModel)]="calcFormData.entrada"
       placeholder="Entrada" />
     <input
       type="text"
       pInputText
-
+      name="inicioIntervalo"
+      [(ngModel)]="calcFormData.inicioIntervalo"
       placeholder="Inicio do intervalo" />
     <input
       type="text"
       pInputText
+      name="fimIntervalo"
+      [(ngModel)]="calcFormData.fimIntervalo"
       placeholder="Fim do Intervalo" />
   </form>
-  <p-button>Calcular</p-button>
+  <p-button (onClick)="calcularHoraio()">Calcular</p-button>
 </div>

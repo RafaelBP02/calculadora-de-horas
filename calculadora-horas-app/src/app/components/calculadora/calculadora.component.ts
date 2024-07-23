@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Calculadora } from '../../models/Calculadora';
 
 @Component({
   selector: 'app-calculadora',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class CalculadoraComponent {
 
+  calcFormData = new Calculadora()
+
+  calcularHoraio():void{
+    console.log(this.calcFormData);
+    this.calcFormData = new Calculadora();
+  }
 }
