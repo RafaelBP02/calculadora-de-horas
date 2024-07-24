@@ -1,9 +1,9 @@
 .btn-caixa {
   display: flex;
   gap: 5px;
-  margin-top: 10vh;
-  min-width: 20vw;
-  justify-content: space-around;
+  margin-top: 7vh;
+  min-width: 100%;
+  justify-content: space-evenly;
 }
 
 
@@ -33,10 +33,10 @@
   margin-top: 2vh;
 
 
-  gap: 1vh;
+  gap: 2vh;
 }
 .form-input{
-  min-width: 16vw;
+  min-width: 60%;
 }
 
 .titulo{

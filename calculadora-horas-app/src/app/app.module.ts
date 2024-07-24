@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalculadoraComponent } from './components/calculadora/calculadora.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { InputTextModule } from 'primeng/inputtext';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    InputTextModule
+    InputTextModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
   providers: [
     provideClientHydration()
