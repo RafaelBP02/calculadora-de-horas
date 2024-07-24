@@ -6,23 +6,32 @@
   </div>
   <form class="form-config" action="">
     <input
+      class="form-btn"
       type="text"
+      pattern={{timeRegex}}
       pInputText
       name="entrada"
       [(ngModel)]="calcFormData.entrada"
-      placeholder="Entrada" />
+      placeholder="Entrada (00:00)" />
     <input
+      class="form-btn"
       type="text"
+      pattern={{timeRegex}}
       pInputText
       name="inicioIntervalo"
       [(ngModel)]="calcFormData.inicioIntervalo"
-      placeholder="Inicio do intervalo" />
+      placeholder="Inicio do intervalo (00:00)" />
     <input
+      class="form-btn"
       type="text"
+      pattern={{timeRegex}}
       pInputText
       name="fimIntervalo"
       [(ngModel)]="calcFormData.fimIntervalo"
-      placeholder="Fim do Intervalo" />
+      placeholder="Fim do Intervalo (00:00)" />
   </form>
-  <p-button (onClick)="calcularHoraio()">Calcular</p-button>
+  <div class="btn-caixa">
+    <p-button  severity="success" (onClick)="calcularHoraio()">Calcular</p-button>
+    <p-button  severity="secondary" (onClick)="cancelarOperacao()">Cancelar</p-button>
+  </div>
 </div>
