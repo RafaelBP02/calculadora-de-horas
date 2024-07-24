@@ -13,17 +13,25 @@ export class CalculadoraComponent {
 
   calcularHoraio():void{
     // Calculo realizado para uma carga horária de oito horas diarias
-    let cargaHorariaRestante:number = 8;
+    let cargaHorariaRestante:Date = new Date();
     let entradaT:Date = this.timeStringToDate(this.calcFormData.entrada);
     let inicioT:Date = this.timeStringToDate(this.calcFormData.inicioIntervalo);
     let fimT:Date = this.timeStringToDate(this.calcFormData.fimIntervalo);
 
     console.log(entradaT.getHours(), inicioT.getHours(), fimT.getHours());
 
-    cargaHorariaRestante = (cargaHorariaRestante - Math.abs(entradaT.getHours()-inicioT.getHours()) - Math.abs(inicioT.getHours()-fimT.getHours()));
-    fimT.setHours(fimT.getHours()+cargaHorariaRestante);
+
+    cargaHorariaRestante.setMinutes(0 - Math.abs(entradaT.getMinutes()-inicioT.getMinutes()));
+
+    cargaHorariaRestante.setHours(8 - Math.abs(entradaT.getHours()-inicioT.getHours()));
+
+
+    console.log('Carga horaria restante: ' + cargaHorariaRestante);
+
+    fimT.setHours(fimT.getHours()+cargaHorariaRestante.getHours());
+    fimT.setMinutes(fimT.getMinutes()+cargaHorariaRestante.getMinutes());
     // let resultadoT:Date = new Date();
-    console.log(cargaHorariaRestante, fimT.getHours());
+    console.log('Horario de saida: ' + fimT);
 
 
     this.calcFormData = new Calculadora();
