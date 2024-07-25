@@ -1,28 +1,18 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component} from '@angular/core';
 import { Calculadora } from '../../models/Calculadora';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-calculadora',
   templateUrl: './calculadora.component.html',
   styleUrl: './calculadora.component.css',
 })
-export class CalculadoraComponent implements OnInit {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
-  timeRegex: string = '^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$';
+export class CalculadoraComponent{
+  constructor() {}
 
   visible: boolean = false;
   horarioSaida: Date = new Date;
   calcFormData = new Calculadora();
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      // O código aqui dentro só será executado no navegador
-      this.visible = false;
-      // this.initializeDialog();
-    }
-  }
 
   displayDialog():void{
     this.visible = true;
