@@ -7,8 +7,6 @@ import { Calculadora } from '../../models/Calculadora';
   styleUrl: './calculadora.component.css'
 })
 export class CalculadoraComponent {
-  timeRegex:string = '^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$';
-
   calcFormData = new Calculadora()
 
   calcularHoraio():void{
@@ -32,9 +30,6 @@ export class CalculadoraComponent {
     fimT.setMinutes(fimT.getMinutes()+cargaHorariaRestante.getMinutes());
     // let resultadoT:Date = new Date();
     console.log('Horario de saida: ' + fimT);
-
-
-    this.calcFormData = new Calculadora();
   }
 
   cancelarOperacao():void{
