@@ -13,19 +13,21 @@ export class CalculadoraComponent implements OnInit {
   timeRegex: string = '^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$';
 
   visible: boolean = false;
+  horarioSaida: Date = new Date;
   calcFormData = new Calculadora();
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       // O código aqui dentro só será executado no navegador
-      this.visible = true;
+      this.visible = false;
       // this.initializeDialog();
     }
   }
 
-  displayDialog(open:boolean):void{
-    this.visible = open;
+  displayDialog():void{
+    this.visible = true;
   }
+
 
   calcularHoraio(): void {
     // Calculo realizado para uma carga horária de oito horas diarias
@@ -51,6 +53,11 @@ export class CalculadoraComponent implements OnInit {
     fimT.setHours(fimT.getHours() + cargaHorariaRestante.getHours());
     fimT.setMinutes(fimT.getMinutes() + cargaHorariaRestante.getMinutes());
     // let resultadoT:Date = new Date();
+
+    this.horarioSaida = fimT;
+
+    this.displayDialog();
+
     console.log('Horario de saida: ' + fimT);
 
     this.calcFormData = new Calculadora();

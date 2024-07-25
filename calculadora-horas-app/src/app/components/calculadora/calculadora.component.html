@@ -1,14 +1,11 @@
 <div class="caixa-calculadora">
-  <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-  <app-calc-result-dialog></app-calc-result-dialog>
-  </p-dialog>
   <div class="titulo">
     <i class="pi pi-clock"></i>
     <h1>Calculadora de Horas</h1>
     <i class="pi pi-clock"></i>
   </div>
   <form class="form-config" action="">
-    <p-inputGroup >
+    <p-inputGroup>
       <p-inputGroupAddon class="form-input">Entrada</p-inputGroupAddon>
       <input
         id="entrada"
@@ -19,7 +16,9 @@
       />
     </p-inputGroup>
     <p-inputGroup>
-      <p-inputGroupAddon class="form-input">Inicio do Intervalo</p-inputGroupAddon>
+      <p-inputGroupAddon class="form-input"
+        >Inicio do Intervalo</p-inputGroupAddon
+      >
       <input
         id="inicioInt"
         type="time"
@@ -57,3 +56,11 @@
     >
   </div>
 </div>
+<p-dialog
+  header="Hora de Saída"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '35rem' }"
+>
+  <app-calc-result-dialog [horaFinal]="horarioSaida" ></app-calc-result-dialog>
+</p-dialog>
