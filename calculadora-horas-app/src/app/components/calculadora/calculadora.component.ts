@@ -16,12 +16,15 @@ export class CalculadoraComponent {
     let inicioT:Date = this.timeStringToDate(this.calcFormData.inicioIntervalo);
     let fimT:Date = this.timeStringToDate(this.calcFormData.fimIntervalo);
 
-    console.log(entradaT.getHours(), inicioT.getHours(), fimT.getHours());
+    console.log(entradaT.getHours() + ':' + entradaT.getMinutes(), inicioT.getHours() + ':' + inicioT.getMinutes(), fimT.getHours());
 
+    cargaHorariaRestante.setHours(8);
+    cargaHorariaRestante.setMinutes(0);
+    cargaHorariaRestante.setSeconds(0);
 
-    cargaHorariaRestante.setMinutes(0 - Math.abs(entradaT.getMinutes()-inicioT.getMinutes()));
+    cargaHorariaRestante.setMinutes( Math.abs(entradaT.getMinutes()-inicioT.getMinutes()));
 
-    cargaHorariaRestante.setHours(8 - Math.abs(entradaT.getHours()-inicioT.getHours()));
+    cargaHorariaRestante.setHours(cargaHorariaRestante.getHours() - Math.abs(entradaT.getHours()-inicioT.getHours()));
 
 
     console.log('Carga horaria restante: ' + cargaHorariaRestante);
