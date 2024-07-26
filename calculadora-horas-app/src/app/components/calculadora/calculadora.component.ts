@@ -1,22 +1,28 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { Calculadora } from '../../models/Calculadora';
 
 @Component({
   selector: 'app-calculadora',
   templateUrl: './calculadora.component.html',
-  styleUrl: './calculadora.component.css'
+  styleUrl: './calculadora.component.css',
 })
-export class CalculadoraComponent {
-  calcFormData = new Calculadora()
+export class CalculadoraComponent{
+  constructor() {}
 
-  calcularHoraio():void{
+  visible: boolean = false;
+  horarioSaida: Date = new Date;
+  calcFormData = new Calculadora();
+
+  displayDialog():void{
+    this.visible = true;
+  }
+
+  calcularHoraio(): void {
     // Calculo realizado para uma carga horária de oito horas diarias
     let cargaHorariaRestante:Date = new Date();
     let horaEntrada:Date = this.converteStringParaDate(this.calcFormData.entrada);
     let inicioIntervalo:Date = this.converteStringParaDate(this.calcFormData.inicioIntervalo);
     let fimIntervalo:Date = this.converteStringParaDate(this.calcFormData.fimIntervalo);
-
-    console.log(horaEntrada.getHours() + ':' + horaEntrada.getMinutes(), inicioIntervalo.getHours() + ':' + inicioIntervalo.getMinutes(), fimIntervalo.getHours());
 
     cargaHorariaRestante.setHours(8);
     cargaHorariaRestante.setMinutes(0);
@@ -25,16 +31,15 @@ export class CalculadoraComponent {
     cargaHorariaRestante.setMinutes( Math.abs(horaEntrada.getMinutes()-inicioIntervalo.getMinutes()));
     cargaHorariaRestante.setHours(cargaHorariaRestante.getHours() - Math.abs(horaEntrada.getHours()-inicioIntervalo.getHours()));
 
-
-    console.log('Carga horaria restante: ' + cargaHorariaRestante);
-
     fimIntervalo.setHours(fimIntervalo.getHours()+cargaHorariaRestante.getHours());
     fimIntervalo.setMinutes(fimIntervalo.getMinutes()+cargaHorariaRestante.getMinutes());
 
-    console.log('Horario de saida: ' + fimIntervalo);
+    this.horarioSaida = fimIntervalo;
+
+    this.displayDialog();
   }
 
-  cancelarOperacao():void{
+  cancelarOperacao(): void {
     this.calcFormData = new Calculadora();
   }
 

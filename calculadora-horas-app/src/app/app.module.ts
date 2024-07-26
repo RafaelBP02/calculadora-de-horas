@@ -10,11 +10,14 @@ import { CalculadoraComponent } from './components/calculadora/calculadora.compo
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-result-dialog.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalculadoraComponent
+    CalculadoraComponent,
+    CalcResultDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     ReactiveFormsModule,
     InputTextModule,
     InputGroupModule,
-    InputGroupAddonModule
+    InputGroupAddonModule,
+    DialogModule
   ],
   providers: [
     provideClientHydration()
