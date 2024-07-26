@@ -12,37 +12,36 @@ export class CalculadoraComponent {
   calcularHoraio():void{
     // Calculo realizado para uma carga horária de oito horas diarias
     let cargaHorariaRestante:Date = new Date();
-    let entradaT:Date = this.timeStringToDate(this.calcFormData.entrada);
-    let inicioT:Date = this.timeStringToDate(this.calcFormData.inicioIntervalo);
-    let fimT:Date = this.timeStringToDate(this.calcFormData.fimIntervalo);
+    let horaEntrada:Date = this.converteStringParaDate(this.calcFormData.entrada);
+    let inicioIntervalo:Date = this.converteStringParaDate(this.calcFormData.inicioIntervalo);
+    let fimIntervalo:Date = this.converteStringParaDate(this.calcFormData.fimIntervalo);
 
-    console.log(entradaT.getHours() + ':' + entradaT.getMinutes(), inicioT.getHours() + ':' + inicioT.getMinutes(), fimT.getHours());
+    console.log(horaEntrada.getHours() + ':' + horaEntrada.getMinutes(), inicioIntervalo.getHours() + ':' + inicioIntervalo.getMinutes(), fimIntervalo.getHours());
 
     cargaHorariaRestante.setHours(8);
     cargaHorariaRestante.setMinutes(0);
     cargaHorariaRestante.setSeconds(0);
 
-    cargaHorariaRestante.setMinutes( Math.abs(entradaT.getMinutes()-inicioT.getMinutes()));
-
-    cargaHorariaRestante.setHours(cargaHorariaRestante.getHours() - Math.abs(entradaT.getHours()-inicioT.getHours()));
+    cargaHorariaRestante.setMinutes( Math.abs(horaEntrada.getMinutes()-inicioIntervalo.getMinutes()));
+    cargaHorariaRestante.setHours(cargaHorariaRestante.getHours() - Math.abs(horaEntrada.getHours()-inicioIntervalo.getHours()));
 
 
     console.log('Carga horaria restante: ' + cargaHorariaRestante);
 
-    fimT.setHours(fimT.getHours()+cargaHorariaRestante.getHours());
-    fimT.setMinutes(fimT.getMinutes()+cargaHorariaRestante.getMinutes());
-    // let resultadoT:Date = new Date();
-    console.log('Horario de saida: ' + fimT);
+    fimIntervalo.setHours(fimIntervalo.getHours()+cargaHorariaRestante.getHours());
+    fimIntervalo.setMinutes(fimIntervalo.getMinutes()+cargaHorariaRestante.getMinutes());
+
+    console.log('Horario de saida: ' + fimIntervalo);
   }
 
   cancelarOperacao():void{
     this.calcFormData = new Calculadora();
   }
 
-  private timeStringToDate(time: string): Date {
-    const [hours, minutes] = time.split(':').map(Number);
+  private converteStringParaDate(tempo: string): Date {
+    const [horas, minutos] = tempo.split(':').map(Number);
     const date = new Date();
-    date.setHours(hours, minutes, 0, 0);
+    date.setHours(horas, minutos, 0, 0);
     return date;
   }
 }
