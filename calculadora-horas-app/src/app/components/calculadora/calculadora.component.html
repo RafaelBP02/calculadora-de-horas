@@ -5,26 +5,25 @@
     <i class="pi pi-clock"></i>
   </div>
   <div class="btn-radio">
-    <div *ngFor="let horarios of cargasHorarias" class="field-checkbox">
+    <div *ngFor="let horarios of cargasHorarias">
       <p-radioButton
         [inputId]="horarios.key"
         name="horarios"
         [value]="horarios.value"
         [(ngModel)]="cargaSelecionada"
         />
-      <label [for]="horarios.key" class="ml-2">
+      <label [for]="horarios.key">
         {{ horarios.name }}
       </label>
     </div>
   </div>
-  <form class="form-config" action="">
+  <form class="form-config">
     <p-inputGroup>
       <p-inputGroupAddon class="form-input">Entrada</p-inputGroupAddon>
       <input
         id="entrada"
         type="time"
         pInputText
-        required
         name="entrada"
         [(ngModel)]="calcFormData.entrada"
       />
