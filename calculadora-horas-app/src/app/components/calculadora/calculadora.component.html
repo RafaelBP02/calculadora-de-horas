@@ -4,6 +4,19 @@
     <h1>Calculadora de Horas</h1>
     <i class="pi pi-clock"></i>
   </div>
+  <div class="flex flex-column gap-3">
+    <div *ngFor="let horarios of cargasHorarias" class="field-checkbox">
+      <p-radioButton
+        [inputId]="horarios.key"
+        name="horarios"
+        [value]="horarios.value"
+        [(ngModel)]="cargaSelecionada"
+      />
+      <label [for]="horarios.key" class="ml-2">
+        {{ horarios.name }}
+      </label>
+    </div>
+  </div>
   <form class="form-config" action="">
     <p-inputGroup>
       <p-inputGroupAddon class="form-input">Entrada</p-inputGroupAddon>
@@ -53,5 +66,5 @@
   [(visible)]="visible"
   [style]="{ width: '35rem' }"
 >
-  <app-calc-result-dialog [horaFinal]="horarioSaida" ></app-calc-result-dialog>
+  <app-calc-result-dialog [horaFinal]="horarioSaida"></app-calc-result-dialog>
 </p-dialog>
