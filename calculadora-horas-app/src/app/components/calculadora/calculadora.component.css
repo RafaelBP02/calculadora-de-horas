@@ -6,6 +6,10 @@
   justify-content: space-evenly;
 }
 
+.btn-radio{
+  display: flex;
+  gap: 5px;
+}
 
 .caixa-calculadora {
   min-width: 20vw;
