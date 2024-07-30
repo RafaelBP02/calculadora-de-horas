@@ -1,4 +1,8 @@
 <div class="horas">
-  <h6 *ngIf="horaExcedida">Hora trabalhada excedida!</h6>
-  <p>{{ horaFinal | date : "HH:mm" }}</p>
+  <div *ngIf="horaExcedida" class="horas-alerta">
+    <p>Hora trabalhada excedida!</p>
+  </div>
+  <div class="horas-texto">
+    <p>{{ horaFinal | date : "HH:mm" }}</p>
+  </div>
 </div>
