@@ -22,7 +22,6 @@ export class CalculadoraComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
-    // inicia a aplicação com 8 horas marcado por padrao
     this.cargasHorarias = [
       { nome: '8 horas', valor: 8, chave: 'O' },
       { nome: '6 horas', valor: 6, chave: 'S' },

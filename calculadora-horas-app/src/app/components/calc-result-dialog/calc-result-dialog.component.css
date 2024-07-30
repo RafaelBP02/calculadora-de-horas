@@ -1,6 +1,8 @@
 .horas{
   font-size: 80px;
-  display: flex;
   font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
