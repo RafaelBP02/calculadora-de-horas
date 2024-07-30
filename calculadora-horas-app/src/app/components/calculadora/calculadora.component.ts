@@ -1,29 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { Calculadora } from '../../models/Calculadora';
 
+interface DuracaoTrabalho {
+  nome: string;
+  valor: number;
+  chave: string;
+}
 @Component({
   selector: 'app-calculadora',
   templateUrl: './calculadora.component.html',
   styleUrl: './calculadora.component.css',
 })
-export class CalculadoraComponent implements OnInit{
-  constructor() {}
+export class CalculadoraComponent implements OnInit {
+  cargasHorarias:DuracaoTrabalho[] = [];
+  cargaSelecionada!:DuracaoTrabalho;
 
   visible: boolean = false;
   horarioSaida: Date = new Date();
   calcFormData = new Calculadora();
 
-  cargaSelecionada: number = 8;
 
-  cargasHorarias: any[] = [
-    { name: '8 horas', value: 8, key: 'O' },
-    { name: '6 horas', value: 6, key: 'S' },
-    { name: '4 horas', value: 4, key: 'Q' },
-  ];
-
+  constructor() {}
   ngOnInit() {
     // inicia a aplicação com 8 horas marcado por padrao
-    this.cargaSelecionada = this.cargasHorarias[0];
+    this.cargasHorarias = [
+      { nome: '8 horas', valor: 8, chave: 'O' },
+      { nome: '6 horas', valor: 6, chave: 'S' },
+      { nome: '4 horas', valor: 4, chave: 'Q' },
+    ];
   }
 
   displayDialog(): void {
@@ -43,7 +47,7 @@ export class CalculadoraComponent implements OnInit{
       this.calcFormData.fimIntervalo
     );
 
-    cargaHorariaRestante.setHours(this.cargaSelecionada);
+    cargaHorariaRestante.setHours(this.cargaSelecionada?.valor);
     cargaHorariaRestante.setMinutes(0);
     cargaHorariaRestante.setSeconds(0);
 
