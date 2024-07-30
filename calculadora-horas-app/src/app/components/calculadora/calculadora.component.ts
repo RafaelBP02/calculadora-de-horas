@@ -12,13 +12,13 @@ interface DuracaoTrabalho {
   styleUrl: './calculadora.component.css',
 })
 export class CalculadoraComponent implements OnInit {
-  cargasHorarias:DuracaoTrabalho[] = [];
-  cargaSelecionada!:DuracaoTrabalho;
+  cargasHorarias: DuracaoTrabalho[] = [];
+  cargaSelecionada!: DuracaoTrabalho;
 
-  visible: boolean = false;
   horarioSaida: Date = new Date();
   calcFormData = new Calculadora();
-
+  visible: boolean = false;
+  horaExcedida: boolean = false;
 
   constructor() {}
   ngOnInit() {
@@ -47,7 +47,7 @@ export class CalculadoraComponent implements OnInit {
       this.calcFormData.fimIntervalo
     );
 
-    cargaHorariaRestante.setHours(this.cargaSelecionada?.valor);
+    cargaHorariaRestante.setHours(this.cargaSelecionada.valor);
     cargaHorariaRestante.setMinutes(0);
     cargaHorariaRestante.setSeconds(0);
 
@@ -59,14 +59,33 @@ export class CalculadoraComponent implements OnInit {
         Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours())
     );
 
-    fimIntervalo.setHours(
-      fimIntervalo.getHours() + cargaHorariaRestante.getHours()
-    );
-    fimIntervalo.setMinutes(
-      fimIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
-    );
+    if(cargaHorariaRestante.getHours() <= 0){
+      this.horaExcedida = true;
+    }
+    else this.horaExcedida = false;
 
-    this.horarioSaida = fimIntervalo;
+    if (this.horaExcedida) {
+      //Caso o usuario exceda sua hora de trabalho, não deve ser levado em consideração o tempo de fim do intervalo
+      inicioIntervalo.setHours(
+        inicioIntervalo.getHours() + cargaHorariaRestante.getHours()
+      );
+      inicioIntervalo.setMinutes(
+        inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
+      );
+
+      this.horarioSaida = inicioIntervalo;
+
+    } else {
+      //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
+      fimIntervalo.setHours(
+        fimIntervalo.getHours() + cargaHorariaRestante.getHours()
+      );
+      fimIntervalo.setMinutes(
+        fimIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
+      );
+
+      this.horarioSaida = fimIntervalo;
+    }
 
     this.displayDialog();
   }
