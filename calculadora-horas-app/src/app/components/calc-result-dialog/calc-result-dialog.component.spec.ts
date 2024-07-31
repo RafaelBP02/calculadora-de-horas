@@ -17,7 +17,12 @@ describe('CalcResultDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('deve criar componente', () => {
     expect(component).toBeTruthy();
+
+    const cabecalho = fixture.nativeElement as HTMLElement;
+
+    expect(cabecalho.querySelector('.content span')).toContain('Hora de Saída');
   });
+
 });
