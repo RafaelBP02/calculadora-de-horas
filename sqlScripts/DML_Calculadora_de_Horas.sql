@@ -21,9 +21,12 @@ INSERT INTO ALARM_CONFIG(workEntry,intervalBeginning,intervalEnd,workload,user_i
 	'09:00:00', '13:00:00', '14:00:00', 8, 1
 );
 
-
 -- Seleção de dados
 
 -- Atualização de dados
 
 -- Deleção de dados
+
+DROP TABLE ALARM_CONFIG;
+
+DROP TABLE USERS;
