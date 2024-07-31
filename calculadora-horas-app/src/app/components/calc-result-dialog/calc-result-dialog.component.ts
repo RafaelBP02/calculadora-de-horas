@@ -7,4 +7,5 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CalcResultDialogComponent{
   @Input() horaFinal: Date | undefined;
+  @Input() horaExcedida: boolean | undefined;
 }

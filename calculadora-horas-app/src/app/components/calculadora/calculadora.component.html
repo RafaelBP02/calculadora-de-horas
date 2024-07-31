@@ -4,7 +4,14 @@
     <h1>Calculadora de Horas</h1>
     <i class="pi pi-clock"></i>
   </div>
-  <form class="form-config" action="">
+  <form class="form-config">
+    <p-dropdown
+      [options]="cargasHorarias"
+      [(ngModel)]="cargaSelecionada"
+      [ngModelOptions]="{standalone: true}"
+      optionLabel="valor"
+      placeholder="Selecione uma carga horaia"
+    />
     <p-inputGroup>
       <p-inputGroupAddon class="form-input">Entrada</p-inputGroupAddon>
       <input
@@ -53,5 +60,5 @@
   [(visible)]="visible"
   [style]="{ width: '35rem' }"
 >
-  <app-calc-result-dialog [horaFinal]="horarioSaida" ></app-calc-result-dialog>
+  <app-calc-result-dialog [horaFinal]="horarioSaida" [horaExcedida]="horaExcedida"></app-calc-result-dialog>
 </p-dialog>

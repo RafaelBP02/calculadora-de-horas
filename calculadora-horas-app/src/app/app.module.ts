@@ -12,6 +12,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-result-dialog.component';
 import { DialogModule } from 'primeng/dialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { DialogModule } from 'primeng/dialog';
     InputTextModule,
     InputGroupModule,
     InputGroupAddonModule,
-    DialogModule
+    DialogModule,
+    DropdownModule
   ],
   providers: [
     provideClientHydration()
