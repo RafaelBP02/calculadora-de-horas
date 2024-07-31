@@ -36,6 +36,15 @@ SELECT
 	ORDER BY us.username ASC;
 
 -- Atualização de dados
+-- Atualiza o horaio de entrada do usuario
+UPDATE ALARM_CONFIG
+SET workEntry = '09:30:00'
+WHERE user_id = 1;
+
+-- Atualiza nome do usuario
+UPDATE USERS
+SET username = 'Cebolinha'
+WHERE id = 1;
 
 -- Deleção de dados
 DROP TABLE ALARM_CONFIG;
