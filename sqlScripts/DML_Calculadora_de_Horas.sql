@@ -22,11 +22,22 @@ INSERT INTO ALARM_CONFIG(workEntry,intervalBeginning,intervalEnd,workload,user_i
 );
 
 -- Seleção de dados
+-- Seleciona os usuarios com suas configurações do alarme ordenado
+-- alfabetimente pelo nome do usuario:
+SELECT 
+	us.username,
+	ac.workload,
+	ac.workEntry,
+    ac.intervalBeginning,
+    ac.intervalEnd
+	FROM calculadora_horas.alarm_config AS ac
+    INNER JOIN calculadora_horas.users AS us 
+		ON ac.user_id = us.id
+	ORDER BY us.username ASC;
 
 -- Atualização de dados
 
 -- Deleção de dados
-
 DROP TABLE ALARM_CONFIG;
 
 DROP TABLE USERS;
