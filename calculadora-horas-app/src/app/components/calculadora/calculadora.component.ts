@@ -4,7 +4,6 @@ import { Calculadora } from '../../models/Calculadora';
 interface DuracaoTrabalho {
   nome: string;
   valor: number;
-  chave: string;
 }
 @Component({
   selector: 'app-calculadora',
@@ -23,9 +22,9 @@ export class CalculadoraComponent implements OnInit {
   constructor() {}
   ngOnInit() {
     this.cargasHorarias = [
-      { nome: '8 horas', valor: 8, chave: 'O' },
-      { nome: '6 horas', valor: 6, chave: 'S' },
-      { nome: '4 horas', valor: 4, chave: 'Q' },
+      { nome: '8 horas', valor: 8},
+      { nome: '6 horas', valor: 6},
+      { nome: '4 horas', valor: 4},
     ];
   }
 
