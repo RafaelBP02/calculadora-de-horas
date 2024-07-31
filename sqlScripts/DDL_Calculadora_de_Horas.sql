@@ -4,8 +4,8 @@
 -- dos horarios do ponto
 --
 -- Author: Rafael Berto Pereira
--- Data Criação: X/08/2024
--- Última alteração: X/08/2024
+-- Data Criação: 30/08/2024
+-- Última alteração: 30/08/2024
 --
 -- Histórico: > Criação do script
 
