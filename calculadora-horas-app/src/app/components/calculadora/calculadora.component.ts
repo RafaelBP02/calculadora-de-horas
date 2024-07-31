@@ -57,10 +57,7 @@ export class CalculadoraComponent implements OnInit {
         Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours())
     );
 
-    if(cargaHorariaRestante.getHours() <= 0){
-      this.horaExcedida = true;
-    }
-    else this.horaExcedida = false;
+    this.horaExcedida = (cargaHorariaRestante.getHours() <= 0);
 
     if (this.horaExcedida) {
       //Caso o usuario exceda sua hora de trabalho, não deve ser levado em consideração o tempo de fim do intervalo
