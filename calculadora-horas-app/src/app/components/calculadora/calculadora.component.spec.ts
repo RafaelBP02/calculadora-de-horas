@@ -42,7 +42,7 @@ describe('CalculadoraComponent', () => {
   });
 
   it('deve clicar no botao de cancelar', () => {
-
+    // teste passou mas nao registrou a cobertura em cancelarOperacao()
     spyOn(component, 'cancelarOperacao');
 
     let btnApagar: HTMLButtonElement = fixture.debugElement.query(By.css('#btnApagar > button')).nativeElement;
@@ -51,30 +51,16 @@ describe('CalculadoraComponent', () => {
     expect(component.cancelarOperacao).toHaveBeenCalled();
   });
 
-  xit('deve abrir o modal', async () => {
-    const horario: Date = new Date();
-    const btnConfirmar = fixture.debugElement.query(By.css('#btnCalcular'));
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('deve calcular a hora',  () => {
+    // Essa é a melhor forma de testar ou devo simular a interação com os botões?
+    component.cargaSelecionada = { nome: '8 horas', valor: 8 };
+    component.calcFormData.entrada = '09:00';
+    component.calcFormData.inicioIntervalo = '13:00';
+    component.calcFormData.fimIntervalo = '14:00';
 
-    horario.setHours(18);
-    horario.setMinutes(0);
-    horario.setSeconds(0);
+    component.calcularHoraio();
 
-    component.horaExcedida = false;
-    component.horarioSaida = horario;
-
-    spyOn(component, 'displayDialog').and.callThrough();
-
-    btnConfirmar.triggerEventHandler('click', null);
-    fixture.detectChanges();
-
-    await fixture.whenStable();
-
-    expect(component.displayDialog).toHaveBeenCalled();
-
-    expect(component.visible).toBeTrue();
-
-    const dialogText = compiled.querySelector('p-dialog span')?.textContent;
-    expect(dialogText).toContain('Hora trabalhada excedida!');
+    expect(component.horarioSaida.getHours()).toBe(18);
+    expect(component.horarioSaida.getMinutes()).toBe(0);
   });
 });
