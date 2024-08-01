@@ -1,4 +1,9 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 
 import { CalculadoraComponent } from './calculadora.component';
 import { DropdownModule } from 'primeng/dropdown';
@@ -11,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalcResultDialogComponent } from '../calc-result-dialog/calc-result-dialog.component';
 import { By } from '@angular/platform-browser';
+import { Calculadora } from '../../models/Calculadora';
 
 describe('CalculadoraComponent', () => {
   let component: CalculadoraComponent;
@@ -43,24 +49,36 @@ describe('CalculadoraComponent', () => {
 
   it('deve clicar no botao de cancelar', () => {
     // teste passou mas nao registrou a cobertura em cancelarOperacao()
-    spyOn(component, 'cancelarOperacao');
+    // spyOn(component, 'cancelarOperacao');
 
-    let btnApagar: HTMLButtonElement = fixture.debugElement.query(By.css('#btnApagar > button')).nativeElement;
+    let btnApagar: HTMLButtonElement = fixture.debugElement.query(
+      By.css('#btnApagar > button')
+    ).nativeElement;
     btnApagar.click();
 
-    expect(component.cancelarOperacao).toHaveBeenCalled();
+    expect(component.calcFormData).toEqual(new Calculadora());
   });
 
-  it('deve calcular a hora',  () => {
-    // Essa é a melhor forma de testar ou devo simular a interação com os botões?
-    component.cargaSelecionada = { nome: '8 horas', valor: 8 };
-    component.calcFormData.entrada = '09:00';
-    component.calcFormData.inicioIntervalo = '13:00';
-    component.calcFormData.fimIntervalo = '14:00';
+  describe('logica da caluladora de horas', () => {
+    beforeEach(() => {
+      component.calcFormData.entrada = '09:00';
+      component.calcFormData.inicioIntervalo = '13:00';
+      component.calcFormData.fimIntervalo = '14:00';
+    });
 
-    component.calcularHoraio();
 
-    expect(component.horarioSaida.getHours()).toBe(18);
-    expect(component.horarioSaida.getMinutes()).toBe(0);
+    it('deve calcular a hora com carga de trabalho normal', () => {
+      // Essa é a melhor forma de testar ou devo simular a interação com os botões?
+      component.cargaSelecionada = { nome: '8 horas', valor: 8 };
+
+      component.calcularHoraio();
+
+      expect(component.horarioSaida.getHours()).toBe(18);
+      expect(component.horarioSaida.getMinutes()).toBe(0);
+    });
+    it('deve calcular a hora com carga de trabalho normal', () => {
+      //PREENCHER LOGICA
+    });
+
   });
 });
