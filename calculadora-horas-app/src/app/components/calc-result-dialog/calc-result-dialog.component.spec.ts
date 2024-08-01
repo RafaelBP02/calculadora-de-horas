@@ -19,10 +19,26 @@ describe('CalcResultDialogComponent', () => {
 
   it('deve criar componente', () => {
     expect(component).toBeTruthy();
+  });
 
-    const cabecalho = fixture.nativeElement as HTMLElement;
+  it('deve receber o horario de saida', () => {
+    const horario:Date = new Date();
 
-    expect(cabecalho.querySelector('.content span')).toContain('Hora de Saída');
+    horario.setHours(18);
+    horario.setMinutes(0);
+    horario.setSeconds(0);
+
+    component.horaExcedida = false;
+    component.horaFinal = horario;
+
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+
+    expect(compiled.querySelector('p')?.textContent).toContain(
+      '18:00'
+    );
+
   });
 
 });
