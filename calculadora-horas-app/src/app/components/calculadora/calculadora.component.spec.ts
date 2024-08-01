@@ -75,9 +75,17 @@ describe('CalculadoraComponent', () => {
 
       expect(component.horarioSaida.getHours()).toBe(18);
       expect(component.horarioSaida.getMinutes()).toBe(0);
+      expect(component.horaExcedida).toBeFalsy();
+
     });
-    it('deve calcular a hora com carga de trabalho normal', () => {
-      //PREENCHER LOGICA
+    it('deve calcular a hora com carga de trabalho execedida', () => {
+      component.cargaSelecionada = { nome: '4 horas', valor: 4 };
+
+      component.calcularHoraio();
+
+      expect(component.horarioSaida.getHours()).toBe(13);
+      expect(component.horarioSaida.getMinutes()).toBe(0);
+      expect(component.horaExcedida).toBeTruthy();
     });
 
   });
