@@ -48,9 +48,6 @@ describe('CalculadoraComponent', () => {
   });
 
   it('deve clicar no botao de cancelar', () => {
-    // teste passou mas nao registrou a cobertura em cancelarOperacao()
-    // spyOn(component, 'cancelarOperacao');
-
     let btnApagar: HTMLButtonElement = fixture.debugElement.query(
       By.css('#btnApagar > button')
     ).nativeElement;
@@ -59,6 +56,31 @@ describe('CalculadoraComponent', () => {
     expect(component.calcFormData).toEqual(new Calculadora());
   });
 
+  describe('teste dos inputs da aplicação', () => {
+    it('deve clicar no input entrada', () => {
+      const inputElement = fixture.debugElement.query(By.css('#entrada')).nativeElement;
+      inputElement.value = '08:00';
+      inputElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.calcFormData.entrada).toEqual('08:00');
+    });
+    it('deve clicar no input inicio Intervalo', () => {
+      const inputElement = fixture.debugElement.query(By.css('#inicioInt')).nativeElement;
+      inputElement.value = '13:35';
+      inputElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.calcFormData.inicioIntervalo).toEqual('13:35');
+    });
+    it('deve clicar no input fim intervalo', () => {
+      const inputElement = fixture.debugElement.query(By.css('#fimInt')).nativeElement;
+      inputElement.value = '14:36';
+      inputElement.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(component.calcFormData.fimIntervalo).toEqual('14:36');
+    });
+  });
+
+
   describe('logica da caluladora de horas', () => {
     beforeEach(() => {
       component.calcFormData.entrada = '09:00';
@@ -66,9 +88,7 @@ describe('CalculadoraComponent', () => {
       component.calcFormData.fimIntervalo = '14:00';
     });
 
-
     it('deve calcular a hora com carga de trabalho normal', () => {
-      // Essa é a melhor forma de testar ou devo simular a interação com os botões?
       component.cargaSelecionada = { nome: '8 horas', valor: 8 };
 
       component.calcularHoraio();
@@ -76,7 +96,6 @@ describe('CalculadoraComponent', () => {
       expect(component.horarioSaida.getHours()).toBe(18);
       expect(component.horarioSaida.getMinutes()).toBe(0);
       expect(component.horaExcedida).toBeFalsy();
-
     });
     it('deve calcular a hora com carga de trabalho execedida', () => {
       component.cargaSelecionada = { nome: '4 horas', valor: 4 };
@@ -87,6 +106,5 @@ describe('CalculadoraComponent', () => {
       expect(component.horarioSaida.getMinutes()).toBe(0);
       expect(component.horaExcedida).toBeTruthy();
     });
-
   });
 });
