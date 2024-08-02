@@ -1,8 +1,6 @@
 import {
   ComponentFixture,
-  fakeAsync,
   TestBed,
-  tick,
 } from '@angular/core/testing';
 
 import { CalculadoraComponent } from './calculadora.component';
@@ -17,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalcResultDialogComponent } from '../calc-result-dialog/calc-result-dialog.component';
 import { By } from '@angular/platform-browser';
 import { Calculadora } from '../../models/Calculadora';
+import { DebugElement } from '@angular/core';
 
 describe('CalculadoraComponent', () => {
   let component: CalculadoraComponent;
@@ -57,29 +56,39 @@ describe('CalculadoraComponent', () => {
   });
 
   describe('teste dos inputs da aplicação', () => {
+    it('deve carregar o dropdown', () => {
+      const compiled = fixture.nativeElement as HTMLElement;
+
+      expect(compiled.querySelector('span')?.textContent).toContain('Selecione uma carga horaria');
+    });
     it('deve clicar no input entrada', () => {
-      const inputElement = fixture.debugElement.query(By.css('#entrada')).nativeElement;
+      const inputElement = fixture.debugElement.query(
+        By.css('#entrada')
+      ).nativeElement;
       inputElement.value = '08:00';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       expect(component.calcFormData.entrada).toEqual('08:00');
     });
     it('deve clicar no input inicio Intervalo', () => {
-      const inputElement = fixture.debugElement.query(By.css('#inicioInt')).nativeElement;
+      const inputElement = fixture.debugElement.query(
+        By.css('#inicioInt')
+      ).nativeElement;
       inputElement.value = '13:35';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       expect(component.calcFormData.inicioIntervalo).toEqual('13:35');
     });
     it('deve clicar no input fim intervalo', () => {
-      const inputElement = fixture.debugElement.query(By.css('#fimInt')).nativeElement;
+      const inputElement = fixture.debugElement.query(
+        By.css('#fimInt')
+      ).nativeElement;
       inputElement.value = '14:36';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
       expect(component.calcFormData.fimIntervalo).toEqual('14:36');
     });
   });
-
 
   describe('logica da caluladora de horas', () => {
     beforeEach(() => {
