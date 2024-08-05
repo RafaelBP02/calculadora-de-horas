@@ -14,6 +14,7 @@ import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-
 import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { NotificationConfigDataComponent } from './components/notification-config-data/notification-config-data.component';
 
 @NgModule({
   declarations: [
