@@ -6,6 +6,14 @@
   justify-content: space-evenly;
 }
 
+.btn-config{
+  font-size: 1.5rem;
+}
+.btn-config:hover{
+  cursor: pointer;
+  color: white;
+}
+
 .caixa-calculadora {
   min-width: 20vw;
   min-height: 50vh;
