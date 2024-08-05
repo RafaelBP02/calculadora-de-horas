@@ -1,0 +1,29 @@
+.area-config{
+  min-width: 20vw;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+
+  background-color: rgb(184, 184, 184);
+  border-color: black;
+  border-style: solid;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.btn-seta{
+  font-size: 1.5rem;
+}
+.btn-seta:hover{
+  cursor: pointer;
+  color: white;
+}
+
+.titulo{
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px
+}
