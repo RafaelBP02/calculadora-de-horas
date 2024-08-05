@@ -15,6 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { NotificationConfigDataComponent } from './components/notification-config-data/notification-config-data.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NotificationConfigDataComponent } from './components/notification-confi
     InputGroupModule,
     InputGroupAddonModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    TooltipModule
   ],
   providers: [
     provideClientHydration()

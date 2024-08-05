@@ -1,14 +1,18 @@
 <div class="caixa-calculadora">
   <div class="titulo">
     <h1>Calculadora de Horas</h1>
-    <i class="pi pi-cog btn-config" [routerLink]="['/notifyConfig']"></i>
+    <i
+      class="pi pi-cog btn-config"
+      [routerLink]="['/notifyConfig']"
+      pTooltip="permite configurar seus horaios de alerta"
+    ></i>
   </div>
   <form class="form-config">
     <p-dropdown
       id="workloadDropDown"
       [options]="cargasHorarias"
       [(ngModel)]="cargaSelecionada"
-      [ngModelOptions]="{standalone: true}"
+      [ngModelOptions]="{ standalone: true }"
       optionLabel="valor"
       placeholder="Selecione uma carga horaria"
     />
@@ -60,5 +64,8 @@
   [(visible)]="visible"
   [style]="{ width: '35rem' }"
 >
-  <app-calc-result-dialog [horaFinal]="horarioSaida" [horaExcedida]="horaExcedida"></app-calc-result-dialog>
+  <app-calc-result-dialog
+    [horaFinal]="horarioSaida"
+    [horaExcedida]="horaExcedida"
+  ></app-calc-result-dialog>
 </p-dialog>
