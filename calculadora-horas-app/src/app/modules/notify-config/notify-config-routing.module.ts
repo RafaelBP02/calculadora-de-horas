@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NotifyConfigModule } from './notify-config.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ToastModule
   ],
   providers: [ConfirmationService, MessageService],
   exports: [RouterModule],

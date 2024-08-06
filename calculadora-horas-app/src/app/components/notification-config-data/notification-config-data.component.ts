@@ -38,34 +38,25 @@ export class NotificationConfigDataComponent {
         rejectIcon: 'none',
         rejectButtonStyleClass: 'p-button-text',
         accept: () => {
+          //Toast para operacao confirmada
           this.messageService.add({
-            severity: 'info',
-            summary: 'Confirmed',
-            detail: 'Você aceitou',
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Configurações salvas com sucesso',
           });
           this.enviaDados();
         },
         reject: () => {
+          //Toast para operacao cancelada
           this.messageService.add({
             severity: 'error',
-            summary: 'Rejected',
-            detail: 'Você rejeitou',
+            summary: 'Erro!',
+            detail: 'A Operação foi cancelada',
             life: 3000,
           });
         },
       });
     }
-  }
-
-  get horariosFormControl() {
-    return this.horariosForm.controls;
-  }
-
-  private enviaDados():void{
-    console.log(this.horariosForm.get('inicioExpediente')?.value);
-    console.log(this.horariosForm.get('inicioIntervalo')?.value);
-    console.log(this.horariosForm.get('fimIntervalo')?.value);
-    console.log(this.horariosForm.get('fimExpediente')?.value);
   }
 
   confirmaDadosSalvos(): boolean {
@@ -76,6 +67,18 @@ export class NotificationConfigDataComponent {
       console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
       return false;
     }
+  }
+
+  get horariosFormControl() {
+    return this.horariosForm.controls;
+  }
+
+  private enviaDados(): void {
+    console.log(this.horariosForm.get('inicioExpediente')?.value);
+    console.log(this.horariosForm.get('inicioIntervalo')?.value);
+    console.log(this.horariosForm.get('fimIntervalo')?.value);
+    console.log(this.horariosForm.get('fimExpediente')?.value);
     //TODO: refatorar este metodo para asyncrono e fazer a comunicação com o back para salvar no back
+
   }
 }
