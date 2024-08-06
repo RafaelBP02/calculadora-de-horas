@@ -8,11 +8,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class NotificationConfigDataComponent {
   horariosForm = new FormGroup({
-    inicioExpediente: new FormControl<string | null>(null, Validators.required),
-    inicioIntervalo: new FormControl<string | null>(null, Validators.required),
-    fimIntervalo: new FormControl<string | null>(null, Validators.required),
-    fimExpediente: new FormControl<string | null>(null, Validators.required),
+    inicioExpediente: new FormControl<string>('', Validators.required),
+    inicioIntervalo: new FormControl<string>('', Validators.required),
+    fimIntervalo: new FormControl<string>('', Validators.required),
+    fimExpediente: new FormControl<string>('', Validators.required),
   });
+  // enviado:boolean = false
+
+  get horariosFormControl() {
+    return this.horariosForm.controls;
+  }
+
+
 
   enviaDadosSalvos(): void {
     if (this.horariosForm.valid) {
@@ -22,8 +29,8 @@ export class NotificationConfigDataComponent {
       console.log(this.horariosForm.get('fimExpediente')?.value);
     } else {
       this.horariosForm.markAllAsTouched();
+      console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS')
     }
-
     //TODO: refatorar este metodo para asyncrono e fazer a comunicação com o back para salvar no back
   }
 }

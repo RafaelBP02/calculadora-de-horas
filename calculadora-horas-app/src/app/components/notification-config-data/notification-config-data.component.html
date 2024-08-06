@@ -3,19 +3,53 @@
     <h1>Configuração de Notificações</h1>
     <i class="pi pi-arrow-left btn-seta" [routerLink]="['']"></i>
   </div>
-  <form [formGroup]="horariosForm" class="estilo-forms">
+  <form
+    [formGroup]="horariosForm"
+    class="estilo-forms alertas"
+    (ngSubmit)="enviaDadosSalvos()"
+  >
     <div class="card flex justify-content-center">
-      <input type="time" pInputText  formControlName="inicioExpediente" />
+      <input type="time" pInputText formControlName="inicioExpediente" />
+      <span
+        *ngIf=" horariosFormControl.inicioExpediente.touched
+                && horariosFormControl.inicioExpediente.errors?.['required']"
+      >
+        Campo obrigatório!
+      </span>
     </div>
     <div class="card flex justify-content-center">
-      <input type="time" pInputText  formControlName="inicioIntervalo" />
+      <input type="time" pInputText formControlName="inicioIntervalo" />
+      <span
+        *ngIf=" horariosFormControl.inicioIntervalo.touched
+                && horariosFormControl.inicioIntervalo.errors?.['required']"
+      >
+        Campo obrigatório!
+      </span>
     </div>
     <div class="card flex justify-content-center">
-      <input type="time" pInputText  formControlName="fimIntervalo" />
+      <input type="time" pInputText formControlName="fimIntervalo" />
+      <span
+        *ngIf=" horariosFormControl.fimIntervalo.touched
+                && horariosFormControl.fimIntervalo.errors?.['required']"
+      >
+        Campo obrigatório!
+      </span>
     </div>
     <div class="card flex justify-content-center">
-      <input type="time" pInputText  formControlName="fimExpediente" />
+      <input type="time" pInputText formControlName="fimExpediente" />
+      <span
+        *ngIf=" horariosFormControl.fimExpediente.touched &&
+                horariosFormControl.fimExpediente.errors?.['required']"
+      >
+        Campo obrigatório!
+      </span>
     </div>
-    <p-button (onClick)="enviaDadosSalvos()" label="Enviar" />
+    <button
+      type="submit"
+      pButton
+      pRipple
+      label="Submit"
+      class="p-button-primary"
+    ></button>
   </form>
 </div>

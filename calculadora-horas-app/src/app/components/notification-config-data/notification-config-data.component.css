@@ -1,3 +1,12 @@
+.alertas > div > span{
+  color: red;
+}
+.alertas > div{
+  display: flex;
+  flex-direction: column;
+
+}
+
 .area-config{
   min-width: 20vw;
   min-height: 50vh;
@@ -30,7 +39,6 @@
 .estilo-forms > div > input{
   min-width: 10rem;
   min-height: 2rem;
-
 }
 
 .titulo{
