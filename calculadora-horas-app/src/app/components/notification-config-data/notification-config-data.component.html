@@ -3,9 +3,19 @@
     <h1>Configuração de Notificações</h1>
     <i class="pi pi-arrow-left btn-seta" [routerLink]="['']"></i>
   </div>
-  <form>
+  <form [formGroup]="horariosForm" class="estilo-forms">
     <div class="card flex justify-content-center">
-      <input type="text" pInputText formControlName="text" />
+      <input type="time" pInputText  formControlName="inicioExpediente" />
     </div>
+    <div class="card flex justify-content-center">
+      <input type="time" pInputText  formControlName="inicioIntervalo" />
+    </div>
+    <div class="card flex justify-content-center">
+      <input type="time" pInputText  formControlName="fimIntervalo" />
+    </div>
+    <div class="card flex justify-content-center">
+      <input type="time" pInputText  formControlName="fimExpediente" />
+    </div>
+    <p-button (onClick)="enviaDadosSalvos()" label="Enviar" />
   </form>
 </div>

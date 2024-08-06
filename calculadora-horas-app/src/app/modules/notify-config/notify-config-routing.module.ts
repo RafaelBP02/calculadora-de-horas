@@ -2,17 +2,27 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotificationConfigDataComponent } from '../../components/notification-config-data/notification-config-data.component';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { NotifyConfigModule } from './notify-config.module';
 
 const routes: Routes = [
   {
-    path:'',
-    component: NotificationConfigDataComponent
-  }
+    path: '',
+    component: NotificationConfigDataComponent,
+  },
 ];
 
 @NgModule({
   declarations: [NotificationConfigDataComponent],
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule, CommonModule]
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputTextModule,
+  ],
+  exports: [RouterModule],
 })
-export class NotifyConfigRoutingModule { }
+export class NotifyConfigRoutingModule {}
