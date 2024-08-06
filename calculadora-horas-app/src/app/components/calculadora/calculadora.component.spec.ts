@@ -16,6 +16,9 @@ import { CalcResultDialogComponent } from '../calc-result-dialog/calc-result-dia
 import { By } from '@angular/platform-browser';
 import { Calculadora } from '../../models/Calculadora';
 import { DebugElement } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { NotificationConfigDataComponent } from '../notification-config-data/notification-config-data.component';
 
 describe('CalculadoraComponent', () => {
   let component: CalculadoraComponent;
@@ -23,7 +26,7 @@ describe('CalculadoraComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CalculadoraComponent, CalcResultDialogComponent],
+      declarations: [CalculadoraComponent, CalcResultDialogComponent, NotificationConfigDataComponent],
       imports: [
         ButtonModule,
         BrowserAnimationsModule,
@@ -34,7 +37,9 @@ describe('CalculadoraComponent', () => {
         InputGroupAddonModule,
         DialogModule,
         DropdownModule,
+        RouterModule.forRoot([])
       ],
+      providers:[ConfirmationService, MessageService]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculadoraComponent);
