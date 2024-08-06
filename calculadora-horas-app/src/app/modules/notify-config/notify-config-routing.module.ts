@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { NotifyConfigModule } from './notify-config.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 const routes: Routes = [
   {
@@ -22,7 +24,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
+    ConfirmDialogModule
   ],
+  providers: [ConfirmationService, MessageService],
   exports: [RouterModule],
 })
 export class NotifyConfigRoutingModule {}
