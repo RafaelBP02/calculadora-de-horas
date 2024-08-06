@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { RouterModule } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
 
 describe('NotificationConfigDataComponent', () => {
   let component: NotificationConfigDataComponent;
@@ -24,6 +25,7 @@ describe('NotificationConfigDataComponent', () => {
         ButtonModule,
         InputTextModule,
         ConfirmDialogModule,
+        ToastModule,
         RouterModule.forRoot([]),
       ],
       providers: [ConfirmationService, MessageService],
