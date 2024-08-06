@@ -58,8 +58,41 @@ describe('NotificationConfigDataComponent', () => {
       component.confirmarDados(new Event('click'));
       expect(confirmationService.confirm).toHaveBeenCalled();
     });
-    xit('deve aceitar os dados no dialogo', () => {});
-    xit('deve rejeitar os dados no dialogo', () => {});
+    it('deve aceitar os dados no dialogo', () => {
+      spyOn(component, 'confirmaDadosSalvos').and.returnValue(true);
+      spyOn(messageService, 'add');
+      spyOn<any>(confirmationService, 'confirm').and.callFake((param: any) => {
+        if (param.reject) {
+          param.accept(); // should resolve the promise
+        }
+      });
+
+      component.confirmarDados(new Event('click'));
+
+      expect(messageService.add).toHaveBeenCalledWith({
+        severity: 'success',
+        summary: 'Sucesso!',
+        detail: 'Configurações salvas com sucesso',
+      });
+    });
+    it('deve rejeitar os dados no dialogo', () => {
+      spyOn(component, 'confirmaDadosSalvos').and.returnValue(true);
+      spyOn(messageService, 'add');
+      spyOn<any>(confirmationService, 'confirm').and.callFake((params: any) => {
+        if (params.reject) {
+          params.reject();
+        }
+      });
+
+      component.confirmarDados(new Event('click'));
+
+      expect(messageService.add).toHaveBeenCalledWith({
+        severity: 'error',
+        summary: 'Erro!',
+        detail: 'A Operação foi cancelada',
+        life: 3000,
+      });
+    });
   });
 
   describe('Formulario nao validado', () => {
@@ -71,5 +104,4 @@ describe('NotificationConfigDataComponent', () => {
       expect(component.confirmaDadosSalvos()).toBeFalsy();
     });
   });
-
 });
