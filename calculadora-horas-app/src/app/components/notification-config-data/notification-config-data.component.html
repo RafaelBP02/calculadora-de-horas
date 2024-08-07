@@ -10,12 +10,20 @@
     [formGroup]="horariosForm"
     (ngSubmit)="confirmarDados($event)"
   >
-    <p-dropdown
-      formControlName="cargaHorariaSelecionada"
-      [options]="cargasHorarias"
-      optionLabel="valor"
-      placeholder="Selecione sua carga horaria"
-    />
+    <div>
+      <p-dropdown
+        formControlName="cargaHorariaSelecionada"
+        [options]="cargasHorarias"
+        optionLabel="valor"
+        placeholder="Selecione sua carga horaria"
+      />
+      <span
+        *ngIf=" horariosFormControl.cargaHorariaSelecionada.touched
+                && horariosFormControl.cargaHorariaSelecionada.errors?.['required']"
+      >
+        Campo obrigatório!
+      </span>
+    </div>
     <div class="card flex justify-content-center">
       <p-inputGroup>
         <p-inputGroupAddon class="form-input"
