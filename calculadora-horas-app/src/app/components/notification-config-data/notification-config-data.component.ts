@@ -37,7 +37,7 @@ export class NotificationConfigDataComponent implements OnInit {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: `Tem certeza de que quer salvar esses dados?<br>
-          Sua carga horária: ${this.horariosForm.get('cargaHorariaSelecionada')?.value?.valor} horas<br>
+          Sua carga horária: ${this.horariosForm.get('cargaHorariaSelecionada')?.value?.nome}<br>
           Início do Expediente: ${this.horariosForm.get('inicioExpediente')?.value}<br>
           Início do Intervalo: ${this.horariosForm.get('inicioIntervalo')?.value}<br>
           Fim do Intervalo: ${this.horariosForm.get('fimIntervalo')?.value}<br>

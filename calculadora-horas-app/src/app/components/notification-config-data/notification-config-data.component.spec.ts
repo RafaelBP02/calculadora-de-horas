@@ -50,6 +50,7 @@ describe('NotificationConfigDataComponent', () => {
 
   describe('Formulario validado', () => {
     beforeEach(() => {
+      component.horariosForm.controls.cargaHorariaSelecionada.setValue({nome: '8 horas', valor: 8});
       component.horariosForm.controls.inicioExpediente.setValue('09:00');
       component.horariosForm.controls.inicioIntervalo.setValue('13:00');
       component.horariosForm.controls.fimIntervalo.setValue('14:00');
