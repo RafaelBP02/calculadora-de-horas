@@ -11,7 +11,10 @@
     (ngSubmit)="confirmarDados($event)"
   >
     <div class="card flex justify-content-center">
-      <input type="time" pInputText formControlName="inicioExpediente" />
+      <p-inputGroup>
+        <p-inputGroupAddon class="form-input">Inicio Expediente</p-inputGroupAddon>
+        <input type="time" pInputText formControlName="inicioExpediente" />
+      </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.inicioExpediente.touched
                 && horariosFormControl.inicioExpediente.errors?.['required']"
@@ -20,7 +23,10 @@
       </span>
     </div>
     <div class="card flex justify-content-center">
-      <input type="time" pInputText formControlName="inicioIntervalo" />
+      <p-inputGroup>
+        <p-inputGroupAddon class="form-input">Inicio Intevalo</p-inputGroupAddon>
+        <input type="time" pInputText formControlName="inicioIntervalo" />
+      </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.inicioIntervalo.touched
                 && horariosFormControl.inicioIntervalo.errors?.['required']"
@@ -29,7 +35,10 @@
       </span>
     </div>
     <div class="card flex justify-content-center">
-      <input type="time" pInputText formControlName="fimIntervalo" />
+      <p-inputGroup>
+        <p-inputGroupAddon class="form-input">Fim Intevalo</p-inputGroupAddon>
+        <input type="time" pInputText formControlName="fimIntervalo" />
+      </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.fimIntervalo.touched
                 && horariosFormControl.fimIntervalo.errors?.['required']"
@@ -38,7 +47,10 @@
       </span>
     </div>
     <div class="card flex justify-content-center">
-      <input type="time" pInputText formControlName="fimExpediente" />
+      <p-inputGroup>
+        <p-inputGroupAddon class="form-input">Fim Expediente</p-inputGroupAddon>
+        <input type="time" pInputText formControlName="fimExpediente" />
+      </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.fimExpediente.touched &&
                 horariosFormControl.fimExpediente.errors?.['required']"

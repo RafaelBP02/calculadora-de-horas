@@ -1,3 +1,5 @@
+@import '../calculadora/calculadora.component.css';
+
 .alertas > div > span{
   color: red;
 }

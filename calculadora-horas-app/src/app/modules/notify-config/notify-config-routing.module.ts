@@ -9,6 +9,8 @@ import { NotifyConfigModule } from './notify-config.module';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 const routes: Routes = [
   {
@@ -26,7 +28,9 @@ const routes: Routes = [
     ButtonModule,
     InputTextModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    InputGroupModule,
+    InputGroupAddonModule,
   ],
   providers: [ConfirmationService, MessageService],
   exports: [RouterModule],
