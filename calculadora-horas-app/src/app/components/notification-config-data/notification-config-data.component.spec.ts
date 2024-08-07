@@ -62,8 +62,8 @@ describe('NotificationConfigDataComponent', () => {
       spyOn(component, 'confirmaDadosSalvos').and.returnValue(true);
       spyOn(messageService, 'add');
       spyOn<any>(confirmationService, 'confirm').and.callFake((param: any) => {
-        if (param.reject) {
-          param.accept(); // should resolve the promise
+        if (param.accept) {
+          param.accept();
         }
       });
 
