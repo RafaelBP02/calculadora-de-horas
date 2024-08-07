@@ -11,6 +11,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DropdownModule } from 'primeng/dropdown';
 
 const routes: Routes = [
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
     ToastModule,
     InputGroupModule,
     InputGroupAddonModule,
+    DropdownModule
   ],
   providers: [ConfirmationService, MessageService],
   exports: [RouterModule],

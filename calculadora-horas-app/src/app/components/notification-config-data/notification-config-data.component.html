@@ -6,13 +6,21 @@
     <i class="pi pi-arrow-left btn-seta" [routerLink]="['']"></i>
   </div>
   <form
-    [formGroup]="horariosForm"
     class="estilo-forms alertas"
+    [formGroup]="horariosForm"
     (ngSubmit)="confirmarDados($event)"
   >
+    <p-dropdown
+      formControlName="cargaHorariaSelecionada"
+      [options]="cargasHorarias"
+      optionLabel="valor"
+      placeholder="Selecione sua carga horaria"
+    />
     <div class="card flex justify-content-center">
       <p-inputGroup>
-        <p-inputGroupAddon class="form-input">Inicio Expediente</p-inputGroupAddon>
+        <p-inputGroupAddon class="form-input"
+          >Inicio Expediente</p-inputGroupAddon
+        >
         <input type="time" pInputText formControlName="inicioExpediente" />
       </p-inputGroup>
       <span
@@ -24,7 +32,9 @@
     </div>
     <div class="card flex justify-content-center">
       <p-inputGroup>
-        <p-inputGroupAddon class="form-input">Inicio Intevalo</p-inputGroupAddon>
+        <p-inputGroupAddon class="form-input"
+          >Inicio Intevalo</p-inputGroupAddon
+        >
         <input type="time" pInputText formControlName="inicioIntervalo" />
       </p-inputGroup>
       <span

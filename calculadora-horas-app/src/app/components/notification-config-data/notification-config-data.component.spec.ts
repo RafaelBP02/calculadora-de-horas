@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DropdownModule } from 'primeng/dropdown';
 
 describe('NotificationConfigDataComponent', () => {
   let component: NotificationConfigDataComponent;
@@ -30,6 +31,7 @@ describe('NotificationConfigDataComponent', () => {
         ToastModule,
         InputGroupModule,
         InputGroupAddonModule,
+        DropdownModule,
         RouterModule.forRoot([]),
       ],
       providers: [ConfirmationService, MessageService],
