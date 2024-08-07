@@ -11,7 +11,7 @@
 }
 .btn-config:hover{
   cursor: pointer;
-  color: white;
+  color: #3B82F6;
 }
 
 .caixa-calculadora {
@@ -22,7 +22,7 @@
   align-items: center;
   gap: 1vh;
 
-  background-color: rgb(184, 184, 184);
+  background-color: rgb(227, 225, 235);
   border-color: black;
   border-style: solid;
   border-radius: 20px;
@@ -49,4 +49,5 @@
 .titulo{
   display: flex;
   align-items: center;
+  gap: 10px;
 }
