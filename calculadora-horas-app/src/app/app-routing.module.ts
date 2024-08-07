@@ -4,7 +4,7 @@ import { CalculadoraComponent } from './components/calculadora/calculadora.compo
 
 const routes: Routes = [
   { path: '', component: CalculadoraComponent},
-  {path: 'notifyConfig', loadChildren: () => import('./modules/notify-config/notify-config.module').then(m => m.NotifyConfigModule)}
+  {path: 'notify-config', loadChildren: () => import('./modules/notify-config/notify-config.module').then(m => m.NotifyConfigModule)}
 ];
 
 @NgModule({
