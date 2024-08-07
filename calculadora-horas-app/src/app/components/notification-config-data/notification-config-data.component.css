@@ -25,7 +25,7 @@
 }
 
 .btn-seta{
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .btn-seta:hover{
   cursor: pointer;
@@ -44,7 +44,7 @@
 
 .titulo{
   display: flex;
-  align-items: center;
+  align-items: baseline;
   flex-direction: row-reverse;
   gap: 10px
 }
