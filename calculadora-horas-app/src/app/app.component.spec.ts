@@ -48,15 +48,8 @@ describe('AppComponent', () => {
   it(`should have as title 'calculadora-horas-app'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+    fixture.detectChanges();
     expect(app.title).toEqual('calculadora-horas-app');
   });
 
-  xit('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Calculadora de Horas'
-    );
-  });
 });
