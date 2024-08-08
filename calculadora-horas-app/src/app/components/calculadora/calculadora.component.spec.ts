@@ -51,10 +51,6 @@ describe('CalculadoraComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have correct routerLink on configuration icon', () => {
-    //TODO: teste para verificar mudança de url para /notify-config
-  });
-
   it('deve clicar no botao de cancelar', () => {
     let btnApagar: HTMLButtonElement = fixture.debugElement.query(
       By.css('#btnApagar > button')
