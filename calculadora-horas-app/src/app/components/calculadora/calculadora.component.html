@@ -10,6 +10,7 @@
   </div>
   <form class="form-config">
     <p-dropdown
+      styleClass="dropdown-config"
       id="workloadDropDown"
       [options]="cargasHorarias"
       [(ngModel)]="cargaSelecionada"
@@ -51,11 +52,11 @@
     </p-inputGroup>
   </form>
   <div class="btn-caixa">
-    <p-button id="btnCalcular" severity="primary" (onClick)="calcularHoraio()"
-      >Calcular</p-button
-    >
     <p-button id="btnApagar" severity="secondary" (onClick)="cancelarOperacao()"
       >Apagar</p-button
+    >
+    <p-button id="btnCalcular" severity="primary" (onClick)="calcularHoraio()"
+      >Calcular</p-button
     >
   </div>
 </div>

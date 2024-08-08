@@ -1,10 +1,10 @@
-<div class="area-config">
-  <p-toast />
-  <p-confirmDialog />
+<div class="caixa-calculadora">
   <div class="titulo">
     <h1>Configuração de Notificações</h1>
     <i class="pi pi-arrow-circle-left btn-seta" [routerLink]="['']"></i>
   </div>
+  <p-toast />
+  <p-confirmDialog />
   <form
     class="estilo-forms alertas"
     [formGroup]="horariosForm"
@@ -12,6 +12,7 @@
   >
     <div>
       <p-dropdown
+        styleClass="dropdown-config"
         formControlName="cargaHorariaSelecionada"
         [options]="cargasHorarias"
         optionLabel="valor"
