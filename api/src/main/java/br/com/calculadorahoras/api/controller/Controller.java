@@ -1,11 +1,13 @@
 package br.com.calculadorahoras.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.calculadorahoras.api.model.AlertConfig;
 import br.com.calculadorahoras.api.repo.Repo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +30,9 @@ public class Controller {
 
     @GetMapping("/{id}")
     public AlertConfig selectAlarmConfig(@PathVariable Integer id){
-       return action.findById(id).orElse(null);
+       return action.findById(id).orElseThrow(() ->
+            new ResponseStatusException(HttpStatus.NOT_FOUND,"Dado inexistente. Alerta não foi configurado")
+       );
     }
 
     @PostMapping("/")
