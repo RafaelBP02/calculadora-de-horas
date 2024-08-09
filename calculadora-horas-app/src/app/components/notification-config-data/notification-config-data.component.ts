@@ -12,9 +12,11 @@ import { ConfigAlerta } from '../../models/ConfigAlerta';
 export class NotificationConfigDataComponent implements OnInit {
   cargasHorarias: DuracaoTrabalho[] = [];
   alertas: ConfigAlerta[] = [];
+  alertaConfigurado: ConfigAlerta = new ConfigAlerta();
+  alertaExiste: boolean = true;
 
   horariosForm = new FormGroup({
-    cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null, Validators.required),
+    cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
     inicioExpediente: new FormControl<string>('', Validators.required),
     inicioIntervalo: new FormControl<string>('', Validators.required),
     fimIntervalo: new FormControl<string>('', Validators.required),
@@ -29,13 +31,26 @@ export class NotificationConfigDataComponent implements OnInit {
 
   ngOnInit() {
     this.cargasHorarias = [
-      { nome: '8 horas', valor: 8},
-      { nome: '6 horas', valor: 6},
-      { nome: '4 horas', valor: 4},
+      { nome: '8 horas', valor: 8 },
+      { nome: '6 horas', valor: 6 },
+      { nome: '4 horas', valor: 4 },
     ];
 
-    this.selecionarTodos();
+    this.selecionarTodosAlertas();
     console.log(this.alertas);
+
+    //TODO caso a requisicao de certo atualizar meus dados se nao fazer nada e aguardar configuracao do usuario
+    this.selecionarAlertaConfigurado(1);
+    console.log(this.alertaConfigurado);
+
+    if(this.alertaExiste){
+      this.horariosForm.patchValue({
+        inicioExpediente: this.alertaConfigurado.workEntry,
+        inicioIntervalo: this.alertaConfigurado.intervalBeginning,
+        fimIntervalo: this.alertaConfigurado.intervalEnd,
+        fimExpediente: this.alertaConfigurado.workEnd
+      });
+    }
   }
 
   // Configuração do componente ConfirmDialog do primeNG <https://primeng.org/confirmdialog>
@@ -44,9 +59,15 @@ export class NotificationConfigDataComponent implements OnInit {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: `Tem certeza de que quer salvar esses dados?<br>
-          Sua carga horária: ${this.horariosForm.get('cargaHorariaSelecionada')?.value?.nome}<br>
-          Início do Expediente: ${this.horariosForm.get('inicioExpediente')?.value}<br>
-          Início do Intervalo: ${this.horariosForm.get('inicioIntervalo')?.value}<br>
+          Sua carga horária: ${
+            this.horariosForm.get('cargaHorariaSelecionada')?.value?.nome
+          }<br>
+          Início do Expediente: ${
+            this.horariosForm.get('inicioExpediente')?.value
+          }<br>
+          Início do Intervalo: ${
+            this.horariosForm.get('inicioIntervalo')?.value
+          }<br>
           Fim do Intervalo: ${this.horariosForm.get('fimIntervalo')?.value}<br>
           Fim do Expediente: ${this.horariosForm.get('fimExpediente')?.value}`,
         header: 'Revise seus horaios',
@@ -99,11 +120,34 @@ export class NotificationConfigDataComponent implements OnInit {
     console.log(this.horariosForm.get('fimIntervalo')?.value);
     console.log(this.horariosForm.get('fimExpediente')?.value);
     //TODO: refatorar este metodo para asyncrono e fazer a comunicação com o back para salvar no back
-
   }
 
-  private selecionarTodos():void{
-    this.confAlertaService.selecionar()
-    .subscribe(s => this.alertas = s);
+  private selecionarTodosAlertas(): void {
+    this.confAlertaService
+      .selecionarTodosAlertas()
+      .subscribe((dados) => (this.alertas = dados));
+  }
+
+  private selecionarAlertaConfigurado(alerta_id: number): void {
+    this.confAlertaService.selecionarAlerta(alerta_id)
+    .subscribe({
+      next: (dados) => {
+        // Atualize os dados com a resposta da API
+        this.alertaConfigurado = dados;
+        this.alertaExiste = true;
+      },
+      error: (error: any) => {
+        // A API ira retornar um erro caso seja pesquisado um id que nao existe
+        console.error('Erro ao atualizar dados:', error);
+        this.alertaExiste = false;
+      },
+      complete: () => {
+        console.log('Requisição concluída.');
+      },
+    });
+  }
+
+  private atualizarAlertaConfigurado(): void {
+    //TODO: implementar aqui
   }
 }

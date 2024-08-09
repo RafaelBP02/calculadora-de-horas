@@ -11,7 +11,11 @@ export class ConfigAlertaService {
 
   constructor(private http:HttpClient) { }
 
-  selecionar():Observable<ConfigAlerta[]>{
+  selecionarTodosAlertas():Observable<ConfigAlerta[]>{
     return this.http.get<ConfigAlerta[]>(API_ENDPOINTS.BACKEND_URL);
+  }
+
+  selecionarAlerta(id: number):Observable<ConfigAlerta>{
+    return this.http.get<ConfigAlerta>(API_ENDPOINTS.BACKEND_URL + '/' + id);
   }
 }
