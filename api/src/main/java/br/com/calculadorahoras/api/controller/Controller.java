@@ -27,8 +27,8 @@ public class Controller {
     }
 
     @GetMapping("/{id}")
-    public void selectAlarmConfig(@PathVariable int id){
-        action.findById(id);
+    public AlertConfig selectAlarmConfig(@PathVariable Integer id){
+       return action.findById(id).orElse(null);
     }
 
     @PostMapping("/")
