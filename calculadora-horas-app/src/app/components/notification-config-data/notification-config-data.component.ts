@@ -157,8 +157,6 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   private atualizarAlertaConfigurado(): void {
-    //TODO: implementar aqui
-    console.log('id user:' + this.reqAlertaConfigurado.id)
     this.confAlertaService.atualizarAlerta(ConfigAlerta.converteFormulario(
       this.horariosForm,
       this.reqAlertaConfigurado.id,
@@ -171,6 +169,13 @@ export class NotificationConfigDataComponent implements OnInit {
 
   private criarNovoAlerta(): void{
     //TODO: implementar aqui
+    this.confAlertaService.adicionarAlerta(ConfigAlerta.converteFormulario(
+      this.horariosForm,
+      this.reqAlertaConfigurado.id,
+      this.reqAlertaConfigurado.user_id
+    )).subscribe(s => {
+      this.reqAlertaConfigurado = s;
+    });
 
 
   }
