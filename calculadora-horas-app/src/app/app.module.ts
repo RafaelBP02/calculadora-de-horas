@@ -15,6 +15,7 @@ import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,10 +35,12 @@ import { TooltipModule } from 'primeng/tooltip';
     InputGroupAddonModule,
     DialogModule,
     DropdownModule,
-    TooltipModule,
+    TooltipModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(),
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })

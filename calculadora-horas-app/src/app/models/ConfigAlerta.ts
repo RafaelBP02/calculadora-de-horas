@@ -1,4 +1,4 @@
-export class AlertConfig{
+export class ConfigAlerta{
     id:number = 0;
     workEntry:string = '';
     intervalBeginning:string = '';
