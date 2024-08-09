@@ -19,7 +19,7 @@
 }
 
 .caixa-calculadora {
-  min-width: 25vw;
+  min-width: 30vw;
   min-height: 56vh;
   display: flex;
   flex-direction: column;

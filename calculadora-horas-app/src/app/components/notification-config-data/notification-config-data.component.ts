@@ -114,11 +114,11 @@ export class NotificationConfigDataComponent implements OnInit {
     if(this.reqAlertaExiste){
       //Faz requezicao PUT para atulizar as configs de alerta
       console.log("FAZ REQUISICAO");
-      this.criarNovoAlerta();
+      this.atualizarAlertaConfigurado();
     }
     else{
       //Faz requezicao POST para publicar nova config de alerta
-      this.atualizarAlertaConfigurado();
+      this.criarNovoAlerta();
     }
   }
 
@@ -158,6 +158,7 @@ export class NotificationConfigDataComponent implements OnInit {
 
   private atualizarAlertaConfigurado(): void {
     //TODO: implementar aqui
+    console.log('id user:' + this.reqAlertaConfigurado.id)
     this.confAlertaService.atualizarAlerta(ConfigAlerta.converteFormulario(
       this.horariosForm,
       this.reqAlertaConfigurado.id,

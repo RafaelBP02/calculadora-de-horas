@@ -6,7 +6,7 @@
   <p-toast />
   <p-confirmDialog />
   <form
-    class="estilo-forms alertas"
+    class="estilo-forms alertas "
     [formGroup]="horariosForm"
     (ngSubmit)="confirmarDados($event)"
   >
@@ -30,7 +30,7 @@
         <p-inputGroupAddon class="form-input"
           >Inicio Expediente</p-inputGroupAddon
         >
-        <input type="time" pInputText formControlName="inicioExpediente" />
+        <input type="time" step="1" pInputText formControlName="inicioExpediente" />
       </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.inicioExpediente.touched
@@ -44,7 +44,7 @@
         <p-inputGroupAddon class="form-input"
           >Inicio Intevalo</p-inputGroupAddon
         >
-        <input type="time" pInputText formControlName="inicioIntervalo" />
+        <input type="time" step="1" pInputText formControlName="inicioIntervalo" />
       </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.inicioIntervalo.touched
@@ -56,7 +56,7 @@
     <div class="card flex justify-content-center">
       <p-inputGroup>
         <p-inputGroupAddon class="form-input">Fim Intevalo</p-inputGroupAddon>
-        <input type="time" pInputText formControlName="fimIntervalo" />
+        <input type="time" step="1" pInputText formControlName="fimIntervalo" />
       </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.fimIntervalo.touched
@@ -68,7 +68,7 @@
     <div class="card flex justify-content-center">
       <p-inputGroup>
         <p-inputGroupAddon class="form-input">Fim Expediente</p-inputGroupAddon>
-        <input type="time" pInputText formControlName="fimExpediente" />
+        <input type="time" step="1" pInputText formControlName="fimExpediente" />
       </p-inputGroup>
       <span
         *ngIf=" horariosFormControl.fimExpediente.touched &&

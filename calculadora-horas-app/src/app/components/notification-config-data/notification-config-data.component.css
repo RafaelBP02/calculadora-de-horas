@@ -18,15 +18,13 @@
 }
 
 .estilo-forms{
+  min-width: 60%;
   margin-top: 2vh;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.estilo-forms > div > input{
-  min-width: 10rem;
-  min-height: 2rem;
-}
+
 
 .titulo{
   display: flex;
