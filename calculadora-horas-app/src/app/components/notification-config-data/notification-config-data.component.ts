@@ -12,8 +12,8 @@ import { ConfigAlerta } from '../../models/ConfigAlerta';
 export class NotificationConfigDataComponent implements OnInit {
   cargasHorarias: DuracaoTrabalho[] = [];
   alertas: ConfigAlerta[] = [];
-  alertaConfigurado: ConfigAlerta = new ConfigAlerta();
-  alertaExiste: boolean = false;
+  reqAlertaConfigurado: ConfigAlerta = new ConfigAlerta();
+  reqAlertaExiste: boolean = false;
 
   horariosForm = new FormGroup({
     cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
@@ -39,9 +39,9 @@ export class NotificationConfigDataComponent implements OnInit {
 
     this.selecionarTodosAlertas();
     console.log(this.alertas);
-    console.log(this.alertaExiste);
 
     this.selecionarAlertaConfigurado(1);
+    console.log(this.reqAlertaExiste);
   }
 
   // Configuração do componente ConfirmDialog do primeNG <https://primeng.org/confirmdialog>
@@ -110,7 +110,16 @@ export class NotificationConfigDataComponent implements OnInit {
     console.log(this.horariosForm.get('inicioIntervalo')?.value);
     console.log(this.horariosForm.get('fimIntervalo')?.value);
     console.log(this.horariosForm.get('fimExpediente')?.value);
-    //TODO: refatorar este metodo para asyncrono e fazer a comunicação com o back para salvar no back
+
+    if(this.reqAlertaExiste){
+      //Faz requezicao PUT para atulizar as configs de alerta
+      console.log("FAZ REQUISICAO");
+      this.criarNovoAlerta();
+    }
+    else{
+      //Faz requezicao POST para publicar nova config de alerta
+      this.atualizarAlertaConfigurado();
+    }
   }
 
   private selecionarTodosAlertas(): void {
@@ -124,22 +133,22 @@ export class NotificationConfigDataComponent implements OnInit {
     .subscribe({
       next: (dados) => {
         // Atualize os dados com a resposta da API
-        this.alertaConfigurado = dados;
+        this.reqAlertaConfigurado = dados;
 
         this.horariosForm.patchValue({
-          cargaHorariaSelecionada: this.cargasHorarias.find(ch => ch.valor === this.alertaConfigurado.workload),
-          inicioExpediente: this.alertaConfigurado.workEntry,
-          inicioIntervalo: this.alertaConfigurado.intervalBeginning,
-          fimIntervalo: this.alertaConfigurado.intervalEnd,
-          fimExpediente: this.alertaConfigurado.workEnd
+          cargaHorariaSelecionada: this.cargasHorarias.find(ch => ch.valor === this.reqAlertaConfigurado.workload),
+          inicioExpediente: this.reqAlertaConfigurado.workEntry,
+          inicioIntervalo: this.reqAlertaConfigurado.intervalBeginning,
+          fimIntervalo: this.reqAlertaConfigurado.intervalEnd,
+          fimExpediente: this.reqAlertaConfigurado.workEnd
         });
 
-        this.alertaExiste = true;
+        this.reqAlertaExiste = true;
       },
       error: (error: any) => {
         // A API ira retornar um erro caso seja pesquisado um id que nao existe
         console.error('Erro ao atualizar dados:', error);
-        this.alertaExiste = false;
+        this.reqAlertaExiste = false;
       },
       complete: () => {
         console.log('Requisição concluída.');
@@ -149,5 +158,19 @@ export class NotificationConfigDataComponent implements OnInit {
 
   private atualizarAlertaConfigurado(): void {
     //TODO: implementar aqui
+    this.confAlertaService.atualizarAlerta(ConfigAlerta.converteFormulario(
+      this.horariosForm,
+      this.reqAlertaConfigurado.id,
+      this.reqAlertaConfigurado.user_id
+    )).subscribe(s => {
+      this.reqAlertaConfigurado = s;
+    });
+
+  }
+
+  private criarNovoAlerta(): void{
+    //TODO: implementar aqui
+
+
   }
 }

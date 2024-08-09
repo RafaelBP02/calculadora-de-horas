@@ -78,11 +78,11 @@
       </span>
     </div>
     <button
-      *ngIf="alertaExiste"
+      *ngIf="reqAlertaExiste"
       type="submit"
       pButton
       pRipple
-      [label]="alertaExiste ? 'Atualizar' : 'Enviar'"
+      [label]="reqAlertaExiste ? 'Atualizar' : 'Enviar'"
       class="p-button-primary"
     ></button>
   </form>
