@@ -13,7 +13,7 @@ export class NotificationConfigDataComponent implements OnInit {
   cargasHorarias: DuracaoTrabalho[] = [];
   alertas: ConfigAlerta[] = [];
   alertaConfigurado: ConfigAlerta = new ConfigAlerta();
-  alertaExiste: boolean = true;
+  alertaExiste: boolean = false;
 
   horariosForm = new FormGroup({
     cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
@@ -42,7 +42,6 @@ export class NotificationConfigDataComponent implements OnInit {
     console.log(this.alertaExiste);
 
     this.selecionarAlertaConfigurado(1);
-    //TODO CRIAR FUNCAO ASINCRONA PARA PREENCHER OS INPUTS
   }
 
   // Configuração do componente ConfirmDialog do primeNG <https://primeng.org/confirmdialog>
@@ -134,10 +133,13 @@ export class NotificationConfigDataComponent implements OnInit {
           fimIntervalo: this.alertaConfigurado.intervalEnd,
           fimExpediente: this.alertaConfigurado.workEnd
         });
+
+        this.alertaExiste = true;
       },
       error: (error: any) => {
         // A API ira retornar um erro caso seja pesquisado um id que nao existe
         console.error('Erro ao atualizar dados:', error);
+        this.alertaExiste = false;
       },
       complete: () => {
         console.log('Requisição concluída.');
