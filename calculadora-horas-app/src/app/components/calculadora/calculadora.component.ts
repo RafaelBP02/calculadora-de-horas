@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Calculadora } from '../../models/Calculadora';
 
-interface DuracaoTrabalho {
+export interface DuracaoTrabalho {
   nome: string;
   valor: number;
 }

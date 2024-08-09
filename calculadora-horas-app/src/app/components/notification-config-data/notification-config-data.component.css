@@ -1,0 +1,42 @@
+@import '../calculadora/calculadora.component.css';
+
+.alertas > div > span{
+  color: red;
+}
+.alertas > div{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.btn-seta{
+  font-size: 2rem;
+}
+.btn-seta:hover{
+  cursor: pointer;
+  color: #3B82F6;
+}
+
+.estilo-forms{
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.estilo-forms > div > input{
+  min-width: 10rem;
+  min-height: 2rem;
+}
+
+.titulo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: row-reverse;
+}
+.titulo h1{
+  display: flex;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}

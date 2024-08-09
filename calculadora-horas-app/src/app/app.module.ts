@@ -1,3 +1,4 @@
+import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
@@ -12,8 +13,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-result-dialog.component';
 import { DialogModule } from 'primeng/dialog';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DropdownModule } from 'primeng/dropdown';
     InputGroupModule,
     InputGroupAddonModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    TooltipModule,
   ],
   providers: [
     provideClientHydration()

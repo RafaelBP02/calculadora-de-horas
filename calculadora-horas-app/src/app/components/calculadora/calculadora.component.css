@@ -1,3 +1,7 @@
+:host ::ng-deep .dropdown-config{
+  width:  -webkit-fill-available;
+}
+
 .btn-caixa {
   display: flex;
   gap: 5px;
@@ -6,25 +10,30 @@
   justify-content: space-evenly;
 }
 
+.btn-config{
+  font-size: 1.5rem;
+}
+.btn-config:hover{
+  cursor: pointer;
+  color: #3B82F6;
+}
+
 .caixa-calculadora {
-  min-width: 20vw;
-  min-height: 50vh;
+  min-width: 30vw;
+  min-height: 56vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1vh;
 
-  background-color: rgb(184, 184, 184);
+  background-color: rgb(227, 225, 235);
   border-color: black;
   border-style: solid;
   border-radius: 20px;
   padding: 15px;
 
 }
-.caixa-calculadora h1{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 
-}
+
 
 .form-config{
   display: flex;
@@ -41,4 +50,5 @@
 .titulo{
   display: flex;
   align-items: center;
+  gap: 10px;
 }
