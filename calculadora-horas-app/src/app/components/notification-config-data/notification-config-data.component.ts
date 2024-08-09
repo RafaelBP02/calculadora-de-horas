@@ -27,14 +27,15 @@ export class NotificationConfigDataComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private confAlertaService: ConfigAlertaService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.cargasHorarias = [
       { nome: '8 horas', valor: 8 },
       { nome: '6 horas', valor: 6 },
       { nome: '4 horas', valor: 4 },
     ];
+  }
+
+  ngOnInit() {
 
     this.selecionarTodosAlertas();
     console.log(this.alertas);
@@ -45,6 +46,7 @@ export class NotificationConfigDataComponent implements OnInit {
 
     if(this.alertaExiste){
       this.horariosForm.patchValue({
+        cargaHorariaSelecionada: this.cargasHorarias.find(ch => ch.valor === this.alertaConfigurado.workload),
         inicioExpediente: this.alertaConfigurado.workEntry,
         inicioIntervalo: this.alertaConfigurado.intervalBeginning,
         fimIntervalo: this.alertaConfigurado.intervalEnd,
