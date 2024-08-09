@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DuracaoTrabalho } from '../calculadora/calculadora.component';
+import { ConfigAlertaService } from '../../services/config-alerta.service';
+import { ConfigAlerta } from '../../models/ConfigAlerta';
 @Component({
   selector: 'app-notification-config-data',
   templateUrl: './notification-config-data.component.html',
@@ -9,6 +11,7 @@ import { DuracaoTrabalho } from '../calculadora/calculadora.component';
 })
 export class NotificationConfigDataComponent implements OnInit {
   cargasHorarias: DuracaoTrabalho[] = [];
+  alertas: ConfigAlerta[] = [];
 
   horariosForm = new FormGroup({
     cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null, Validators.required),
@@ -20,7 +23,8 @@ export class NotificationConfigDataComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confAlertaService: ConfigAlertaService
   ) {}
 
   ngOnInit() {
@@ -29,6 +33,9 @@ export class NotificationConfigDataComponent implements OnInit {
       { nome: '6 horas', valor: 6},
       { nome: '4 horas', valor: 4},
     ];
+
+    this.selecionarTodos();
+    console.log(this.alertas);
   }
 
   // Configuração do componente ConfirmDialog do primeNG <https://primeng.org/confirmdialog>
@@ -93,5 +100,10 @@ export class NotificationConfigDataComponent implements OnInit {
     console.log(this.horariosForm.get('fimExpediente')?.value);
     //TODO: refatorar este metodo para asyncrono e fazer a comunicação com o back para salvar no back
 
+  }
+
+  private selecionarTodos():void{
+    this.confAlertaService.selecionar()
+    .subscribe(s => this.alertas = s);
   }
 }

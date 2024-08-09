@@ -16,6 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { ConfigAlertaService } from './services/config-alerta.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
   providers: [
     provideClientHydration(),
     provideHttpClient(),
+    ConfigAlertaService,
     HttpClient
   ],
   bootstrap: [AppComponent]
