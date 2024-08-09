@@ -39,20 +39,10 @@ export class NotificationConfigDataComponent implements OnInit {
 
     this.selecionarTodosAlertas();
     console.log(this.alertas);
+    console.log(this.alertaExiste);
 
-    //TODO caso a requisicao de certo atualizar meus dados se nao fazer nada e aguardar configuracao do usuario
     this.selecionarAlertaConfigurado(1);
-    console.log(this.alertaConfigurado);
-
-    if(this.alertaExiste){
-      this.horariosForm.patchValue({
-        cargaHorariaSelecionada: this.cargasHorarias.find(ch => ch.valor === this.alertaConfigurado.workload),
-        inicioExpediente: this.alertaConfigurado.workEntry,
-        inicioIntervalo: this.alertaConfigurado.intervalBeginning,
-        fimIntervalo: this.alertaConfigurado.intervalEnd,
-        fimExpediente: this.alertaConfigurado.workEnd
-      });
-    }
+    //TODO CRIAR FUNCAO ASINCRONA PARA PREENCHER OS INPUTS
   }
 
   // Configuração do componente ConfirmDialog do primeNG <https://primeng.org/confirmdialog>
@@ -136,12 +126,18 @@ export class NotificationConfigDataComponent implements OnInit {
       next: (dados) => {
         // Atualize os dados com a resposta da API
         this.alertaConfigurado = dados;
-        this.alertaExiste = true;
+
+        this.horariosForm.patchValue({
+          cargaHorariaSelecionada: this.cargasHorarias.find(ch => ch.valor === this.alertaConfigurado.workload),
+          inicioExpediente: this.alertaConfigurado.workEntry,
+          inicioIntervalo: this.alertaConfigurado.intervalBeginning,
+          fimIntervalo: this.alertaConfigurado.intervalEnd,
+          fimExpediente: this.alertaConfigurado.workEnd
+        });
       },
       error: (error: any) => {
         // A API ira retornar um erro caso seja pesquisado um id que nao existe
         console.error('Erro ao atualizar dados:', error);
-        this.alertaExiste = false;
       },
       complete: () => {
         console.log('Requisição concluída.');
