@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { HttpClient } from '@angular/common/http';
+import { ConfigAlertaService } from './services/config-alerta.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

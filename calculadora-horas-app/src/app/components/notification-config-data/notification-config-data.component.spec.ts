@@ -12,6 +12,8 @@ import { ToastModule } from 'primeng/toast';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { DropdownModule } from 'primeng/dropdown';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ConfigAlertaService } from '../../services/config-alerta.service';
 
 describe('NotificationConfigDataComponent', () => {
   let component: NotificationConfigDataComponent;
@@ -33,8 +35,14 @@ describe('NotificationConfigDataComponent', () => {
         InputGroupAddonModule,
         DropdownModule,
         RouterModule.forRoot([]),
+        HttpClientModule
       ],
-      providers: [ConfirmationService, MessageService],
+      providers: [
+        ConfirmationService,
+        MessageService,
+        HttpClient,
+        ConfigAlertaService
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationConfigDataComponent);
