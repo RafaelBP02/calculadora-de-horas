@@ -7,4 +7,4 @@ Este projeto visa documentar os aprendizados da mentoria na Stefanini a partir d
 | Stack | Localização |
 | ----- | ----------- |
 | Frontend | /calculadora-horas-app |
-| Backend  | Em Breve |
+| Backend  | [link](https://github.com/RafaelBP02/calculadora-de-horas-back) |
