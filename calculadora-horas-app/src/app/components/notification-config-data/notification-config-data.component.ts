@@ -4,7 +4,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DuracaoTrabalho } from '../calculadora/calculadora.component';
 import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { ConfigAlerta } from '../../models/ConfigAlerta';
-import { error } from 'console';
 @Component({
   selector: 'app-notification-config-data',
   templateUrl: './notification-config-data.component.html',
@@ -173,7 +172,6 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   private criarNovoAlerta(): void {
-    //TODO: implementar aqui
     this.confAlertaService
       .adicionarAlerta(
         ConfigAlerta.converteFormulario(
