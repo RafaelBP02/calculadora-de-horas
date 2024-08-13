@@ -1,5 +1,7 @@
 import { ConfigAlerta } from "../../models/ConfigAlerta";
 
+// definindo um stub <https://martinfowler.com/articles/mocksArentStubs.html#TheDifferenceBetweenMocksAndStubs>
+
 export const mockAllAlerts = [
   {
     id: 1,
