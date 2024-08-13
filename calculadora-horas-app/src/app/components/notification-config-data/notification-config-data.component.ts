@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DuracaoTrabalho } from '../calculadora/calculadora.component';
 import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { ConfigAlerta } from '../../models/ConfigAlerta';
+import { error } from 'console';
 @Component({
   selector: 'app-notification-config-data',
   templateUrl: './notification-config-data.component.html',
@@ -36,7 +37,6 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.selecionarTodosAlertas();
     console.log(this.alertas);
 
@@ -69,12 +69,6 @@ export class NotificationConfigDataComponent implements OnInit {
         rejectIcon: 'none',
         rejectButtonStyleClass: 'p-button-text',
         accept: () => {
-          //Toast para operacao confirmada
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso!',
-            detail: 'Configurações salvas com sucesso',
-          });
           this.enviaDados();
         },
         reject: () => {
@@ -105,18 +99,11 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   private enviaDados(): void {
-    console.log(this.horariosForm.get('cargaHorariaSelecionada')?.value);
-    console.log(this.horariosForm.get('inicioExpediente')?.value);
-    console.log(this.horariosForm.get('inicioIntervalo')?.value);
-    console.log(this.horariosForm.get('fimIntervalo')?.value);
-    console.log(this.horariosForm.get('fimExpediente')?.value);
-
-    if(this.reqAlertaExiste){
+    if (this.reqAlertaExiste) {
       //Faz requezicao PUT para atulizar as configs de alerta
-      console.log("FAZ REQUISICAO");
+      console.log('FAZ REQUISICAO');
       this.atualizarAlertaConfigurado();
-    }
-    else{
+    } else {
       //Faz requezicao POST para publicar nova config de alerta
       this.criarNovoAlerta();
     }
@@ -129,18 +116,19 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   private selecionarAlertaConfigurado(alerta_id: number): void {
-    this.confAlertaService.selecionarAlerta(alerta_id)
-    .subscribe({
+    this.confAlertaService.selecionarAlerta(alerta_id).subscribe({
       next: (dados) => {
         // Atualize os dados com a resposta da API
         this.reqAlertaConfigurado = dados;
 
         this.horariosForm.patchValue({
-          cargaHorariaSelecionada: this.cargasHorarias.find(ch => ch.valor === this.reqAlertaConfigurado.workload),
+          cargaHorariaSelecionada: this.cargasHorarias.find(
+            (ch) => ch.valor === this.reqAlertaConfigurado.workload
+          ),
           inicioExpediente: this.reqAlertaConfigurado.workEntry,
           inicioIntervalo: this.reqAlertaConfigurado.intervalBeginning,
           fimIntervalo: this.reqAlertaConfigurado.intervalEnd,
-          fimExpediente: this.reqAlertaConfigurado.workEnd
+          fimExpediente: this.reqAlertaConfigurado.workEnd,
         });
 
         this.reqAlertaExiste = true;
@@ -157,26 +145,59 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   private atualizarAlertaConfigurado(): void {
-    this.confAlertaService.atualizarAlerta(ConfigAlerta.converteFormulario(
-      this.horariosForm,
-      this.reqAlertaConfigurado.id,
-      this.reqAlertaConfigurado.user_id
-    )).subscribe(s => {
-      this.reqAlertaConfigurado = s;
-    });
-
+    this.confAlertaService
+      .atualizarAlerta(
+        ConfigAlerta.converteFormulario(
+          this.horariosForm,
+          this.reqAlertaConfigurado.id,
+          this.reqAlertaConfigurado.user_id
+        )
+      )
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Configurações atualizadas com sucesso',
+          });
+        },
+        error: (error: any) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro!',
+            detail: 'Motivo:' + error.message,
+            life: 3000,
+          });
+        },
+      });
   }
 
-  private criarNovoAlerta(): void{
+  private criarNovoAlerta(): void {
     //TODO: implementar aqui
-    this.confAlertaService.adicionarAlerta(ConfigAlerta.converteFormulario(
-      this.horariosForm,
-      this.reqAlertaConfigurado.id,
-      this.reqAlertaConfigurado.user_id
-    )).subscribe(s => {
-      this.reqAlertaConfigurado = s;
-    });
-
-
+    this.confAlertaService
+      .adicionarAlerta(
+        ConfigAlerta.converteFormulario(
+          this.horariosForm,
+          this.reqAlertaConfigurado.id,
+          this.reqAlertaConfigurado.user_id
+        )
+      )
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: 'Configurações salvas com sucesso',
+          });
+        },
+        error: (error: any) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro!',
+            detail: 'Motivo:' + error.message,
+            life: 3000,
+          });
+        },
+      });
   }
 }
