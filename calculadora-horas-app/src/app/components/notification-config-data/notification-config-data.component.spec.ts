@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationConfigDataComponent } from './notification-config-data.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,6 +14,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ConfigAlertaService } from '../../services/config-alerta.service';
+import { LOCALE_ID } from '@angular/core';
+import ptBr from '@angular/common/locales/pt';
 
 describe('NotificationConfigDataComponent', () => {
   let component: NotificationConfigDataComponent;
@@ -22,6 +24,8 @@ describe('NotificationConfigDataComponent', () => {
   let fixture: ComponentFixture<NotificationConfigDataComponent>;
 
   beforeEach(async () => {
+    registerLocaleData(ptBr);
+
     await TestBed.configureTestingModule({
       declarations: [NotificationConfigDataComponent],
       imports: [
@@ -41,11 +45,13 @@ describe('NotificationConfigDataComponent', () => {
         ConfirmationService,
         MessageService,
         HttpClient,
-        ConfigAlertaService
+        ConfigAlertaService,
+        {provide: LOCALE_ID, useValue: 'pt',},
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationConfigDataComponent);
+
     component = fixture.componentInstance;
     confirmationService = TestBed.inject(ConfirmationService);
     messageService = TestBed.inject(MessageService);
