@@ -25,7 +25,7 @@ import { API_ENDPOINTS } from '../../services/api-endpoints';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { ConfigAlerta } from '../../models/ConfigAlerta';
-import { mockAllAlerts } from './notification-config-data.component.stub';
+import { mockAllAlerts, mockOneAlert } from './notification-config-data.component.stub';
 
 describe('NotificationConfigDataComponent', () => {
   let component: NotificationConfigDataComponent;
@@ -239,5 +239,25 @@ describe('NotificationConfigDataComponent', () => {
 
       request.flush(0);
     });
+
+    it('deve selecionar um alerta especifico', () => {
+      const request = httpTestingController.expectOne(
+        (data) =>
+          data.url === 'http://localhost:8080/1' && data.method === 'GET'
+      );
+
+      request.flush(mockOneAlert);
+
+      expect(request.request.responseType).toBe('json');
+      expect(request.request.method).toBe('GET');
+      expect(request.request.url).toBe('http://localhost:8080/1');
+
+      expect(component.horariosForm.controls.cargaHorariaSelecionada.value?.valor).toEqual(mockOneAlert.workload);
+      expect(component.horariosForm.controls.inicioExpediente.value).toEqual(mockOneAlert.workEntry);
+      expect(component.horariosForm.controls.inicioIntervalo.value).toEqual(mockOneAlert.intervalBeginning);
+      expect(component.horariosForm.controls.fimIntervalo.value).toEqual(mockOneAlert.intervalEnd);
+      expect(component.horariosForm.controls.fimExpediente.value).toEqual(mockOneAlert.workEnd);
+    });
+
   });
 });

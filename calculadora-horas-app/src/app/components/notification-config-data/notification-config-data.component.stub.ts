@@ -22,3 +22,14 @@ export const mockAllAlerts = [
     user_id: 2
   }
 ] as ConfigAlerta[]
+
+export const mockOneAlert =
+  {
+    id: 1,
+    workEntry: "07:00:00",
+    intervalBeginning: "12:00:00",
+    intervalEnd: "12:30:00",
+    workEnd: "15:30:00",
+    workload: 6,
+    user_id: 2
+  } as ConfigAlerta
