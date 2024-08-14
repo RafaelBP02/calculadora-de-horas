@@ -39,7 +39,10 @@ export class NotificationConfigDataComponent implements OnInit {
     this.selecionarTodosAlertas();
     console.log(this.alertas);
 
-    this.selecionarAlertaConfigurado(1);
+    this.reqAlertaConfigurado.id = 1;
+    this.reqAlertaConfigurado.user_id = 1
+
+    this.selecionarAlertaConfigurado(this.reqAlertaConfigurado.id);
     console.log(this.reqAlertaExiste);
   }
 
@@ -129,11 +132,18 @@ export class NotificationConfigDataComponent implements OnInit {
           fimIntervalo: this.reqAlertaConfigurado.intervalEnd,
           fimExpediente: this.reqAlertaConfigurado.workEnd,
         });
+        this.reqAlertaConfigurado.id = dados.id;
+        this.reqAlertaConfigurado.user_id = dados.user_id;
 
         this.reqAlertaExiste = true;
       },
       error: (error: any) => {
         // A API ira retornar um erro caso seja pesquisado um id que nao existe
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Nota:',
+          detail: 'Por favor, configure o seu alerta de horario',
+        });
         console.error('Erro ao atualizar dados:', error);
         this.reqAlertaExiste = false;
       },
