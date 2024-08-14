@@ -198,7 +198,20 @@ describe('NotificationConfigDataComponent', () => {
       request.flush(0);
     });
 
-    xit('deve aceitar os dados no dialogo', () => {
+    it('deve atualizar o formulario existente', () => {
+      component.reqAlertaExiste = true;
+
+      fixture.detectChanges();
+
+      component.horariosForm.controls.cargaHorariaSelecionada.setValue({
+        nome: '8 horas',
+        valor: 8,
+      });
+      component.horariosForm.controls.inicioExpediente.setValue('11:00');
+      component.horariosForm.controls.inicioIntervalo.setValue('13:00');
+      component.horariosForm.controls.fimIntervalo.setValue('14:00');
+      component.horariosForm.controls.fimExpediente.setValue('18:00');
+
       spyOn(component, 'confirmaDadosSalvos').and.returnValue(true);
       spyOn(messageService, 'add');
       spyOn<any>(confirmationService, 'confirm').and.callFake((param: any) => {
@@ -209,28 +222,22 @@ describe('NotificationConfigDataComponent', () => {
 
       component.confirmarDados(new Event('click'));
 
-      expect(messageService.add).toHaveBeenCalledWith({
-        severity: 'success',
-        summary: 'Sucesso!',
-        detail: 'Configurações salvas com sucesso',
-      });
-    });
+      const request = httpTestingController.expectOne(
+        (data) =>
+          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'PUT'
+      );
 
-    xit('deve atualizar o formulario existente', () => {
-      spyOn<any>(component, 'atualizarAlertaConfigurado').and.callThrough();
+      expect(request.request.body).toEqual(jasmine.objectContaining({
+        id: 0,
+        workEntry: '11:00:00',
+        intervalBeginning: '13:00:00',
+        intervalEnd: '14:00:00',
+        workEnd: '18:00:00',
+        workload: 8,
+        user_id: 0,
+      }));
 
-      component.reqAlertaExiste = true;
-      component.horariosForm.controls.inicioExpediente.setValue('11:00');
-
-      fixture.detectChanges();
-
-      const btn = fixture.debugElement.query(
-        By.css('#btn-request')
-      ).nativeElement;
-
-      btn.click();
-
-      expect((component as any).atualizarAlertaConfigurado).toHaveBeenCalled();
+      request.flush(0);
     });
   });
 });
