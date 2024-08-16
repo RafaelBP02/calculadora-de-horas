@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -15,12 +16,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
   user_id: number = 2;
   sub: Subscription;
 
-
-  constructor(private zone: NgZone, private http: HttpClient) {}
+  constructor(
+    private zone: NgZone,
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   getMessages(): Observable<any> {
     return new Observable((observer) => {
-      const source = new EventSource(`http://localhost:8080/alerts/${this.user_id}`);
+      const source = new EventSource(
+        `http://localhost:8080/alerts/${this.user_id}`
+      );
 
       // Adiciona um EventListener específico para o evento "alert"
       source.addEventListener('alert', (event: MessageEvent) => {
@@ -36,24 +42,28 @@ export class NotificationComponent implements OnInit, OnDestroy {
       };
 
       return () => {
-        source.close(); // Fechar a conexão SSE quando o Observable for destruído
+        source.close();
       };
     });
   }
 
   ngOnInit(): void {
     this.sub = this.getMessages().subscribe({
-      next: data => {
+      next: (data) => {
         console.log(data);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'ATENÇÃO!',
+          detail: `${data}`,
+        });
         this.addMessage(data);
       },
-      error: err => console.error(err)
+      error: (err) => console.error(err),
     });
   }
 
   addMessage(msg: any) {
     this.messagens = [...this.messagens, msg];
-    //console.log("messages::" + this.messages);
   }
 
   ngOnDestroy(): void {
@@ -61,20 +71,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    console.log("sending message:" + this.messagem);
+    console.log('sending message:' + this.messagem);
     this.http
-      .post(
-        `http://localhost:8080/alerts/${this.user_id}`,
-        this.messagem
-      )
+      .post(`http://localhost:8080/alerts/${this.user_id}`, this.messagem)
       .subscribe({
-        next: (data) => console.log(data),
-        error: (error) => console.log(error),
+        next: (data) => {
+          console.log('next' + data);
+        },
+        error: (error) => console.log('erro' + error),
         complete: () => {
           console.log('complete');
           this.messagem = '';
-        }
+        },
       });
-
   }
 }

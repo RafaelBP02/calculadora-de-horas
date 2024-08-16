@@ -20,6 +20,8 @@ import { ConfigAlertaService } from './services/config-alerta.service';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { NotificationComponent } from './components/notification/notification.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -41,12 +43,14 @@ registerLocaleData(ptBr);
     InputGroupAddonModule,
     DialogModule,
     DropdownModule,
-    TooltipModule
+    TooltipModule,
+    ToastModule
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(),
     ConfigAlertaService,
+    MessageService,
     HttpClient,
     {provide: LOCALE_ID, useValue: 'pt',},
   ],
