@@ -20,18 +20,23 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   getMessages(): Observable<any> {
     return new Observable((observer) => {
-      let source = new EventSource(`http://localhost:8080/alerts/${this.user_id}`
-      );
-      source.onmessage = (event) => {
+      const source = new EventSource(`http://localhost:8080/alerts/${this.user_id}`);
+
+      // Adiciona um EventListener específico para o evento "alert"
+      source.addEventListener('alert', (event: MessageEvent) => {
         this.zone.run(() => {
           observer.next(event.data);
         });
-      };
+      });
 
       source.onerror = (event) => {
         this.zone.run(() => {
           observer.error(event);
         });
+      };
+
+      return () => {
+        source.close(); // Fechar a conexão SSE quando o Observable for destruído
       };
     });
   }
