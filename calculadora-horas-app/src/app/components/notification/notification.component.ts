@@ -70,19 +70,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.sub && this.sub.unsubscribe();
   }
 
-  sendMessage() {
-    console.log('sending message:' + this.messagem);
-    this.http
-      .post(`http://localhost:8080/alerts/${this.user_id}`, this.messagem)
-      .subscribe({
-        next: (data) => {
-          console.log('next' + data);
-        },
-        error: (error) => console.log('erro' + error),
-        complete: () => {
-          console.log('complete');
-          this.messagem = '';
-        },
-      });
-  }
+  // sendMessage() {
+  //   console.log('sending message:' + this.messagem);
+  //   this.http
+  //     .post(`http://localhost:8080/alerts/${this.user_id}`, this.messagem)
+  //     .subscribe({
+  //       next: (data) => {
+  //         console.log('next' + data);
+  //       },
+  //       error: (error) => console.log('erro' + error),
+  //       complete: () => {
+  //         console.log('complete');
+  //         this.messagem = '';
+  //       },
+  //     });
+  // }
 }
