@@ -7,6 +7,8 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css',
 })
+
+//Adaptado de <https://github.com/hantsy/angular-spring-sse-sample/blob/master/GUIDE.md>
 export class NotificationComponent implements OnInit, OnDestroy {
   messagem: string = '';
   messagens: string[] = [];
