@@ -5,6 +5,12 @@ export interface DuracaoTrabalho {
   nome: string;
   valor: number;
 }
+
+interface Calculadora{
+  entrada: string;
+  inicioIntervalo: string;
+  fimIntervalo: string;
+}
 @Component({
   selector: 'app-calculadora',
   templateUrl: './calculadora.component.html',
@@ -15,7 +21,12 @@ export class CalculadoraComponent implements OnInit {
   cargaSelecionada!: DuracaoTrabalho;
 
   horarioSaida: Date = new Date();
-  calcFormData = new Calculadora();
+  calcFormData: Calculadora = {
+    entrada: '',
+    inicioIntervalo: '',
+    fimIntervalo: ''
+  };
+
   visible: boolean = false;
   horaExcedida: boolean = false;
 
@@ -86,7 +97,11 @@ export class CalculadoraComponent implements OnInit {
   }
 
   cancelarOperacao(): void {
-    this.calcFormData = new Calculadora();
+    this.calcFormData = {
+      entrada: '',
+      inicioIntervalo: '',
+      fimIntervalo: ''
+    };
   }
 
 
