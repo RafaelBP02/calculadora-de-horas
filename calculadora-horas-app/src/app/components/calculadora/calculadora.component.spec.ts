@@ -19,6 +19,8 @@ import { DebugElement } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotificationConfigDataComponent } from '../notification-config-data/notification-config-data.component';
+import { HttpClient } from '@angular/common/http';
+import { ConfigAlertaService } from '../../services/config-alerta.service';
 
 describe('CalculadoraComponent', () => {
   let component: CalculadoraComponent;
@@ -39,7 +41,12 @@ describe('CalculadoraComponent', () => {
         DropdownModule,
         RouterModule.forRoot([])
       ],
-      providers:[ConfirmationService, MessageService]
+      providers:[
+        ConfirmationService,
+        MessageService,
+        HttpClient,
+        ConfigAlertaService
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculadoraComponent);

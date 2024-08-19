@@ -6,7 +6,7 @@
   <p-toast />
   <p-confirmDialog />
   <form
-    class="estilo-forms alertas"
+    class="estilo-forms alertas "
     [formGroup]="horariosForm"
     (ngSubmit)="confirmarDados($event)"
   >
@@ -81,7 +81,7 @@
       type="submit"
       pButton
       pRipple
-      label="Enviar"
+      [label]="reqAlertaExiste ? 'Atualizar' : 'Enviar'"
       class="p-button-primary"
     ></button>
   </form>

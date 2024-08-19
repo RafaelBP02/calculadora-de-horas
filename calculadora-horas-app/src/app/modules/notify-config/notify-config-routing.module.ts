@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfigAlertaService } from '../../services/config-alerta.service';
 
 const routes: Routes = [
   {
@@ -34,7 +35,10 @@ const routes: Routes = [
     InputGroupAddonModule,
     DropdownModule
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [
+    ConfirmationService,
+    MessageService
+  ],
   exports: [RouterModule],
 })
 export class NotifyConfigRoutingModule {}

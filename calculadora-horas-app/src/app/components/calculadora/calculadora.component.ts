@@ -35,13 +35,13 @@ export class CalculadoraComponent implements OnInit {
   calcularHoraio(): void {
     // Calculo realizado para uma carga horária de oito horas diarias
     let cargaHorariaRestante: Date = new Date();
-    let horaEntrada: Date = this.converteStringParaDate(
+    let horaEntrada: Date = Calculadora.converteStringParaDate(
       this.calcFormData.entrada
     );
-    let inicioIntervalo: Date = this.converteStringParaDate(
+    let inicioIntervalo: Date = Calculadora.converteStringParaDate(
       this.calcFormData.inicioIntervalo
     );
-    let fimIntervalo: Date = this.converteStringParaDate(
+    let fimIntervalo: Date = Calculadora.converteStringParaDate(
       this.calcFormData.fimIntervalo
     );
 
@@ -89,10 +89,5 @@ export class CalculadoraComponent implements OnInit {
     this.calcFormData = new Calculadora();
   }
 
-  private converteStringParaDate(tempo: string): Date {
-    const [horas, minutos] = tempo.split(':').map(Number);
-    const date = new Date();
-    date.setHours(horas, minutos, 0, 0);
-    return date;
-  }
+
 }

@@ -1,6 +1,6 @@
 import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {ButtonModule} from 'primeng/button'
 
@@ -15,7 +15,12 @@ import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { ConfigAlertaService } from './services/config-alerta.service';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
 
+registerLocaleData(ptBr);
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +39,14 @@ import { TooltipModule } from 'primeng/tooltip';
     InputGroupAddonModule,
     DialogModule,
     DropdownModule,
-    TooltipModule,
+    TooltipModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(),
+    ConfigAlertaService,
+    HttpClient,
+    {provide: LOCALE_ID, useValue: 'pt',},
   ],
   bootstrap: [AppComponent]
 })
