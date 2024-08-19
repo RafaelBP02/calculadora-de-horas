@@ -186,13 +186,13 @@ describe('NotificationConfigDataComponent', () => {
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
-        id: 0,
+        id: 1,
         workEntry: '11:00:00',
         intervalBeginning: '13:00:00',
         intervalEnd: '14:00:00',
         workEnd: '18:00:00',
         workload: 8,
-        user_id: 0,
+        user_id: 1,
       }));
 
       request.flush(0);
@@ -228,13 +228,13 @@ describe('NotificationConfigDataComponent', () => {
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
-        id: 0,
+        id: 1,
         workEntry: '11:00:00',
         intervalBeginning: '13:00:00',
         intervalEnd: '14:00:00',
         workEnd: '18:00:00',
         workload: 8,
-        user_id: 0,
+        user_id: 1,
       }));
 
       request.flush(0);
