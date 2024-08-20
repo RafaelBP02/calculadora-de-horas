@@ -14,8 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalcResultDialogComponent } from '../calc-result-dialog/calc-result-dialog.component';
 import { By } from '@angular/platform-browser';
-import { Calculadora } from '../../models/Calculadora';
-import { DebugElement } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotificationConfigDataComponent } from '../notification-config-data/notification-config-data.component';
@@ -64,7 +62,7 @@ describe('CalculadoraComponent', () => {
     ).nativeElement;
     btnApagar.click();
 
-    expect(component.calcFormData).toEqual(new Calculadora());
+    expect(component.calcFormData).toEqual({entrada:'', inicioIntervalo:'', fimIntervalo:''});
   });
 
   describe('teste dos inputs da aplicação', () => {
