@@ -38,10 +38,22 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
     const agora:Date = new Date()
 
     this.intervalID = setInterval(() => {
-      if(this.calculaDiferencaMinutos(UtilitariosService.converteStringParaDate(this.configuracoesSalvas.workEntry), agora, 2))
-      {
-        this.showToastMessage("ATENÇÃO! ESTÁ MA HORA DE BATER O PONTO DE ENTRADA NO TRABALHO!")
+      if(this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(this.configuracoesSalvas.workEntry), agora, 2)){
+          this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE ENTRADA NO TRABALHO!")
       }
+      else if(this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(this.configuracoesSalvas.intervalBeginning), agora, 2)){
+          this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE INICIO DO INTERVALO!")
+      }
+      if(this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(this.configuracoesSalvas.intervalEnd), agora, 2)){
+          this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE FIM DO INTERVALO!")
+      }
+      if(this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(this.configuracoesSalvas.workEnd), agora, 2)){
+          this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE SAÍDA NO TRABALHO!")
+        }
     }, 60000); // verifica a cada minuto
   }
 
