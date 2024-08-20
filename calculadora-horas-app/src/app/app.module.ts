@@ -19,6 +19,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { ConfigAlertaService } from './services/config-alerta.service';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { UtilitariosService } from './services/utilitarios/utilitarios.service';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -46,6 +47,7 @@ registerLocaleData(ptBr);
     provideHttpClient(),
     ConfigAlertaService,
     HttpClient,
+    UtilitariosService,
     {provide: LOCALE_ID, useValue: 'pt',},
   ],
   bootstrap: [AppComponent]

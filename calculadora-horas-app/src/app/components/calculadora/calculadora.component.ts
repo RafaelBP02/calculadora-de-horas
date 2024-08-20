@@ -1,9 +1,15 @@
+import { UtilitariosService } from './../../services/utilitarios/utilitarios.service';
 import { Component, OnInit } from '@angular/core';
-import { Calculadora } from '../../models/Calculadora';
 
 export interface DuracaoTrabalho {
   nome: string;
   valor: number;
+}
+
+interface Calculadora{
+  entrada: string;
+  inicioIntervalo: string;
+  fimIntervalo: string;
 }
 @Component({
   selector: 'app-calculadora',
@@ -15,7 +21,12 @@ export class CalculadoraComponent implements OnInit {
   cargaSelecionada!: DuracaoTrabalho;
 
   horarioSaida: Date = new Date();
-  calcFormData = new Calculadora();
+  calcFormData: Calculadora = {
+    entrada: '',
+    inicioIntervalo: '',
+    fimIntervalo: ''
+  };
+
   visible: boolean = false;
   horaExcedida: boolean = false;
 
@@ -35,13 +46,13 @@ export class CalculadoraComponent implements OnInit {
   calcularHoraio(): void {
     // Calculo realizado para uma carga horária de oito horas diarias
     let cargaHorariaRestante: Date = new Date();
-    let horaEntrada: Date = Calculadora.converteStringParaDate(
+    let horaEntrada: Date = UtilitariosService.converteStringParaDate(
       this.calcFormData.entrada
     );
-    let inicioIntervalo: Date = Calculadora.converteStringParaDate(
+    let inicioIntervalo: Date = UtilitariosService.converteStringParaDate(
       this.calcFormData.inicioIntervalo
     );
-    let fimIntervalo: Date = Calculadora.converteStringParaDate(
+    let fimIntervalo: Date = UtilitariosService.converteStringParaDate(
       this.calcFormData.fimIntervalo
     );
 
@@ -86,7 +97,11 @@ export class CalculadoraComponent implements OnInit {
   }
 
   cancelarOperacao(): void {
-    this.calcFormData = new Calculadora();
+    this.calcFormData = {
+      entrada: '',
+      inicioIntervalo: '',
+      fimIntervalo: ''
+    };
   }
 
 
