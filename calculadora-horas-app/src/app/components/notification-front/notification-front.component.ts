@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { ConfigAlerta } from '../../models/ConfigAlerta';
 import { UtilitariosService } from '../../services/utilitarios/utilitarios.service';
@@ -14,24 +15,30 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
 
   configuracoesSalvas: ConfigAlerta = new ConfigAlerta();
 
-  constructor(private alertAPI: ConfigAlertaService) {
+  constructor(private alertAPI: ConfigAlertaService, private messageService:MessageService, private ngZone:NgZone) {
     this.userId = 2;
   }
 
   ngOnInit(): void {
-    this.alertAPI.selecionarAlerta(this.userId).subscribe({
-      next: (alertas) => {
-        this.configuracoesSalvas = alertas;
-        this.verificarAlertas();
-      },
-      error: (erro) => {
-        console.log('ERRO: ' + erro);
-      },
+    this.ngZone.runOutsideAngular(() => {
+      this.alertAPI.selecionarAlerta(this.userId).subscribe({
+        next: (alertas) => {
+          this.ngZone.run(() => {
+            this.configuracoesSalvas = alertas;
+            // this.verificarAlertas();//esta dando timeout
+          });
+        },
+        error: (erro) => {
+          console.log('ERRO: ' + erro.message);
+        },
+      });
     });
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.intervalID);
+    if(this.intervalID){
+      clearInterval(this.intervalID);
+    }
   }
 
   private verificarAlertas(): void {
@@ -58,7 +65,11 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
   }
 
   private showToastMessage(mensagem: string): void {
-    //TODO exibiçao do toast
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Nota:',
+      detail: mensagem,
+    });
   }
 
   private calculaDiferencaMinutos(horario1: Date, horario2: Date, minutos: number): boolean{
