@@ -19,13 +19,15 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { ConfigAlertaService } from './services/config-alerta.service';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { NotificationFrontComponent } from './components/notification-front/notification-front.component';
 
 registerLocaleData(ptBr);
 @NgModule({
   declarations: [
     AppComponent,
     CalculadoraComponent,
-    CalcResultDialogComponent
+    CalcResultDialogComponent,
+    NotificationFrontComponent
   ],
   imports: [
     BrowserModule,
