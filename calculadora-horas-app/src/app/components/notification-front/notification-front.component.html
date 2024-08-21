@@ -1,2 +1,10 @@
 <p-toast></p-toast>
-<p-button *ngIf="botaoVisivel" (onClick)="tarefaRelogio()">ativar alertas</p-button>
+<div class="alertas-conf">
+  <span>Alertas Ativados:</span>
+  <p-toggleButton
+    [(ngModel)]="LigaDesliga"
+    onLabel="Sim"
+    offLabel="Não"
+    (onChange)="tarefaRelogio()"
+  />
+</div>

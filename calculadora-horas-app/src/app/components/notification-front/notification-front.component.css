@@ -1,0 +1,17 @@
+.alertas-conf{
+  min-width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: rgb(227, 225, 235);
+  border-color: rgba(0, 0, 0, 0.527);
+  border-style: solid;
+  border-radius: 20px;
+  padding: 5px;
+}
+.alertas-conf > span{
+  font-size: larger;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.527);;
+}

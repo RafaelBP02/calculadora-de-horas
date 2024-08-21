@@ -15,7 +15,8 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
   private userId: number;
 
   configuracoesSalvas: ConfigAlerta = new ConfigAlerta();
-  botaoVisivel: boolean = false
+  botaoVisivel: boolean = false;
+  LigaDesliga: boolean = false;
 
   constructor(private alertAPI: ConfigAlertaService, private messageService:MessageService) {
     this.userId = 2;
@@ -42,10 +43,19 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
   }
 
   tarefaRelogio(): void {
-    this.intervalID = timer(0, 60000).subscribe(() => {
-      this.verificarAlertas();
-      console.log('-----------------------------');
-    });
+    if(this.LigaDesliga){
+      this.intervalID = timer(0, 60000).subscribe(() => {
+        this.verificarAlertas();
+        console.log('-----------------------------');
+      });
+    }
+    else{
+      if (this.intervalID) {
+        console.log('alertas desligados')
+        this.intervalID.unsubscribe();
+      }
+    }
+
   }
 
   private verificarAlertas(): void {
