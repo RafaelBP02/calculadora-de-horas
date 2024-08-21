@@ -32,4 +32,19 @@ describe('NotificationFrontComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('teste com o alerta ligado', () => {
+    it('deve ligar os alertas', () => {
+
+    });
+
+    // it('deve testar horario de entrada', () => {});
+    // it('deve testar horario de entrada do intervalo', () => {});
+    // it('deve testar horario de saida do intervalo', () => {});
+    // it('deve testar horario de saida', () => {});
+  });
+
+  it('não deve ligar os alertas', () => {
+
+  });
 });
