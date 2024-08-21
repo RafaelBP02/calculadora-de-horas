@@ -44,7 +44,14 @@ describe('NotificationFrontComponent', () => {
     // it('deve testar horario de saida', () => {});
   });
 
-  it('não deve ligar os alertas', () => {
+  it('deve ligar e deligar os alertas', () => {
+    component.LigaDesliga = true;
+    const spy = spyOn(component['intervalID'], 'unsubscribe');
+    component.tarefaRelogio();
+    expect(spy).not.toHaveBeenCalled();
+    component['LigaDesliga'] = false;
+    component.tarefaRelogio();
+    expect(spy).toHaveBeenCalled();
 
   });
 });
