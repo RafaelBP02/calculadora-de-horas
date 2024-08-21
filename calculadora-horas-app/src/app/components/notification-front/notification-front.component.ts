@@ -81,6 +81,6 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
     const diffMs = Math.abs(horario1.getTime() - horario2.getTime());
     const diffMins = Math.ceil(diffMs / (1000 * 60));
     console.log('diferenca = ' + diffMins + ' minutos');
-    return diffMins <= minutos;
+    return diffMins > 0 && diffMins <= minutos;
   }
 }
