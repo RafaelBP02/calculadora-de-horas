@@ -20,6 +20,7 @@ import { mockOneAlert } from '../notification-config-data/notification-config-da
 import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { By } from '@angular/platform-browser';
 import { of, timer } from 'rxjs';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 describe('NotificationFrontComponent', () => {
   let component: NotificationFrontComponent;
@@ -33,7 +34,7 @@ describe('NotificationFrontComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ToastModule,
-        ToggleButtonModule,
+        InputSwitchModule,
         FormsModule,
         HttpClientTestingModule,
       ],
@@ -54,57 +55,6 @@ describe('NotificationFrontComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  xit('deve testar horario de entrada do intervalo', () => {
-    let originalDate: DateConstructor;
-
-    originalDate = Date;
-
-    const constantDate = new Date('2024-01-01T06:57:00');
-
-    // @ts-ignore
-    Date = class extends Date {
-      constructor() {
-        super(constantDate);
-      }
-    };
-
-    const request = httpTestingController.expectOne(
-      (data) => data.url === 'http://localhost:8080/2' && data.method === 'GET'
-    );
-
-    request.flush(mockOneAlert);
-
-    spyOn(timer(0, 60000), 'subscribe').and.callThrough();
-    // spyOn<any>(component, 'calculaDiferencaMinutos').and.returnValue(false);
-
-    // spyOn(messageService, 'add');
-
-    // spyOn<any>(component, 'showToastMessage').and.callThrough();
-
-    fixture.detectChanges();
-
-    let btnApagar: HTMLButtonElement = fixture.debugElement.query(
-      By.css('#liga-deliga')
-    ).nativeElement;
-    btnApagar.click();
-
-    fixture.detectChanges();
-
-    component.LigaDesliga = true;
-
-    component.tarefaRelogio();
-
-    expect(messageService.add).toHaveBeenCalledWith({
-      severity: 'info',
-      summary: 'Nota:',
-      detail: 'ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE ENTRADA NO TRABALHO!',
-    });
-
-    Date = originalDate;
-  });
-  // it('deve testar horario de saida do intervalo', () => {});
-  // it('deve testar horario de saida', () => {});
 
   it('deve receber o alerta configurado', () => {
     const request = httpTestingController.expectOne(
