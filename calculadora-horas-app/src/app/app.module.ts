@@ -31,7 +31,6 @@ registerLocaleData(ptBr);
     AppComponent,
     CalculadoraComponent,
     CalcResultDialogComponent,
-    NotificationFrontComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +46,6 @@ registerLocaleData(ptBr);
     DropdownModule,
     TooltipModule,
     ToastModule,
-    ToggleButtonModule
   ],
   providers: [
     provideClientHydration(),

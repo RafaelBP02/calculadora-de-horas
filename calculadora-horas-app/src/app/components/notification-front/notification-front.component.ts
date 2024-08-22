@@ -18,7 +18,10 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
   botaoVisivel: boolean = false;
   LigaDesliga: boolean = false;
 
-  constructor(private alertAPI: ConfigAlertaService, private messageService:MessageService) {
+  constructor(
+    private alertAPI: ConfigAlertaService,
+     private messageService:MessageService
+    ) {
     this.alertId = 2;
   }
 

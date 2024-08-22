@@ -1,11 +1,9 @@
 <p-toast></p-toast>
 <div class="alertas-conf">
   <span>Alertas Ativados:</span>
-  <p-toggleButton
+  <p-inputSwitch
     id="liga-deliga"
     [(ngModel)]="LigaDesliga"
-    onLabel="Sim"
-    offLabel="Não"
     (onChange)="tarefaRelogio()"
   />
 </div>
