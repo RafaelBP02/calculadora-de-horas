@@ -11,19 +11,19 @@ import { Subscription, timer } from 'rxjs';
   styleUrl: './notification-front.component.css',
 })
 export class NotificationFrontComponent implements OnInit, OnDestroy {
-  private intervalID: Subscription = new Subscription();
-  private userId: number;
+  private alertId: number;
 
+  intervalID: Subscription = new Subscription();
   configuracoesSalvas: ConfigAlerta = new ConfigAlerta();
   botaoVisivel: boolean = false;
   LigaDesliga: boolean = false;
 
   constructor(private alertAPI: ConfigAlertaService, private messageService:MessageService) {
-    this.userId = 2;
+    this.alertId = 2;
   }
 
   ngOnInit(): void {
-    this.alertAPI.selecionarAlerta(this.userId).subscribe({
+    this.alertAPI.selecionarAlerta(this.alertId).subscribe({
       next: (alertas) => {
         this.configuracoesSalvas = alertas;
         this.botaoVisivel = true
