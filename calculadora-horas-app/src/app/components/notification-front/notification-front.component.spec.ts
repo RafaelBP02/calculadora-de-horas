@@ -133,4 +133,11 @@ describe('NotificationFrontComponent', () => {
     tick(1000);
     component.intervalID.unsubscribe();
   }));
+
+  it('deve testar a diferenca de alerta', () => {
+    expect(component['calculaDiferencaMinutos'](new Date('2024-01-01T06:58:00'), new Date('2024-01-01T07:00:00'), 2)).toBeTruthy();
+
+    expect(component['calculaDiferencaMinutos'](new Date('2024-01-01T06:57:00'), new Date('2024-01-01T07:00:00'), 2)).toBeFalsy();
+
+  });
 });
