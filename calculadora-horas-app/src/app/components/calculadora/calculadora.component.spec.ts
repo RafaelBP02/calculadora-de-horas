@@ -62,7 +62,7 @@ describe('CalculadoraComponent', () => {
     ).nativeElement;
     btnApagar.click();
 
-    expect(component.calcFormData).toEqual({entrada:'', inicioIntervalo:'', fimIntervalo:''});
+    expect(component.calcFormDataOld).toEqual({entrada:'', inicioIntervalo:'', fimIntervalo:''});
   });
 
   describe('teste dos inputs da aplicação', () => {
@@ -78,7 +78,7 @@ describe('CalculadoraComponent', () => {
       inputElement.value = '08:00';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.calcFormData.entrada).toEqual('08:00');
+      expect(component.calcFormDataOld.entrada).toEqual('08:00');
     });
     it('deve clicar no input inicio Intervalo', () => {
       const inputElement = fixture.debugElement.query(
@@ -87,7 +87,7 @@ describe('CalculadoraComponent', () => {
       inputElement.value = '13:35';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.calcFormData.inicioIntervalo).toEqual('13:35');
+      expect(component.calcFormDataOld.inicioIntervalo).toEqual('13:35');
     });
     it('deve clicar no input fim intervalo', () => {
       const inputElement = fixture.debugElement.query(
@@ -96,15 +96,15 @@ describe('CalculadoraComponent', () => {
       inputElement.value = '14:36';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.calcFormData.fimIntervalo).toEqual('14:36');
+      expect(component.calcFormDataOld.fimIntervalo).toEqual('14:36');
     });
   });
 
   describe('logica da caluladora de horas', () => {
     beforeEach(() => {
-      component.calcFormData.entrada = '09:00';
-      component.calcFormData.inicioIntervalo = '13:00';
-      component.calcFormData.fimIntervalo = '14:00';
+      component.calcFormDataOld.entrada = '09:00';
+      component.calcFormDataOld.inicioIntervalo = '13:00';
+      component.calcFormDataOld.fimIntervalo = '14:00';
     });
 
     it('deve calcular a hora com carga de trabalho normal', () => {

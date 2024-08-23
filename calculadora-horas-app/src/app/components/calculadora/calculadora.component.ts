@@ -1,12 +1,14 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilitariosService } from './../../services/utilitarios/utilitarios.service';
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 export interface DuracaoTrabalho {
   nome: string;
   valor: number;
 }
 
-interface Calculadora{
+interface Calculadora {
   entrada: string;
   inicioIntervalo: string;
   fimIntervalo: string;
@@ -18,45 +20,53 @@ interface Calculadora{
 })
 export class CalculadoraComponent implements OnInit {
   cargasHorarias: DuracaoTrabalho[] = [];
-  cargaSelecionada!: DuracaoTrabalho;
 
   horarioSaida: Date = new Date();
-  calcFormData: Calculadora = {
-    entrada: '',
-    inicioIntervalo: '',
-    fimIntervalo: ''
-  };
+
+  calcFormData:FormGroup = new FormGroup({
+      cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
+      entrada: new FormControl<string>(''),
+      inicioIntervalo: new FormControl<string>('', Validators.required),
+      fimIntervalo: new FormControl<string>('', Validators.required),
+      saida: new FormControl<string>(''),
+  });
 
   visible: boolean = false;
   horaExcedida: boolean = false;
 
-  constructor() {}
-  ngOnInit() {
+  constructor() {
     this.cargasHorarias = [
-      { nome: '8 horas', valor: 8},
-      { nome: '6 horas', valor: 6},
-      { nome: '4 horas', valor: 4},
+      { nome: '8 horas', valor: 8 },
+      { nome: '6 horas', valor: 6 },
+      { nome: '4 horas', valor: 4 },
     ];
   }
+
+  ngOnInit() {}
 
   displayDialog(): void {
     this.visible = true;
   }
 
-  calcularHoraio(): void {
+  calcularHoraio(event: Event){
+    event.preventDefault();
+
     // Calculo realizado para uma carga horária de oito horas diarias
     let cargaHorariaRestante: Date = new Date();
     let horaEntrada: Date = UtilitariosService.converteStringParaDate(
-      this.calcFormData.entrada
+      `${this.calcFormData.get('entrada')?.value}`
     );
     let inicioIntervalo: Date = UtilitariosService.converteStringParaDate(
-      this.calcFormData.inicioIntervalo
+      `${this.calcFormData.get('inicioIntervalo')?.value}`
     );
     let fimIntervalo: Date = UtilitariosService.converteStringParaDate(
-      this.calcFormData.fimIntervalo
+      `${this.calcFormData.get('fimIntervalo')?.value}`
+    );
+    let horaSaida: Date = UtilitariosService.converteStringParaDate(
+      `${this.calcFormData.get('saida')?.value}`
     );
 
-    cargaHorariaRestante.setHours(this.cargaSelecionada.valor);
+    cargaHorariaRestante.setHours(this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor);
     cargaHorariaRestante.setMinutes(0);
     cargaHorariaRestante.setSeconds(0);
 
@@ -68,7 +78,7 @@ export class CalculadoraComponent implements OnInit {
         Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours())
     );
 
-    this.horaExcedida = (cargaHorariaRestante.getHours() <= 0);
+    this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
 
     if (this.horaExcedida) {
       //Caso o usuario exceda sua hora de trabalho, não deve ser levado em consideração o tempo de fim do intervalo
@@ -80,7 +90,6 @@ export class CalculadoraComponent implements OnInit {
       );
 
       this.horarioSaida = inicioIntervalo;
-
     } else {
       //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
       fimIntervalo.setHours(
@@ -96,13 +105,7 @@ export class CalculadoraComponent implements OnInit {
     this.displayDialog();
   }
 
-  cancelarOperacao(): void {
-    this.calcFormData = {
-      entrada: '',
-      inicioIntervalo: '',
-      fimIntervalo: ''
-    };
+  limparFormulario(): void {
+    this.calcFormData.reset();
   }
-
-
 }

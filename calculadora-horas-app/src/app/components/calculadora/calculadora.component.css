@@ -2,12 +2,16 @@
   width:  -webkit-fill-available;
 }
 
+.alertas > span{
+  color: red;
+}
+
 .btn-caixa {
   display: flex;
   gap: 5px;
-  margin-top: 7vh;
+  margin-top: 1vh;
   min-width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .btn-config{
