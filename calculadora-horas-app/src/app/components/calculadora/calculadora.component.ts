@@ -19,15 +19,12 @@ interface Calculadora {
   styleUrl: './calculadora.component.css',
 })
 export class CalculadoraComponent implements OnInit {
+  mensagemDialogo: string = 'Horario calculado';
   cargasHorarias: DuracaoTrabalho[] = [];
-
   horarioCalculado: Date = new Date();
 
   calcFormData: FormGroup = new FormGroup({
-    cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(
-      null,
-      Validators.required
-    ),
+    cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
     entrada: new FormControl<string>(''),
     inicioIntervalo: new FormControl<string>('', Validators.required),
     fimIntervalo: new FormControl<string>('', Validators.required),
@@ -78,7 +75,13 @@ export class CalculadoraComponent implements OnInit {
   calcularHoraio(event: Event) {
     event.preventDefault();
 
-    // Calculo realizado para uma carga horária de oito horas diarias
+    let cargaHorariaRestante: Date = new Date();
+    cargaHorariaRestante.setHours(
+      this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
+    );
+    cargaHorariaRestante.setMinutes(0);
+    cargaHorariaRestante.setSeconds(0);
+
     let horaEntrada: Date = UtilitariosService.converteStringParaDate(
       `${this.calcFormData.get('entrada')?.value}`
     );
@@ -93,8 +96,8 @@ export class CalculadoraComponent implements OnInit {
     );
 
     this.calcFormData.get('entrada')?.enabled
-      ? this.calculaHorarioSaida(horaEntrada, inicioIntervalo, fimIntervalo)
-      : this.calculaHorarioEntrada(inicioIntervalo, fimIntervalo, horaSaida);
+      ? this.calculaHorarioSaida(cargaHorariaRestante, horaEntrada, inicioIntervalo, fimIntervalo)
+      : this.calculaHorarioEntrada(cargaHorariaRestante ,inicioIntervalo, fimIntervalo, horaSaida);
 
     this.displayDialog();
   }
@@ -104,15 +107,7 @@ export class CalculadoraComponent implements OnInit {
     this.inicializarControles();
   }
 
-  private calculaHorarioSaida(horaEntrada: Date, inicioIntervalo: Date, fimIntervalo: Date): void{
-    let cargaHorariaRestante: Date = new Date();
-
-    cargaHorariaRestante.setHours(
-      this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
-    );
-    cargaHorariaRestante.setMinutes(0);
-    cargaHorariaRestante.setSeconds(0);
-
+  private calculaHorarioSaida(cargaHorariaRestante: Date, horaEntrada: Date, inicioIntervalo: Date, fimIntervalo: Date): void{
     cargaHorariaRestante.setMinutes(
       Math.abs(horaEntrada.getMinutes() - inicioIntervalo.getMinutes())
     );
@@ -143,13 +138,47 @@ export class CalculadoraComponent implements OnInit {
       );
 
       this.horarioCalculado = fimIntervalo;
+    this.mensagemDialogo = 'Horário de Saída'
+
     }
 
   }
 
-  private calculaHorarioEntrada(inicioIntervalo: Date, fimIntervalo: Date, horaSaida: Date ): void{
-    console.log('calcula saida...');
-    //TODO: logica para calcular horario de saida
+  private calculaHorarioEntrada(cargaHorariaRestante: Date ,inicioIntervalo: Date, fimIntervalo: Date, horaSaida: Date ): void{
+    cargaHorariaRestante.setMinutes(
+      Math.abs(horaSaida.getMinutes() - fimIntervalo.getMinutes())
+    );
+    cargaHorariaRestante.setHours(
+      cargaHorariaRestante.getHours() -
+        Math.abs(horaSaida.getHours() - fimIntervalo.getHours())
+    );
+
+    this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
+
+    if (this.horaExcedida) {
+      //TODO:
+      // COMO FICA ESSA LOGICA PARA O CASO DO HORA DE SAIDA?
+      // EXISTE ESSA LOGICA?
+      inicioIntervalo.setHours(
+        inicioIntervalo.getHours() + cargaHorariaRestante.getHours()
+      );
+      inicioIntervalo.setMinutes(
+        inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
+      );
+
+      this.horarioCalculado = inicioIntervalo;
+    } else {
+      //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
+      inicioIntervalo.setHours(
+        inicioIntervalo.getHours() - cargaHorariaRestante.getHours()
+      );
+      inicioIntervalo.setMinutes(
+        inicioIntervalo.getMinutes() - cargaHorariaRestante.getMinutes()
+      );
+    }
+
+    this.horarioCalculado = inicioIntervalo;
+    this.mensagemDialogo = 'Horário de Entrada'
 
   }
 }
