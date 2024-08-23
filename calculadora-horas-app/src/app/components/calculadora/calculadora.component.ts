@@ -54,6 +54,8 @@ export class CalculadoraComponent implements OnInit {
     campoEntrada?.valueChanges.subscribe(value => {
       if (value && campoSaida?.enabled) {
         campoSaida.disable({ emitEvent: false });
+        campoSaida.setValidators(null);
+        campoEntrada.setValidators(Validators.required)
       } else if (!value && campoSaida?.disabled) {
         campoSaida.enable({ emitEvent: false });
       }
@@ -62,6 +64,8 @@ export class CalculadoraComponent implements OnInit {
     campoSaida?.valueChanges.subscribe(value => {
       if (value && campoEntrada?.enabled) {
         campoEntrada.disable({ emitEvent: false });
+        campoEntrada.setValidators(null);
+        campoSaida.setValidators(Validators.required)
       } else if (!value && campoEntrada?.disabled) {
         campoEntrada.enable({ emitEvent: false });
       }

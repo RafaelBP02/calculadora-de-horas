@@ -25,6 +25,12 @@
       <p-inputGroupAddon class="form-input">Entrada</p-inputGroupAddon>
       <input id="entrada" type="time" pInputText formControlName="entrada" />
     </p-inputGroup>
+    <span
+      *ngIf=" calcFormData.get('entrada')?.touched &&
+                calcFormData.get('entrada')?.errors?.['required']"
+    >
+      Campo obrigatório!
+    </span>
     <p-inputGroup>
       <p-inputGroupAddon class="form-input"
         >Inicio do Intervalo</p-inputGroupAddon
@@ -61,6 +67,12 @@
       <p-inputGroupAddon class="form-input">Saída</p-inputGroupAddon>
       <input id="saida" type="time" pInputText formControlName="saida" />
     </p-inputGroup>
+    <span
+      *ngIf=" calcFormData.get('saida')?.touched &&
+                calcFormData.get('saida')?.errors?.['required']"
+    >
+      Campo obrigatório!
+    </span>
     <div class="btn-caixa">
       <p-button
         id="btnApagar"
