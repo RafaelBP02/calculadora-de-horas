@@ -103,7 +103,12 @@ export class CalculadoraComponent implements OnInit {
       ? this.calculaHorarioSaida(cargaHorariaRestante, horaEntrada, inicioIntervalo, fimIntervalo)
       : this.calculaHorarioEntrada(cargaHorariaRestante ,inicioIntervalo, fimIntervalo, horaSaida);
 
-    this.displayDialog();
+    if (this.calcFormData.valid) {
+      this.displayDialog();
+    } else {
+      this.calcFormData.markAllAsTouched();
+      console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
+    }
   }
 
   limparFormulario(): void {
