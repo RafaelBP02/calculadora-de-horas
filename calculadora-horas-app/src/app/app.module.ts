@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LOCALE_ID, NgModule } from '@angular/core';
@@ -15,18 +16,21 @@ import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { ConfigAlertaService } from './services/config-alerta.service';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { NotificationFrontComponent } from './components/notification-front/notification-front.component';
 import { UtilitariosService } from './services/utilitarios/utilitarios.service';
+import { ToastModule } from 'primeng/toast';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 registerLocaleData(ptBr);
 @NgModule({
   declarations: [
     AppComponent,
     CalculadoraComponent,
-    CalcResultDialogComponent
+    CalcResultDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,14 +44,16 @@ registerLocaleData(ptBr);
     InputGroupAddonModule,
     DialogModule,
     DropdownModule,
-    TooltipModule
+    TooltipModule,
+    ToastModule,
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     ConfigAlertaService,
     HttpClient,
     UtilitariosService,
+    MessageService,
     {provide: LOCALE_ID, useValue: 'pt',},
   ],
   bootstrap: [AppComponent]

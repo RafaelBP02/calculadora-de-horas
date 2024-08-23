@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationConfigDataComponent } from './notification-config-data.component';
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -26,6 +26,8 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { ConfigAlerta } from '../../models/ConfigAlerta';
 import { mockAllAlerts, mockOneAlert } from './notification-config-data.component.stub';
+import { NotificationFrontComponent } from '../notification-front/notification-front.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 describe('NotificationConfigDataComponent', () => {
   let component: NotificationConfigDataComponent;
@@ -39,7 +41,7 @@ describe('NotificationConfigDataComponent', () => {
     registerLocaleData(ptBr);
 
     await TestBed.configureTestingModule({
-      declarations: [NotificationConfigDataComponent],
+      declarations: [NotificationConfigDataComponent, NotificationFrontComponent],
       imports: [
         CommonModule,
         ReactiveFormsModule,
@@ -50,6 +52,8 @@ describe('NotificationConfigDataComponent', () => {
         InputGroupModule,
         InputGroupAddonModule,
         DropdownModule,
+        InputSwitchModule,
+        FormsModule,
         RouterModule.forRoot([]),
         HttpClientTestingModule,
       ],

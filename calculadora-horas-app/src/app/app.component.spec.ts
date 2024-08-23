@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CalculadoraComponent } from './components/calculadora/calculadora.component';
@@ -15,8 +15,16 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { HttpClient } from '@angular/common/http';
 import { ConfigAlertaService } from './services/config-alerta.service';
+import { NotificationFrontComponent } from './components/notification-front/notification-front.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 describe('AppComponent', () => {
+  let app: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -32,25 +40,32 @@ describe('AppComponent', () => {
         InputGroupAddonModule,
         DialogModule,
         DropdownModule,
+        ToastModule,
+        ToggleButtonModule,
+        HttpClientTestingModule
+
       ],
       declarations: [
         AppComponent,
         CalculadoraComponent,
         CalcResultDialogComponent,
+        NotificationFrontComponent
+
       ],
+      providers:[MessageService]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
+    fixture.detectChanges();
+
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have as title 'calculadora-horas-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    fixture.detectChanges();
     expect(app.title).toEqual('calculadora-horas-app');
   });
 
