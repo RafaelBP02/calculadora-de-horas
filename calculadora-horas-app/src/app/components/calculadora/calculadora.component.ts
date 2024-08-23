@@ -23,12 +23,15 @@ export class CalculadoraComponent implements OnInit {
 
   horarioSaida: Date = new Date();
 
-  calcFormData:FormGroup = new FormGroup({
-      cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
-      entrada: new FormControl<string>(''),
-      inicioIntervalo: new FormControl<string>('', Validators.required),
-      fimIntervalo: new FormControl<string>('', Validators.required),
-      saida: new FormControl<string>(''),
+  calcFormData: FormGroup = new FormGroup({
+    cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(
+      null,
+      Validators.required
+    ),
+    entrada: new FormControl<string>(''),
+    inicioIntervalo: new FormControl<string>('', Validators.required),
+    fimIntervalo: new FormControl<string>('', Validators.required),
+    saida: new FormControl<string>(''),
   });
 
   visible: boolean = false;
@@ -40,15 +43,30 @@ export class CalculadoraComponent implements OnInit {
       { nome: '6 horas', valor: 6 },
       { nome: '4 horas', valor: 4 },
     ];
+
+    this.inicializarControles();
   }
 
   ngOnInit() {}
+
+  inicializarControles() {
+    const campoEntrada = this.calcFormData.get('entrada');
+    const campoSaida = this.calcFormData.get('saida');
+
+    // Verifica qual desses 2 campos esta preenchido para desativar o outro
+    campoEntrada?.valueChanges.subscribe((value) => {
+      value ?  campoSaida?.disable() : campoSaida?.enable();
+    });
+    campoSaida?.valueChanges.subscribe((value) => {
+      value ? campoEntrada?.disable() : campoEntrada?.enable();
+    });
+  }
 
   displayDialog(): void {
     this.visible = true;
   }
 
-  calcularHoraio(event: Event){
+  calcularHoraio(event: Event) {
     event.preventDefault();
 
     // Calculo realizado para uma carga horária de oito horas diarias
@@ -66,7 +84,9 @@ export class CalculadoraComponent implements OnInit {
       `${this.calcFormData.get('saida')?.value}`
     );
 
-    cargaHorariaRestante.setHours(this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor);
+    cargaHorariaRestante.setHours(
+      this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
+    );
     cargaHorariaRestante.setMinutes(0);
     cargaHorariaRestante.setSeconds(0);
 
@@ -107,5 +127,6 @@ export class CalculadoraComponent implements OnInit {
 
   limparFormulario(): void {
     this.calcFormData.reset();
+    this.inicializarControles();
   }
 }
