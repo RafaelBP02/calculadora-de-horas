@@ -21,7 +21,7 @@ interface Calculadora {
 export class CalculadoraComponent implements OnInit {
   cargasHorarias: DuracaoTrabalho[] = [];
 
-  horarioSaida: Date = new Date();
+  horarioCalculado: Date = new Date();
 
   calcFormData: FormGroup = new FormGroup({
     cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(
@@ -54,11 +54,20 @@ export class CalculadoraComponent implements OnInit {
     const campoSaida = this.calcFormData.get('saida');
 
     // Verifica qual desses 2 campos esta preenchido para desativar o outro
-    campoEntrada?.valueChanges.subscribe((value) => {
-      value ?  campoSaida?.disable() : campoSaida?.enable();
+    campoEntrada?.valueChanges.subscribe(value => {
+      if (value && campoSaida?.enabled) {
+        campoSaida.disable({ emitEvent: false });
+      } else if (!value && campoSaida?.disabled) {
+        campoSaida.enable({ emitEvent: false });
+      }
     });
-    campoSaida?.valueChanges.subscribe((value) => {
-      value ? campoEntrada?.disable() : campoEntrada?.enable();
+
+    campoSaida?.valueChanges.subscribe(value => {
+      if (value && campoEntrada?.enabled) {
+        campoEntrada.disable({ emitEvent: false });
+      } else if (!value && campoEntrada?.disabled) {
+        campoEntrada.enable({ emitEvent: false });
+      }
     });
   }
 
@@ -70,7 +79,6 @@ export class CalculadoraComponent implements OnInit {
     event.preventDefault();
 
     // Calculo realizado para uma carga horária de oito horas diarias
-    let cargaHorariaRestante: Date = new Date();
     let horaEntrada: Date = UtilitariosService.converteStringParaDate(
       `${this.calcFormData.get('entrada')?.value}`
     );
@@ -83,6 +91,21 @@ export class CalculadoraComponent implements OnInit {
     let horaSaida: Date = UtilitariosService.converteStringParaDate(
       `${this.calcFormData.get('saida')?.value}`
     );
+
+    this.calcFormData.get('entrada')?.enabled
+      ? this.calculaHorarioSaida(horaEntrada, inicioIntervalo, fimIntervalo)
+      : this.calculaHorarioEntrada(inicioIntervalo, fimIntervalo, horaSaida);
+
+    this.displayDialog();
+  }
+
+  limparFormulario(): void {
+    this.calcFormData.reset();
+    this.inicializarControles();
+  }
+
+  private calculaHorarioSaida(horaEntrada: Date, inicioIntervalo: Date, fimIntervalo: Date): void{
+    let cargaHorariaRestante: Date = new Date();
 
     cargaHorariaRestante.setHours(
       this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
@@ -109,7 +132,7 @@ export class CalculadoraComponent implements OnInit {
         inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
 
-      this.horarioSaida = inicioIntervalo;
+      this.horarioCalculado = inicioIntervalo;
     } else {
       //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
       fimIntervalo.setHours(
@@ -119,14 +142,14 @@ export class CalculadoraComponent implements OnInit {
         fimIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
 
-      this.horarioSaida = fimIntervalo;
+      this.horarioCalculado = fimIntervalo;
     }
 
-    this.displayDialog();
   }
 
-  limparFormulario(): void {
-    this.calcFormData.reset();
-    this.inicializarControles();
+  private calculaHorarioEntrada(inicioIntervalo: Date, fimIntervalo: Date, horaSaida: Date ): void{
+    console.log('calcula saida...');
+    //TODO: logica para calcular horario de saida
+
   }
 }
