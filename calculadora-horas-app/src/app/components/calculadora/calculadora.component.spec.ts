@@ -159,4 +159,32 @@ describe('CalculadoraComponent', () => {
       expect(component.horaExcedida).toBeTruthy();
     });
   });
+
+  describe('logica do calculo da hora de entrada', () => {
+    beforeEach(() => {
+      component.calcFormData.controls['inicioIntervalo'].setValue('13:00');
+      component.calcFormData.controls['fimIntervalo'].setValue('14:00');
+      component.calcFormData.controls['saida'].setValue('18:00');
+    });
+
+    it('deve calcular a hora de entrada com carga horaria de 8 horas', () => {
+      component.calcFormData.controls['cargaHorariaSelecionada'].setValue({
+        nome: '8 horas',
+        valor: 8,
+      });
+
+      spyOn(component, 'displayDialog');
+
+      fixture.detectChanges();
+
+      component.calcularHoraio(new Event('submit'));
+
+      fixture.detectChanges();
+
+      expect(component.horarioCalculado.getHours()).toBe(9);
+      expect(component.horarioCalculado.getMinutes()).toBe(0);
+      expect(component.horaExcedida).toBeFalsy();
+      expect(component.displayDialog).toHaveBeenCalled();
+    })
+  })
 });
