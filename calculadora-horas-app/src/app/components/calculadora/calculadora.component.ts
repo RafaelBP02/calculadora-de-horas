@@ -116,7 +116,7 @@ export class CalculadoraComponent implements OnInit {
     this.inicializarControles();
   }
 
-  private calculaHorarioSaida(cargaHorariaRestante: Date, horaEntrada: Date, inicioIntervalo: Date, fimIntervalo: Date): void{
+  calculaHorarioSaida(cargaHorariaRestante: Date, horaEntrada: Date, inicioIntervalo: Date, fimIntervalo: Date): void{
     cargaHorariaRestante.setMinutes(
       Math.abs(horaEntrada.getMinutes() - inicioIntervalo.getMinutes())
     );
@@ -153,7 +153,7 @@ export class CalculadoraComponent implements OnInit {
 
   }
 
-  private calculaHorarioEntrada(cargaHorariaRestante: Date ,inicioIntervalo: Date, fimIntervalo: Date, horaSaida: Date ): void{
+  calculaHorarioEntrada(cargaHorariaRestante: Date ,inicioIntervalo: Date, fimIntervalo: Date, horaSaida: Date ): void{
     cargaHorariaRestante.setMinutes(
       Math.abs(horaSaida.getMinutes() - fimIntervalo.getMinutes())
     );
@@ -165,9 +165,6 @@ export class CalculadoraComponent implements OnInit {
     this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
 
     if (this.horaExcedida) {
-      //TODO:
-      // COMO FICA ESSA LOGICA PARA O CASO DO HORA DE SAIDA?
-      // EXISTE ESSA LOGICA?
       inicioIntervalo.setHours(
         inicioIntervalo.getHours() + cargaHorariaRestante.getHours()
       );

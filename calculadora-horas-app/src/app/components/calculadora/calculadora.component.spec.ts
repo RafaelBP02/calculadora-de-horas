@@ -3,7 +3,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 
-import { CalculadoraComponent } from './calculadora.component';
+import { CalculadoraComponent, DuracaoTrabalho } from './calculadora.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -57,20 +57,32 @@ describe('CalculadoraComponent', () => {
   });
 
   it('deve clicar no botao de cancelar', () => {
+    component.calcFormData.markAsDirty();
+
+    expect(component.calcFormData.pristine).toBeFalsy();
+
     let btnApagar: HTMLButtonElement = fixture.debugElement.query(
       By.css('#btnApagar > button')
     ).nativeElement;
+
     btnApagar.click();
 
-    expect(component.calcFormDataOld).toEqual({entrada:'', inicioIntervalo:'', fimIntervalo:''});
+    fixture.detectChanges();
+
+    expect(component.calcFormData.pristine).toBeTruthy();
+
+  });
+
+  it('deve carregar o dropdown', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('span')?.textContent).toContain('Selecione sua carga horaria');
   });
 
   describe('teste dos inputs da aplicação', () => {
-    it('deve carregar o dropdown', () => {
-      const compiled = fixture.nativeElement as HTMLElement;
 
-      expect(compiled.querySelector('span')?.textContent).toContain('Selecione uma carga horaria');
-    });
+
+
     it('deve clicar no input entrada', () => {
       const inputElement = fixture.debugElement.query(
         By.css('#entrada')
@@ -78,7 +90,7 @@ describe('CalculadoraComponent', () => {
       inputElement.value = '08:00';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.calcFormDataOld.entrada).toEqual('08:00');
+      expect(component.calcFormData.get('entrada')?.value).toEqual('08:00');
     });
     it('deve clicar no input inicio Intervalo', () => {
       const inputElement = fixture.debugElement.query(
@@ -87,7 +99,7 @@ describe('CalculadoraComponent', () => {
       inputElement.value = '13:35';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.calcFormDataOld.inicioIntervalo).toEqual('13:35');
+      expect(component.calcFormData.get('inicioIntervalo')?.value).toEqual('13:35');
     });
     it('deve clicar no input fim intervalo', () => {
       const inputElement = fixture.debugElement.query(
@@ -96,30 +108,51 @@ describe('CalculadoraComponent', () => {
       inputElement.value = '14:36';
       inputElement.dispatchEvent(new Event('input'));
       fixture.detectChanges();
-      expect(component.calcFormDataOld.fimIntervalo).toEqual('14:36');
+      expect(component.calcFormData.get('fimIntervalo')?.value).toEqual('14:36');
     });
   });
 
-  describe('logica da caluladora de horas', () => {
+  describe('logica da caluladora de horas saida', () => {
     beforeEach(() => {
-      component.calcFormDataOld.entrada = '09:00';
-      component.calcFormDataOld.inicioIntervalo = '13:00';
-      component.calcFormDataOld.fimIntervalo = '14:00';
+
+      component.calcFormData.controls['entrada'].setValue('09:00');
+      component.calcFormData.controls['inicioIntervalo'].setValue('13:00');
+      component.calcFormData.controls['fimIntervalo'].setValue('14:00');
     });
 
-    it('deve calcular a hora com carga de trabalho normal', () => {
-      component.cargaSelecionada = { nome: '8 horas', valor: 8 };
 
-      component.calcularHoraio();
+    it('deve calcular a hora com carga de trabalho normal', () => {
+      component.calcFormData.controls['cargaHorariaSelecionada'].setValue({
+        nome: '8 horas',
+        valor: 8,
+      });
+
+      spyOn(component, 'displayDialog');
+
+      fixture.detectChanges();
+
+      component.calcularHoraio(new Event('submit'));
+
+      fixture.detectChanges();
 
       expect(component.horarioCalculado.getHours()).toBe(18);
       expect(component.horarioCalculado.getMinutes()).toBe(0);
       expect(component.horaExcedida).toBeFalsy();
+      expect(component.displayDialog).toHaveBeenCalled();
     });
     it('deve calcular a hora com carga de trabalho execedida', () => {
-      component.cargaSelecionada = { nome: '4 horas', valor: 4 };
+      component.calcFormData.controls['cargaHorariaSelecionada'].setValue({
+        nome: '4 horas',
+        valor: 4,
+      });
 
-      component.calcularHoraio();
+      spyOn(component, 'displayDialog');
+
+      fixture.detectChanges();
+
+      component.calcularHoraio(new Event('submit'));
+
+      fixture.detectChanges();
 
       expect(component.horarioCalculado.getHours()).toBe(13);
       expect(component.horarioCalculado.getMinutes()).toBe(0);
