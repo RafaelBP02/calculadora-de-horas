@@ -116,8 +116,8 @@ describe('CalculadoraComponent', () => {
     beforeEach(() => {
 
       component.calcFormData.controls['entrada'].setValue('09:00');
-      component.calcFormData.controls['inicioIntervalo'].setValue('13:00');
-      component.calcFormData.controls['fimIntervalo'].setValue('14:00');
+      component.calcFormData.controls['inicioIntervalo'].setValue('15:00');
+      component.calcFormData.controls['fimIntervalo'].setValue('16:00');
     });
 
 

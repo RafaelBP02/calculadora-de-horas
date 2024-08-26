@@ -121,22 +121,21 @@ export class CalculadoraComponent implements OnInit {
       Math.abs(horaEntrada.getMinutes() - inicioIntervalo.getMinutes())
     );
     cargaHorariaRestante.setHours(
-      cargaHorariaRestante.getHours() -
-        Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours())
+      Math.max(0, cargaHorariaRestante.getHours() -
+        Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours()))
     );
 
     this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
 
     if (this.horaExcedida) {
-      //Caso o usuario exceda sua hora de trabalho, não deve ser levado em consideração o tempo de fim do intervalo
-      inicioIntervalo.setHours(
-        inicioIntervalo.getHours() + cargaHorariaRestante.getHours()
-      );
-      inicioIntervalo.setMinutes(
+      fimIntervalo.setMinutes(
         inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
+      fimIntervalo.setHours(
+        horaEntrada.getHours() + this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
+      );
 
-      this.horarioCalculado = inicioIntervalo;
+      this.horarioCalculado = fimIntervalo;
     } else {
       //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
       fimIntervalo.setHours(
@@ -147,8 +146,7 @@ export class CalculadoraComponent implements OnInit {
       );
 
       this.horarioCalculado = fimIntervalo;
-    this.mensagemDialogo = 'Horário de Saída'
-
+      this.mensagemDialogo = 'Horário de Saída'
     }
 
   }
@@ -165,12 +163,13 @@ export class CalculadoraComponent implements OnInit {
     this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
 
     if (this.horaExcedida) {
-      inicioIntervalo.setHours(
-        inicioIntervalo.getHours() + cargaHorariaRestante.getHours()
-      );
       inicioIntervalo.setMinutes(
         inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
+      inicioIntervalo.setHours(
+        inicioIntervalo.getHours()
+      );
+
 
       this.horarioCalculado = inicioIntervalo;
     } else {
