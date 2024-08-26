@@ -37,7 +37,10 @@
 
 }
 
-
+.calculadora-pagina{
+  display: flex;
+  flex-direction: row;
+}
 
 .form-config{
   display: flex;
