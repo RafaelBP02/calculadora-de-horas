@@ -93,3 +93,9 @@ h1{
   align-items: center;
   gap: 15rem;
 }
+.titulo:hover > div > span{
+  cursor: pointer;
+}
+.titulo:hover > div > i{
+  cursor: pointer;
+}
