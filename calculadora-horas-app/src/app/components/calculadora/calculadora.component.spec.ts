@@ -186,5 +186,25 @@ describe('CalculadoraComponent', () => {
       expect(component.horaExcedida).toBeFalsy();
       expect(component.displayDialog).toHaveBeenCalled();
     })
+
+    it('deve calcular a hora excedida com carga horaria de 4 horas', () => {
+      component.calcFormData.controls['cargaHorariaSelecionada'].setValue({
+        nome: '4 horas',
+        valor: 4,
+      });
+
+      spyOn(component, 'displayDialog');
+
+      fixture.detectChanges();
+
+      component.calcularHoraio(new Event('submit'));
+
+      fixture.detectChanges();
+
+      expect(component.horarioCalculado.getHours()).toBe(14);
+      expect(component.horarioCalculado.getMinutes()).toBe(0);
+      expect(component.horaExcedida).toBeTruthy();
+      expect(component.displayDialog).toHaveBeenCalled();
+    })
   })
 });
