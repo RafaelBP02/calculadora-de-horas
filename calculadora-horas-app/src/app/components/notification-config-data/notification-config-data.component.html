@@ -1,93 +1,99 @@
-<div [routerLink]="['']">
-  <i class="pi pi-angle-left"></i>
-  <span>voltar</span>
-</div>
-<div class="caixa-calculadora">
-  <div class="titulo">
-    <h1>Configuração de Notificações</h1>
-    <i class="pi pi-arrow-circle-left btn-seta" [routerLink]="['/calculadora']"></i>
+<div class="titulo">
+  <div [routerLink]="['']">
+    <i class="pi pi-angle-left"></i>
+    <span>voltar</span>
   </div>
-  <p-toast />
-  <p-confirmDialog />
-  <form
-    class="estilo-forms alertas "
-    [formGroup]="horariosForm"
-    (ngSubmit)="confirmarDados($event)"
-  >
-    <div>
-      <p-dropdown
-        styleClass="dropdown-config"
-        formControlName="cargaHorariaSelecionada"
-        [options]="cargasHorarias"
-        optionLabel="valor"
-        placeholder="Selecione sua carga horaria"
-      />
-      <span
-        *ngIf=" horariosFormControl.cargaHorariaSelecionada.touched
+  <h1>Configuração de Horários</h1>
+</div>
+<div class="config-pagina">
+  <div class="caixa-calculadora">
+    <p-toast />
+    <p-confirmDialog />
+    <form
+      class="estilo-forms alertas"
+      [formGroup]="horariosForm"
+      (ngSubmit)="confirmarDados($event)"
+    >
+      <div>
+        <p-dropdown
+          styleClass="dropdown-config"
+          formControlName="cargaHorariaSelecionada"
+          [options]="cargasHorarias"
+          optionLabel="valor"
+          placeholder="Selecione sua carga horaria"
+        />
+        <span
+          *ngIf=" horariosFormControl.cargaHorariaSelecionada.touched
                 && horariosFormControl.cargaHorariaSelecionada.errors?.['required']"
-      >
-        Campo obrigatório!
-      </span>
-    </div>
-    <div class="card flex justify-content-center">
-      <p-inputGroup>
-        <p-inputGroupAddon class="form-input"
-          >Inicio Expediente</p-inputGroupAddon
         >
-        <input type="time" pInputText formControlName="inicioExpediente" />
-      </p-inputGroup>
-      <span
-        *ngIf=" horariosFormControl.inicioExpediente.touched
+          Campo obrigatório!
+        </span>
+      </div>
+      <div class="card flex justify-content-center">
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"
+            >Inicio Expediente</p-inputGroupAddon
+          >
+          <input type="time" pInputText formControlName="inicioExpediente" />
+        </p-inputGroup>
+        <span
+          *ngIf=" horariosFormControl.inicioExpediente.touched
                 && horariosFormControl.inicioExpediente.errors?.['required']"
-      >
-        Campo obrigatório!
-      </span>
-    </div>
-    <div class="card flex justify-content-center">
-      <p-inputGroup>
-        <p-inputGroupAddon class="form-input"
-          >Inicio Intevalo</p-inputGroupAddon
         >
-        <input type="time" pInputText formControlName="inicioIntervalo" />
-      </p-inputGroup>
-      <span
-        *ngIf=" horariosFormControl.inicioIntervalo.touched
+          Campo obrigatório!
+        </span>
+      </div>
+      <div class="card flex justify-content-center">
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"
+            >Inicio Intevalo</p-inputGroupAddon
+          >
+          <input type="time" pInputText formControlName="inicioIntervalo" />
+        </p-inputGroup>
+        <span
+          *ngIf=" horariosFormControl.inicioIntervalo.touched
                 && horariosFormControl.inicioIntervalo.errors?.['required']"
-      >
-        Campo obrigatório!
-      </span>
-    </div>
-    <div class="card flex justify-content-center">
-      <p-inputGroup>
-        <p-inputGroupAddon class="form-input">Fim Intevalo</p-inputGroupAddon>
-        <input type="time" pInputText formControlName="fimIntervalo" />
-      </p-inputGroup>
-      <span
-        *ngIf=" horariosFormControl.fimIntervalo.touched
+        >
+          Campo obrigatório!
+        </span>
+      </div>
+      <div class="card flex justify-content-center">
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input">Fim Intevalo</p-inputGroupAddon>
+          <input type="time" pInputText formControlName="fimIntervalo" />
+        </p-inputGroup>
+        <span
+          *ngIf=" horariosFormControl.fimIntervalo.touched
                 && horariosFormControl.fimIntervalo.errors?.['required']"
-      >
-        Campo obrigatório!
-      </span>
-    </div>
-    <div class="card flex justify-content-center">
-      <p-inputGroup>
-        <p-inputGroupAddon class="form-input">Fim Expediente</p-inputGroupAddon>
-        <input type="time" pInputText formControlName="fimExpediente" />
-      </p-inputGroup>
-      <span
-        *ngIf=" horariosFormControl.fimExpediente.touched &&
+        >
+          Campo obrigatório!
+        </span>
+      </div>
+      <div class="card flex justify-content-center">
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"
+            >Fim Expediente</p-inputGroupAddon
+          >
+          <input type="time" pInputText formControlName="fimExpediente" />
+        </p-inputGroup>
+        <span
+          *ngIf=" horariosFormControl.fimExpediente.touched &&
                 horariosFormControl.fimExpediente.errors?.['required']"
-      >
-        Campo obrigatório!
-      </span>
-    </div>
-    <app-notification-front></app-notification-front>
-    <button
-      type="submit"
-      pButton
-      pRipple
-      [label]="reqAlertaExiste ? 'Atualizar' : 'Enviar'"
-      class="p-button-primary"
-    ></button>
-  </form>
+        >
+          Campo obrigatório!
+        </span>
+      </div>
+      <app-notification-front></app-notification-front>
+      <button
+        type="submit"
+        pButton
+        pRipple
+        [label]="reqAlertaExiste ? 'Atualizar' : 'Enviar'"
+        class="p-button-primary"
+      ></button>
+    </form>
+  </div>
+  <figure>
+    <img src="horaConfigFigura.svg" alt="horaConfigFigura">
+  </figure>
 </div>

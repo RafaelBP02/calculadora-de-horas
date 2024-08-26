@@ -17,6 +17,11 @@
   color: #3B82F6;
 }
 
+.config-pagina{
+  display: flex;
+  flex-direction: row;
+}
+
 .estilo-forms{
   min-width: 60%;
   margin-top: 2vh;
@@ -30,7 +35,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 .titulo h1{
   display: flex;
