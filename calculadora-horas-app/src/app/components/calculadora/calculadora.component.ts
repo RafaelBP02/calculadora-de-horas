@@ -156,8 +156,8 @@ export class CalculadoraComponent implements OnInit {
       Math.abs(horaSaida.getMinutes() - fimIntervalo.getMinutes())
     );
     cargaHorariaRestante.setHours(
-      cargaHorariaRestante.getHours() -
-        Math.abs(horaSaida.getHours() - fimIntervalo.getHours())
+      Math.max(0, cargaHorariaRestante.getHours() -
+        Math.abs(horaSaida.getHours() - fimIntervalo.getHours()))
     );
 
     this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
@@ -167,9 +167,8 @@ export class CalculadoraComponent implements OnInit {
         inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
       inicioIntervalo.setHours(
-        inicioIntervalo.getHours()
+        horaSaida.getHours() - this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
       );
-
 
       this.horarioCalculado = inicioIntervalo;
     } else {
