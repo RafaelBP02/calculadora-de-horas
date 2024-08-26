@@ -5,12 +5,14 @@
   </div>
   <h1>Calculadora de Horas</h1>
 </div>
+<br>
+<br>
 <div class="calculadora-pagina">
   <div class="caixa-calculadora">
-    <div>
+    <div class="btn-config">
       <i
         id="btnConfig"
-        class="pi pi-cog btn-config"
+        class="pi pi-cog"
         [routerLink]="['/notify-config']"
         pTooltip="permite configurar seus horarios de alerta"
       ></i>
@@ -93,8 +95,7 @@
           type="submit"
           pButton
           pRipple
-          label="calcular"
-          class="p-button-primary"
+          label="Calcular"
         ></button>
       </div>
     </form>
