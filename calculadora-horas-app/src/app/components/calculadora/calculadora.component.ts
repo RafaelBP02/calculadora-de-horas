@@ -25,10 +25,10 @@ export class CalculadoraComponent implements OnInit {
 
   calcFormData: FormGroup = new FormGroup({
     cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
-    entrada: new FormControl<string>(''),
+    entrada: new FormControl<string>('', Validators.required),
     inicioIntervalo: new FormControl<string>('', Validators.required),
     fimIntervalo: new FormControl<string>('', Validators.required),
-    saida: new FormControl<string>(''),
+    saida: new FormControl<string>('', Validators.required),
   });
 
   visible: boolean = false;
@@ -58,6 +58,8 @@ export class CalculadoraComponent implements OnInit {
         campoEntrada.setValidators(Validators.required)
       } else if (!value && campoSaida?.disabled) {
         campoSaida.enable({ emitEvent: false });
+        campoSaida.setValidators(Validators.required);
+
       }
     });
 
@@ -68,6 +70,7 @@ export class CalculadoraComponent implements OnInit {
         campoSaida.setValidators(Validators.required)
       } else if (!value && campoEntrada?.disabled) {
         campoEntrada.enable({ emitEvent: false });
+        campoEntrada.setValidators(Validators.required);
       }
     });
   }
