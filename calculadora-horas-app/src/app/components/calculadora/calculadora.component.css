@@ -46,7 +46,7 @@ h1{
   font-size: 1.5rem;
   color: #355AAD;
 }
-.btn-config:hover > i{
+.btn-config > i:hover{
   cursor: pointer;
   color: #bcd9e8;
 }
