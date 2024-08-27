@@ -2,7 +2,7 @@
   <div *ngIf="horaExcedida" class="horas-alerta">
     <p>Hora trabalhada excedida!</p>
   </div>
-  <div class="horas-texto">
+  <div *ngIf="!horaExcedida" class="horas-texto">
     <p>{{ horaFinal | date : "HH:mm" }}</p>
   </div>
 </div>
