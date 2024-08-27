@@ -51,6 +51,8 @@ h1{
   color: #bcd9e8;
 }
 
+
+
 .caixa-calculadora {
   min-width: 25rem;
   min-height: 30rem;
@@ -73,6 +75,7 @@ h1{
 .calculadora-pagina{
   display: flex;
   flex-direction: row;
+
   gap: 5rem;
 }
 
@@ -93,9 +96,18 @@ h1{
   align-items: center;
   gap: 15rem;
 }
+.titulo > div {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+}
 .titulo:hover > div > span{
   cursor: pointer;
 }
 .titulo:hover > div > i{
   cursor: pointer;
 }
+
