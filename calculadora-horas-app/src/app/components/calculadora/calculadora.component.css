@@ -33,8 +33,8 @@ h1{
   border-color: #365cad;
 }
 .btn-caixa ::ng-deep > p-button > button {
-  background-color: #bcd9e8;
-  border-color: #bcd9e8;
+  background-color: #6694ff;
+  border-color: #6694ff;
 }
 
 .btn-config{
