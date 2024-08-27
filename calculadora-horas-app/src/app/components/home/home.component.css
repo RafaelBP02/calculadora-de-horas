@@ -1,7 +1,7 @@
 h1{
   font-style: normal;
   font-weight: 500;
-  font-size: 55px;
+  font-size: 40px;
   line-height: 82px;
   letter-spacing: -0.02em;
 
@@ -14,8 +14,6 @@ h1{
 
   display: flex;
   flex-direction: row;
-
-  gap: 12rem;
 }
 
 .caixa-btns{
