@@ -59,10 +59,9 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 0.2rem;
   box-sizing: inherit;
   position: relative;
-  gap: 1rem;
 }
 
 .angular-logo {
