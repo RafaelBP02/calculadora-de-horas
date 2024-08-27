@@ -8,26 +8,29 @@
       pTooltip="permite configurar seus horarios de alerta"
     ></i>
   </div>
-  <form class="form-config">
+  <form
+    class="form-config alertas"
+    [formGroup]="calcFormData"
+    (ngSubmit)="calcularHoraio($event)"
+  >
     <p-dropdown
-      styleClass="dropdown-config"
       id="workloadDropDown"
+      styleClass="dropdown-config"
+      formControlName="cargaHorariaSelecionada"
       [options]="cargasHorarias"
-      [(ngModel)]="cargaSelecionada"
-      [ngModelOptions]="{ standalone: true }"
       optionLabel="valor"
-      placeholder="Selecione uma carga horaria"
+      placeholder="Selecione sua carga horaria"
     />
     <p-inputGroup>
       <p-inputGroupAddon class="form-input">Entrada</p-inputGroupAddon>
-      <input
-        id="entrada"
-        type="time"
-        pInputText
-        name="entrada"
-        [(ngModel)]="calcFormData.entrada"
-      />
+      <input id="entrada" type="time" pInputText formControlName="entrada" />
     </p-inputGroup>
+    <span
+      *ngIf=" calcFormData.get('entrada')?.touched &&
+                calcFormData.get('entrada')?.errors?.['required']"
+    >
+      Digitar entrada ou saída!
+    </span>
     <p-inputGroup>
       <p-inputGroupAddon class="form-input"
         >Inicio do Intervalo</p-inputGroupAddon
@@ -36,39 +39,66 @@
         id="inicioInt"
         type="time"
         pInputText
-        name="inicioIntervalo"
-        [(ngModel)]="calcFormData.inicioIntervalo"
+        formControlName="inicioIntervalo"
       />
     </p-inputGroup>
+    <span
+      *ngIf=" calcFormData.get('inicioIntervalo')?.touched &&
+                calcFormData.get('inicioIntervalo')?.errors?.['required']"
+    >
+      Campo obrigatório!
+    </span>
     <p-inputGroup>
       <p-inputGroupAddon class="form-input">Fim do Intervalo</p-inputGroupAddon>
       <input
         id="fimInt"
         type="time"
         pInputText
-        name="fimIntervalo"
-        [(ngModel)]="calcFormData.fimIntervalo"
+        formControlName="fimIntervalo"
       />
     </p-inputGroup>
+    <span
+      *ngIf=" calcFormData.get('fimIntervalo')?.touched &&
+                calcFormData.get('fimIntervalo')?.errors?.['required']"
+    >
+      Campo obrigatório!
+    </span>
+    <p-inputGroup>
+      <p-inputGroupAddon class="form-input">Saída</p-inputGroupAddon>
+      <input id="saida" type="time" pInputText formControlName="saida" />
+    </p-inputGroup>
+    <span
+      *ngIf=" calcFormData.get('saida')?.touched &&
+                calcFormData.get('saida')?.errors?.['required']"
+    >
+      Digitar entrada ou saída!
+    </span>
+    <div class="btn-caixa">
+      <p-button
+        id="btnApagar"
+        severity="secondary"
+        (onClick)="limparFormulario()"
+        >Apagar</p-button
+      >
+      <button
+        type="submit"
+        pButton
+        pRipple
+        label="calcular"
+        class="p-button-primary"
+      ></button>
+    </div>
   </form>
-  <div class="btn-caixa">
-    <p-button id="btnApagar" severity="secondary" (onClick)="cancelarOperacao()"
-      >Apagar</p-button
-    >
-    <p-button id="btnCalcular" severity="primary" (onClick)="calcularHoraio()"
-      >Calcular</p-button
-    >
-  </div>
 </div>
 <p-dialog
-  header="Hora de Saída"
+  [header]="mensagemDialogo"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '35rem' }"
   [draggable]="false"
 >
   <app-calc-result-dialog
-    [horaFinal]="horarioSaida"
+    [horaFinal]="horarioCalculado"
     [horaExcedida]="horaExcedida"
   ></app-calc-result-dialog>
 </p-dialog>

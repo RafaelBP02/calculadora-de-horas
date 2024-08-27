@@ -1,4 +1,4 @@
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LOCALE_ID, NgModule } from '@angular/core';

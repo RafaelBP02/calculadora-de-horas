@@ -1,12 +1,14 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilitariosService } from './../../services/utilitarios/utilitarios.service';
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 export interface DuracaoTrabalho {
   nome: string;
   valor: number;
 }
 
-interface Calculadora{
+interface Calculadora {
   entrada: string;
   inicioIntervalo: string;
   fimIntervalo: string;
@@ -17,70 +19,126 @@ interface Calculadora{
   styleUrl: './calculadora.component.css',
 })
 export class CalculadoraComponent implements OnInit {
+  mensagemDialogo: string = 'Horario calculado';
   cargasHorarias: DuracaoTrabalho[] = [];
-  cargaSelecionada!: DuracaoTrabalho;
+  horarioCalculado: Date = new Date();
 
-  horarioSaida: Date = new Date();
-  calcFormData: Calculadora = {
-    entrada: '',
-    inicioIntervalo: '',
-    fimIntervalo: ''
-  };
+  calcFormData: FormGroup = new FormGroup({
+    cargaHorariaSelecionada: new FormControl<DuracaoTrabalho | null>(null,Validators.required),
+    entrada: new FormControl<string>('', Validators.required),
+    inicioIntervalo: new FormControl<string>('', Validators.required),
+    fimIntervalo: new FormControl<string>('', Validators.required),
+    saida: new FormControl<string>('', Validators.required),
+  });
 
   visible: boolean = false;
   horaExcedida: boolean = false;
 
-  constructor() {}
-  ngOnInit() {
+  constructor() {
     this.cargasHorarias = [
-      { nome: '8 horas', valor: 8},
-      { nome: '6 horas', valor: 6},
-      { nome: '4 horas', valor: 4},
+      { nome: '8 horas', valor: 8 },
+      { nome: '6 horas', valor: 6 },
+      { nome: '4 horas', valor: 4 },
     ];
+
+    this.inicializarControles();
+  }
+
+  ngOnInit() {}
+
+  inicializarControles() {
+    const campoEntrada = this.calcFormData.get('entrada');
+    const campoSaida = this.calcFormData.get('saida');
+
+    // Verifica qual desses 2 campos esta preenchido para desativar o outro
+    campoEntrada?.valueChanges.subscribe(value => {
+      if (value && campoSaida?.enabled) {
+        campoSaida.disable({ emitEvent: false });
+        campoSaida.setValidators(null);
+        campoEntrada.setValidators(Validators.required)
+      } else if (!value && campoSaida?.disabled) {
+        campoSaida.enable({ emitEvent: false });
+        campoSaida.setValidators(Validators.required);
+
+      }
+    });
+
+    campoSaida?.valueChanges.subscribe(value => {
+      if (value && campoEntrada?.enabled) {
+        campoEntrada.disable({ emitEvent: false });
+        campoEntrada.setValidators(null);
+        campoSaida.setValidators(Validators.required)
+      } else if (!value && campoEntrada?.disabled) {
+        campoEntrada.enable({ emitEvent: false });
+        campoEntrada.setValidators(Validators.required);
+      }
+    });
   }
 
   displayDialog(): void {
     this.visible = true;
   }
 
-  calcularHoraio(): void {
-    // Calculo realizado para uma carga horária de oito horas diarias
-    let cargaHorariaRestante: Date = new Date();
-    let horaEntrada: Date = UtilitariosService.converteStringParaDate(
-      this.calcFormData.entrada
-    );
-    let inicioIntervalo: Date = UtilitariosService.converteStringParaDate(
-      this.calcFormData.inicioIntervalo
-    );
-    let fimIntervalo: Date = UtilitariosService.converteStringParaDate(
-      this.calcFormData.fimIntervalo
-    );
+  calcularHoraio(event: Event) {
+    event.preventDefault();
 
-    cargaHorariaRestante.setHours(this.cargaSelecionada.valor);
+    let cargaHorariaRestante: Date = new Date();
+    cargaHorariaRestante.setHours(
+      this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
+    );
     cargaHorariaRestante.setMinutes(0);
     cargaHorariaRestante.setSeconds(0);
 
+    let horaEntrada: Date = UtilitariosService.converteStringParaDate(
+      `${this.calcFormData.get('entrada')?.value}`
+    );
+    let inicioIntervalo: Date = UtilitariosService.converteStringParaDate(
+      `${this.calcFormData.get('inicioIntervalo')?.value}`
+    );
+    let fimIntervalo: Date = UtilitariosService.converteStringParaDate(
+      `${this.calcFormData.get('fimIntervalo')?.value}`
+    );
+    let horaSaida: Date = UtilitariosService.converteStringParaDate(
+      `${this.calcFormData.get('saida')?.value}`
+    );
+
+    this.calcFormData.get('entrada')?.enabled
+      ? this.calculaHorarioSaida(cargaHorariaRestante, horaEntrada, inicioIntervalo, fimIntervalo)
+      : this.calculaHorarioEntrada(cargaHorariaRestante ,inicioIntervalo, fimIntervalo, horaSaida);
+
+    if (this.calcFormData.valid) {
+      this.displayDialog();
+    } else {
+      this.calcFormData.markAllAsTouched();
+      console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
+    }
+  }
+
+  limparFormulario(): void {
+    this.calcFormData.reset();
+    this.inicializarControles();
+  }
+
+  calculaHorarioSaida(cargaHorariaRestante: Date, horaEntrada: Date, inicioIntervalo: Date, fimIntervalo: Date): void{
     cargaHorariaRestante.setMinutes(
       Math.abs(horaEntrada.getMinutes() - inicioIntervalo.getMinutes())
     );
     cargaHorariaRestante.setHours(
-      cargaHorariaRestante.getHours() -
-        Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours())
+      Math.max(0, cargaHorariaRestante.getHours() -
+        Math.abs(horaEntrada.getHours() - inicioIntervalo.getHours()))
     );
 
-    this.horaExcedida = (cargaHorariaRestante.getHours() <= 0);
+    this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
 
     if (this.horaExcedida) {
-      //Caso o usuario exceda sua hora de trabalho, não deve ser levado em consideração o tempo de fim do intervalo
-      inicioIntervalo.setHours(
-        inicioIntervalo.getHours() + cargaHorariaRestante.getHours()
-      );
-      inicioIntervalo.setMinutes(
+      fimIntervalo.setMinutes(
         inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
+      fimIntervalo.setHours(
+        horaEntrada.getHours() + this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
+      );
 
-      this.horarioSaida = inicioIntervalo;
-
+      this.horarioCalculado = fimIntervalo;
     } else {
       //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
       fimIntervalo.setHours(
@@ -90,19 +148,44 @@ export class CalculadoraComponent implements OnInit {
         fimIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
       );
 
-      this.horarioSaida = fimIntervalo;
+      this.horarioCalculado = fimIntervalo;
+      this.mensagemDialogo = 'Horário de Saída'
     }
 
-    this.displayDialog();
   }
 
-  cancelarOperacao(): void {
-    this.calcFormData = {
-      entrada: '',
-      inicioIntervalo: '',
-      fimIntervalo: ''
-    };
+  calculaHorarioEntrada(cargaHorariaRestante: Date ,inicioIntervalo: Date, fimIntervalo: Date, horaSaida: Date ): void{
+    cargaHorariaRestante.setMinutes(
+      Math.abs(horaSaida.getMinutes() - fimIntervalo.getMinutes())
+    );
+    cargaHorariaRestante.setHours(
+      Math.max(0, cargaHorariaRestante.getHours() -
+        Math.abs(horaSaida.getHours() - fimIntervalo.getHours()))
+    );
+
+    this.horaExcedida = cargaHorariaRestante.getHours() <= 0;
+
+    if (this.horaExcedida) {
+      inicioIntervalo.setMinutes(
+        inicioIntervalo.getMinutes() + cargaHorariaRestante.getMinutes()
+      );
+      inicioIntervalo.setHours(
+        horaSaida.getHours() - this.calcFormData.get('cargaHorariaSelecionada')?.value?.valor
+      );
+
+      this.horarioCalculado = inicioIntervalo;
+    } else {
+      //Caso a hora excedida permaneça false, o calculo do horario de saida segue normalmente
+      inicioIntervalo.setHours(
+        inicioIntervalo.getHours() - cargaHorariaRestante.getHours()
+      );
+      inicioIntervalo.setMinutes(
+        inicioIntervalo.getMinutes() - cargaHorariaRestante.getMinutes()
+      );
+    }
+
+    this.horarioCalculado = inicioIntervalo;
+    this.mensagemDialogo = 'Horário de Entrada'
+
   }
-
-
 }
