@@ -24,6 +24,7 @@ import { NotificationFrontComponent } from './components/notification-front/noti
 import { UtilitariosService } from './services/utilitarios/utilitarios.service';
 import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { HomeComponent } from './components/home/home.component';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -31,6 +32,7 @@ registerLocaleData(ptBr);
     AppComponent,
     CalculadoraComponent,
     CalcResultDialogComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
