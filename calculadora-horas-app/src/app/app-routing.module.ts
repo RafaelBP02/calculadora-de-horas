@@ -5,8 +5,9 @@ import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  { path: 'calculadora', component: CalculadoraComponent},
-  {path: 'notify-config', loadChildren: () => import('./modules/notify-config/notify-config.module').then(m => m.NotifyConfigModule)}
+  {path: 'calculadora', component: CalculadoraComponent},
+  {path: 'notify-config', loadChildren: () => import('./modules/notify-config/notify-config.module').then(m => m.NotifyConfigModule)},
+  {path: 'autenticacao', loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule)}
 ];
 
 @NgModule({
