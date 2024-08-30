@@ -1,1 +1,52 @@
-<p>login works!</p>
+<div>
+  <div [routerLink]="['']">
+    <i class="pi pi-angle-left"></i>
+    <span>Voltar</span>
+  </div>
+  <h1>Faça seu Login</h1>
+  <br />
+  <div class="login">
+    <figure>
+      <img src="homeFigure.svg" alt="homeFigure" width="90%" />
+    </figure>
+    <div class="login-form">
+      <form
+        class="estilo-forms alertas"
+        [formGroup]="loginForm"
+        (ngSubmit)="logarUsuario($event)"
+      >
+        <div>
+          <p-inputGroup>
+            <p-inputGroupAddon class="form-input"> Usuario </p-inputGroupAddon>
+            <input type="text" pInputText formControlName="usuario" />
+          </p-inputGroup>
+          <span
+            *ngIf=" loginFormControl.usuario.touched
+                && loginFormControl.usuario.errors?.['required']"
+          >
+            Campo obrigatório!
+          </span>
+        </div>
+        <div>
+          <p-inputGroup>
+            <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
+            <input type="text" pInputText formControlName="senha" />
+          </p-inputGroup>
+          <span
+            *ngIf=" loginFormControl.senha.touched
+                && loginFormControl.senha.errors?.['required']"
+          >
+            Campo obrigatório!
+          </span>
+        </div>
+        <button
+          type="submit"
+          pButton
+          pRipple
+          label="Login"
+          class="p-button-primary"
+        ></button>
+      </form>
+    </div>
+  </div>
+</div>
