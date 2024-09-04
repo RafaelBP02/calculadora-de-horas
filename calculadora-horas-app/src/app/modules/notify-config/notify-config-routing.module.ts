@@ -16,6 +16,8 @@ import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { NotificationFrontComponent } from '../../components/notification-front/notification-front.component';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from '../../request-interceptor.interceptor';
 
 const routes: Routes = [
   {

@@ -1,3 +1,4 @@
+import { BrowserStorageService } from './../../services/browser-storage/browser-storage.service';
 import { UtilitariosService } from './../../services/utilitarios/utilitarios.service';
 import { AutorizacaoService, loginUsuario } from './../../services/autorizacao/autorizacao.service';
 import { Component } from '@angular/core';
@@ -10,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
 
-  constructor(private autorizacaoService: AutorizacaoService){}
+  constructor(private autorizacaoService: AutorizacaoService, private browserStorageService:BrowserStorageService){}
 
   loginForm = new FormGroup({
     usuario: new FormControl<string>('', Validators.required),
@@ -43,9 +44,10 @@ export class LoginComponent {
     };
     this.autorizacaoService.efetuarLogin(usuario).subscribe({
       next: (bearearToken) => {
-        UtilitariosService.setToken(bearearToken.token);
+        this.browserStorageService.set(BrowserStorageService.storageBearerId, bearearToken.token);
         console.log('bem vindo');
-        console.log('bearer: ' + UtilitariosService.getToken());
+
+        console.log('bearer: ' + this.browserStorageService.get(BrowserStorageService.storageBearerId));
       },
       error: (e: any) => {
         console.error('Erro ao efetuar login:', e);
