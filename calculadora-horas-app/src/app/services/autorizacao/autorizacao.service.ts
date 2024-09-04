@@ -9,6 +9,10 @@ export interface loginUsuario{
   password: string
 }
 
+export interface loginToken{
+  token: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +21,7 @@ export class AutorizacaoService {
   constructor(private http:HttpClient) { }
 
   //deve retornar o bearer token
-  efetuarLogin(login: loginUsuario):Observable<string>{
-    return this.http.post<string>(API_ENDPOINTS.LOGIN, login);
+  efetuarLogin(login: loginUsuario):Observable<loginToken>{
+    return this.http.post<loginToken>(API_ENDPOINTS.LOGIN, login);
   }
 }

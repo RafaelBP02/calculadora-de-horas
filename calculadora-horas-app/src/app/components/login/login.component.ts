@@ -43,8 +43,9 @@ export class LoginComponent {
     };
     this.autorizacaoService.efetuarLogin(usuario).subscribe({
       next: (bearearToken) => {
-        UtilitariosService.setToken(bearearToken)
-        console.log('bem vindo')
+        UtilitariosService.setToken(bearearToken.token);
+        console.log('bem vindo');
+        console.log('bearer: ' + UtilitariosService.getToken());
       },
       error: (e: any) => {
         console.error('Erro ao efetuar login:', e);
