@@ -12,19 +12,19 @@ export class ConfigAlertaService {
   constructor(private http:HttpClient) { }
 
   adicionarAlerta(dadosAlerta:ConfigAlerta):Observable<ConfigAlerta>{
-    return this.http.post<ConfigAlerta>(API_ENDPOINTS.BACKEND_URL, dadosAlerta);
+    return this.http.post<ConfigAlerta>(API_ENDPOINTS.ALERTAS, dadosAlerta);
   }
 
   atualizarAlerta(dadosAlerta:ConfigAlerta):Observable<ConfigAlerta>{
-    return this.http.put<ConfigAlerta>(API_ENDPOINTS.BACKEND_URL, dadosAlerta);
+    return this.http.put<ConfigAlerta>(API_ENDPOINTS.ALERTAS, dadosAlerta);
   }
 
   selecionarTodosAlertas():Observable<ConfigAlerta[]>{
-    return this.http.get<ConfigAlerta[]>(API_ENDPOINTS.BACKEND_URL);
+    return this.http.get<ConfigAlerta[]>(API_ENDPOINTS.ALERTAS);
   }
 
   selecionarAlerta(id: number):Observable<ConfigAlerta>{
-    return this.http.get<ConfigAlerta>(API_ENDPOINTS.BACKEND_URL + '/' + id);
+    return this.http.get<ConfigAlerta>(API_ENDPOINTS.ALERTAS + '/' + id);
   }
 
 
