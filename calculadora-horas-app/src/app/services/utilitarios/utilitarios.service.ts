@@ -5,6 +5,7 @@ import { formatDate } from '@angular/common';
   providedIn: 'root'
 })
 export class UtilitariosService {
+  static idToken: string = 'token';
 
   constructor() { }
 
@@ -20,5 +21,18 @@ export class UtilitariosService {
 
     if (!value) return '';
     return formatDate(UtilitariosService.converteStringParaDate(value), 'HH:mm:ss', locale);
+  }
+
+
+  static setToken(token: string): void {
+    sessionStorage.setItem(this.idToken, token);
+  }
+
+  static getToken(): string | null {
+    return sessionStorage.getItem(this.idToken);
+  }
+
+  static removeToken(): void {
+    sessionStorage.removeItem(this.idToken);
   }
 }
