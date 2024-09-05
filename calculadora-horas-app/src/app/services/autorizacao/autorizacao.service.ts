@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { API_ENDPOINTS } from '../api-endpoints';
 import { Observable } from 'rxjs';
 import { BrowserStorageService } from '../browser-storage/browser-storage.service';
-
+import { jwtDecode } from "jwt-decode";
 
 export interface loginUsuario{
   username: string,
@@ -12,6 +12,12 @@ export interface loginUsuario{
 
 export interface loginToken{
   token: string
+}
+
+export interface decodedJwt{
+  iss: string,
+  sub: string,
+  exp: number
 }
 
 @Injectable({
@@ -26,7 +32,21 @@ export class AutorizacaoService {
     return this.http.post<loginToken>(API_ENDPOINTS.LOGIN, login);
   }
 
-  autenticado():boolean {
-    return this.browserStorageService.get(BrowserStorageService.storageBearerId) !== null
+  autenticado(): boolean {
+    const token = this.browserStorageService.get(BrowserStorageService.storageBearerId);
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const jwtPayload: decodedJwt = jwtDecode<decodedJwt>(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      console.log(jwtPayload.exp + ' e ' + currentTime);
+
+      return jwtPayload.exp > currentTime;
+    } catch (error) {
+      console.error('Erro ao decodificar o JWT:', error);
+      return false;
+    }
   }
 }
