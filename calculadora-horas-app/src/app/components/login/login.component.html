@@ -1,51 +1,51 @@
 <div>
-  <div [routerLink]="['']">
-    <i class="pi pi-angle-left"></i>
-    <span>Voltar</span>
+  <div class="titulo">
+    <div class="voltar" [routerLink]="['']">
+      <i class="pi pi-angle-left"></i>
+      <span>Voltar</span>
+    </div>
+    <h1>Faça seu Login</h1>
   </div>
-  <h1>Faça seu Login</h1>
   <br />
   <div class="login">
     <figure>
       <img src="homeFigure.svg" alt="homeFigure" width="90%" />
     </figure>
-    <div class="login-form">
+    <div class="caixa-calculadora">
       <form
-        class="estilo-forms alertas"
+        class="form-config alertas"
         [formGroup]="loginForm"
         (ngSubmit)="logarUsuario($event)"
       >
-        <div>
-          <p-inputGroup>
-            <p-inputGroupAddon class="form-input"> Usuario </p-inputGroupAddon>
-            <input type="text" pInputText formControlName="usuario" />
-          </p-inputGroup>
-          <span
-            *ngIf=" loginFormControl.usuario.touched
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Usuario </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="usuario" />
+        </p-inputGroup>
+        <span
+          *ngIf=" loginFormControl.usuario.touched
                 && loginFormControl.usuario.errors?.['required']"
-          >
-            Campo obrigatório!
-          </span>
-        </div>
-        <div>
-          <p-inputGroup>
-            <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
-            <input type="text" pInputText formControlName="senha" />
-          </p-inputGroup>
-          <span
-            *ngIf=" loginFormControl.senha.touched
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="senha" />
+        </p-inputGroup>
+        <span
+          *ngIf=" loginFormControl.senha.touched
                 && loginFormControl.senha.errors?.['required']"
-          >
-            Campo obrigatório!
-          </span>
+        >
+          Campo obrigatório!
+        </span>
+        <div class="btn-caixa">
+          <button
+            type="submit"
+            pButton
+            pRipple
+            label="Login"
+            class="p-button-primary"
+          ></button>
         </div>
-        <button
-          type="submit"
-          pButton
-          pRipple
-          label="Login"
-          class="p-button-primary"
-        ></button>
       </form>
     </div>
   </div>

@@ -55,7 +55,8 @@ h1{
 
 .caixa-calculadora {
   min-width: 22rem;
-  min-height: 26rem;
+  height: fit-content;
+  /* min-height: 26rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
