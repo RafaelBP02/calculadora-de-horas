@@ -26,6 +26,7 @@ h1{
 
 .voltar {
   display: flex;
+  align-items: center;
 }
 .voltar:hover{
   cursor: pointer;
