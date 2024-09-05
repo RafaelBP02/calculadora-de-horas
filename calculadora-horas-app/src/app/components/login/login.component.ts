@@ -3,6 +3,7 @@ import { UtilitariosService } from './../../services/utilitarios/utilitarios.ser
 import { AutorizacaoService, loginUsuario } from './../../services/autorizacao/autorizacao.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent {
 
-  constructor(private autorizacaoService: AutorizacaoService, private browserStorageService:BrowserStorageService){}
+  constructor(private autorizacaoService: AutorizacaoService, private browserStorageService:BrowserStorageService, private router: Router){}
 
   loginForm = new FormGroup({
     usuario: new FormControl<string>('', Validators.required),
@@ -53,6 +54,11 @@ export class LoginComponent {
         console.error('Erro ao efetuar login:', e);
 
       },
+      complete: () => {
+        if (this.autorizacaoService.autenticado()) {
+          this.router.navigate(['/']);
+        }
+      }
     });
   }
 
