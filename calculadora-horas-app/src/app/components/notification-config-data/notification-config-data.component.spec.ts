@@ -247,14 +247,14 @@ describe('NotificationConfigDataComponent', () => {
     it('deve selecionar um alerta especifico', () => {
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === 'http://localhost:8080/1' && data.method === 'GET'
+          data.url === `${API_ENDPOINTS.ALERTAS}/1` && data.method === 'GET'
       );
 
       request.flush(mockOneAlert);
 
       expect(request.request.responseType).toBe('json');
       expect(request.request.method).toBe('GET');
-      expect(request.request.url).toBe('http://localhost:8080/1');
+      expect(request.request.url).toBe(`${API_ENDPOINTS.ALERTAS}/1`);
 
       expect(component.horariosForm.controls.cargaHorariaSelecionada.value?.valor).toEqual(mockOneAlert.workload);
       expect(component.horariosForm.controls.inicioExpediente.value).toEqual(mockOneAlert.workEntry);

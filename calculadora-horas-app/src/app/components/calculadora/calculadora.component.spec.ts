@@ -76,7 +76,7 @@ describe('CalculadoraComponent', () => {
   it('deve carregar o dropdown', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('span')?.textContent).toContain('Selecione sua carga horaria');
+    expect(compiled.querySelector('#workloadDropDown>span')?.textContent).toContain('Selecione sua carga horaria');
   });
 
   describe('teste dos inputs da aplicação', () => {
