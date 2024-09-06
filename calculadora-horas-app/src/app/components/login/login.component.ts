@@ -23,11 +23,7 @@ export class LoginComponent {
     event.preventDefault();
 
     if (this.loginForm.valid) {
-      try {
-        this.configuraHeadersAutorizacao();
-      } catch (error) {
-        console.log('Este usuario nao existe')
-      }
+      this.configuraHeadersAutorizacao();
     } else {
       this.loginForm.markAllAsTouched();
       console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');

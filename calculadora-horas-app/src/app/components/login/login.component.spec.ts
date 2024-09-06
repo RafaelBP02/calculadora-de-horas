@@ -12,6 +12,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { API_ENDPOINTS } from '../../services/api-endpoints';
+import { Router } from 'express';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -66,7 +67,7 @@ describe('LoginComponent', () => {
 
   });
 
-  it('deve enviar o fromulario', () => {
+  it('deve enviar o formulario', () => {
     let btnEnviar: HTMLButtonElement = fixture.debugElement.query(
       By.css('#btnLogin')
     ).nativeElement;
@@ -89,5 +90,31 @@ describe('LoginComponent', () => {
     }));
 
     request.flush(0);
+  });
+
+  it('deve tratar o erro do formulario', () => {
+    const consoleErrorSpy = spyOn(console, 'error').and.callThrough();
+
+    let btnEnviar: HTMLButtonElement = fixture.debugElement.query(
+      By.css('#btnLogin')
+    ).nativeElement;
+
+    component.loginForm.controls.usuario.setValue('fakeUser');
+    component.loginForm.controls.senha.setValue('fakePass');
+
+    fixture.detectChanges();
+
+    btnEnviar.click();
+
+    const request = httpTestingController.expectOne(
+      (data) =>
+        data.url === API_ENDPOINTS.LOGIN && data.method === 'POST'
+    );
+
+    request.flush('Login failed', { status: 401, statusText: 'Unauthorized' });
+
+    fixture.detectChanges();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Erro ao efetuar login:', jasmine.any(Object));
   });
 });
