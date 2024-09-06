@@ -11,17 +11,23 @@ h1{
 
 }
 
+figure ::ng-deep{
+
+  display: contents;
+  unicode-bidi: normal;
+}
+
 .login{
   width: 100%;
 
   display: flex;
   flex-direction: row;
+  gap: 10rem;
 }
 
 .titulo{
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
 .voltar {
