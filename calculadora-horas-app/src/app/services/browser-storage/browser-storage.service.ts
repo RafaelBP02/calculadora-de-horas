@@ -19,4 +19,7 @@ export class BrowserStorageService {
   set(key: string, value: string) {
     this.storage.setItem(key, value);
   }
+  cleanMemory(key: string):void {
+    this.storage.removeItem(key)
+  }
 }

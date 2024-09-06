@@ -8,7 +8,8 @@
     <div class="caixa-btns">
       <p-button [routerLink]="['/calculadora']">Calculadora de Horas</p-button>
       <p-button *ngIf="usuarioLogado()" [routerLink]="['/notify-config']">Configurar Horarios</p-button>
-      <p-button [routerLink]="['/autenticacao/login']">Login</p-button>
+      <p-button *ngIf="!usuarioLogado()" [routerLink]="['/autenticacao/login']">Login</p-button>
+      <p-button *ngIf="usuarioLogado()" (onClick)="deslogarUsuario()">Logout</p-button>
     </div>
   </div>
 </div>
