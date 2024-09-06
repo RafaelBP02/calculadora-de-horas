@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserStorageService } from '../browser-storage/browser-storage.service';
 
 describe('AutorizacaoService', () => {
+  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IkNlYm9saW5oYSIsImV4cCI6MTcyNTQ2OTY0OX0.2U6q8qvFKDX1kh274jp0A3H6vZWDwB5CRQB_qu0PFo8';
   let service: AutorizacaoService;
   let browserStorageService:BrowserStorageService
 
@@ -27,17 +28,6 @@ describe('AutorizacaoService', () => {
     expect(service).toBeTruthy();
   });
 
-  // it('nao deve liberar a rota', () => {
-  //   spyOn(service, 'canActivate').and.callThrough();
-  //   spyOn(autorizacaoService, 'autenticado').and.returnValue(false);
-
-  //   let mudarRota: boolean;
-
-  //   mudarRota = service.canActivate();
-
-  //   expect(mudarRota).toBeFalsy();
-  // });
-
   it('nao deve autenticar', () => {
       let autenticar: boolean;
 
@@ -46,4 +36,13 @@ describe('AutorizacaoService', () => {
       autenticar = service.autenticado();
       expect(autenticar).toBeFalsy();
   })
+
+  it('deve validar o token', () => {
+    let autenticar: boolean;
+
+    spyOn(browserStorageService, 'get').and.returnValue(token);
+
+    autenticar = service.autenticado();
+    expect(autenticar).toBeFalsy();
+});
 });
