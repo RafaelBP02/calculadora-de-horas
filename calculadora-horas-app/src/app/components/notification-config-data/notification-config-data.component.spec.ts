@@ -133,7 +133,6 @@ describe('NotificationConfigDataComponent', () => {
   });
 
   describe('Requisicoes API', () => {
-    beforeEach(() => {});
 
     it('deve selecionar todas as configuracoes de alertas', () => {
       const request = httpTestingController.expectOne(
