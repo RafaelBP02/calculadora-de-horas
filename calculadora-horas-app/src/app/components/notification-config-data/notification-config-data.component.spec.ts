@@ -138,7 +138,7 @@ describe('NotificationConfigDataComponent', () => {
     it('deve selecionar todas as configuracoes de alertas', () => {
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'GET'
+          data.url === API_ENDPOINTS.ALERTAS && data.method === 'GET'
       );
 
       request.flush(mockAllAlerts);
@@ -186,7 +186,7 @@ describe('NotificationConfigDataComponent', () => {
 
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'POST'
+          data.url === API_ENDPOINTS.ALERTAS && data.method === 'POST'
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
@@ -228,7 +228,7 @@ describe('NotificationConfigDataComponent', () => {
 
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'PUT'
+          data.url === API_ENDPOINTS.ALERTAS && data.method === 'PUT'
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
