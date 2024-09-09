@@ -33,6 +33,7 @@ import { UtilitariosService } from './services/utilitarios/utilitarios.service';
 import { ToastModule } from 'primeng/toast';
 import { HomeComponent } from './components/home/home.component';
 import { RequestInterceptor } from './request-interceptor.interceptor';
+import { HeaderComponent } from './components/header/header.component';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -41,6 +42,7 @@ registerLocaleData(ptBr);
     CalculadoraComponent,
     CalcResultDialogComponent,
     HomeComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
