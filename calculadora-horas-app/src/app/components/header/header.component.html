@@ -1,5 +1,10 @@
-<div>
+<div class="app-header">
   <div *ngIf="mostraNomeUsuario()">
-    <p>{{mensagemLogin}}</p>
+    <div>
+      <p>{{ mensagemLogin }}</p>
+    </div>
+    <figure>
+      <i id="userFig" class="pi pi-user"></i>
+    </figure>
   </div>
 </div>
