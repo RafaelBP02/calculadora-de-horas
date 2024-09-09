@@ -24,6 +24,7 @@ export interface decodedJwt{
   providedIn: 'root'
 })
 export class AutorizacaoService {
+  decodedUser: string = '';
 
   constructor(private http:HttpClient, private browserStorageService:BrowserStorageService) { }
 
@@ -41,6 +42,8 @@ export class AutorizacaoService {
     try {
       const jwtPayload: decodedJwt = jwtDecode<decodedJwt>(token);
       const currentTime = Math.floor(Date.now() / 1000);
+
+      this.decodedUser = jwtPayload.sub;
 
       return jwtPayload.exp > currentTime;
     } catch (error) {

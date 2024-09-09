@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AutorizacaoService } from '../../services/autorizacao/autorizacao.service';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  mensagemLogin: string = '';
+
+  constructor(private autorizacaoService: AutorizacaoService){}
+
+  mostraNomeUsuario():boolean{
+    const logado: boolean = this.autorizacaoService.autenticado();
+    if(logado)
+      this.mensagemLogin = `Bem vindo ${this.autorizacaoService.decodedUser}!`
+    return logado;
+  }
 
 }
