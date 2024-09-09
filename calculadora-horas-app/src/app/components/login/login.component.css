@@ -17,6 +17,10 @@ figure ::ng-deep{
   unicode-bidi: normal;
 }
 
+.caixa-calculadora{
+  flex-grow: 0.5;
+}
+
 .login{
   width: 100%;
 
