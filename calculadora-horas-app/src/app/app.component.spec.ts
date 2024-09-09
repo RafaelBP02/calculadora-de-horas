@@ -20,6 +20,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { HeaderComponent } from './components/header/header.component';
 
 describe('AppComponent', () => {
   let app: AppComponent;
@@ -46,6 +47,7 @@ describe('AppComponent', () => {
 
       ],
       declarations: [
+        HeaderComponent,
         AppComponent,
         CalculadoraComponent,
         CalcResultDialogComponent,
