@@ -8,16 +8,17 @@ figure{
   justify-content: center;
   align-items: center;
 
-  background-color: gray;
+  background-color: #365cad;
   border-radius: 50%;
-
-
+}
+figure > i{
+  color: white;
 }
 
 p {
   margin: 0;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.5);
+  color: #365cad;
 }
 
 .app-header > div{

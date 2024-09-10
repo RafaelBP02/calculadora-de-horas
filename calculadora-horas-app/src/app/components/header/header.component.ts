@@ -14,7 +14,7 @@ export class HeaderComponent {
   mostraNomeUsuario():boolean{
     const logado: boolean = this.autorizacaoService.autenticado();
     if(logado)
-      this.mensagemLogin = `Bem Vindo ${this.autorizacaoService.decodedUser}!`
+      this.mensagemLogin = `Bem Vindo(a) ${this.autorizacaoService.decodedUser}!`
     return logado;
   }
 
