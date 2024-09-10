@@ -26,4 +26,16 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('deve retornar mensagem de logado', () => {
+    spyOn(autorizacaoService,'autenticado').and.returnValue(true);
+    autorizacaoService.decodedUser = 'fakeUser';
+
+    fixture.detectChanges();
+
+    expect(component.mostraNomeUsuario()).toBeTruthy;
+    fixture.detectChanges();
+
+    expect(component.mensagemLogin).toContain('fakeUser');
+  })
 });
