@@ -1,3 +1,5 @@
+import { BrowserStorageService } from './../../services/browser-storage/browser-storage.service';
+import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+
+  constructor(private autorizacaoService: AutorizacaoService, private browserStorageService:BrowserStorageService){}
+
+  usuarioLogado():boolean{
+    return this.autorizacaoService.autenticado();
+  }
+
+  deslogarUsuario():void{
+    this.browserStorageService.cleanMemory(BrowserStorageService.storageBearerId)
+  }
 
 }

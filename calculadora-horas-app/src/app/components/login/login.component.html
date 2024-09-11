@@ -1,0 +1,53 @@
+<div>
+  <div class="titulo">
+    <div class="voltar" [routerLink]="['']">
+      <i class="pi pi-angle-left"></i>
+      <span>Voltar</span>
+    </div>
+    <h1>Faça seu Login</h1>
+  </div>
+  <br />
+  <div class="login">
+    <figure>
+      <img src="loginFigure.svg" alt="loginFigure" width="45%" />
+    </figure>
+    <div class="caixa-calculadora">
+      <form
+        class="form-config alertas"
+        [formGroup]="loginForm"
+        (ngSubmit)="logarUsuario($event)"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Usuario </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="usuario" />
+        </p-inputGroup>
+        <span
+          *ngIf=" loginFormControl.usuario.touched
+                && loginFormControl.usuario.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
+          <input type="password" pInputText formControlName="senha" />
+        </p-inputGroup>
+        <span
+          *ngIf=" loginFormControl.senha.touched
+                && loginFormControl.senha.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <div class="btn-caixa">
+          <button
+            id="btnLogin"
+            type="submit"
+            pButton
+            pRipple
+            label="Login"
+            class="p-button-primary"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

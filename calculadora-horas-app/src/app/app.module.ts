@@ -2,8 +2,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import {ButtonModule} from 'primeng/button'
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
+import { ButtonModule } from 'primeng/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,15 +19,20 @@ import { CalcResultDialogComponent } from './components/calc-result-dialog/calc-
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { TooltipModule } from 'primeng/tooltip';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ConfigAlertaService } from './services/config-alerta.service';
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
-import { NotificationFrontComponent } from './components/notification-front/notification-front.component';
 import { UtilitariosService } from './services/utilitarios/utilitarios.service';
 import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 import { HomeComponent } from './components/home/home.component';
+import { RequestInterceptor } from './request-interceptor.interceptor';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -51,13 +59,14 @@ registerLocaleData(ptBr);
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     ConfigAlertaService,
     HttpClient,
     UtilitariosService,
     MessageService,
-    {provide: LOCALE_ID, useValue: 'pt',},
+    { provide: LOCALE_ID, useValue: 'pt' },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

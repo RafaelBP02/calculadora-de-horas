@@ -21,6 +21,7 @@ import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { By } from '@angular/platform-browser';
 import { of, timer } from 'rxjs';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { API_ENDPOINTS } from '../../services/api-endpoints';
 
 describe('NotificationFrontComponent', () => {
   let component: NotificationFrontComponent;
@@ -58,7 +59,7 @@ describe('NotificationFrontComponent', () => {
 
   it('deve receber o alerta configurado', () => {
     const request = httpTestingController.expectOne(
-      (data) => data.url === 'http://localhost:8080/2' && data.method === 'GET'
+      (data) => data.url === `${API_ENDPOINTS.ALERTAS}/2` && data.method === 'GET'
     );
 
     request.flush(mockOneAlert);

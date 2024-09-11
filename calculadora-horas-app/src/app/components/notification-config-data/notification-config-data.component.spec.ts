@@ -133,12 +133,11 @@ describe('NotificationConfigDataComponent', () => {
   });
 
   describe('Requisicoes API', () => {
-    beforeEach(() => {});
 
     it('deve selecionar todas as configuracoes de alertas', () => {
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'GET'
+          data.url === API_ENDPOINTS.ALERTAS && data.method === 'GET'
       );
 
       request.flush(mockAllAlerts);
@@ -186,7 +185,7 @@ describe('NotificationConfigDataComponent', () => {
 
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'POST'
+          data.url === API_ENDPOINTS.ALERTAS && data.method === 'POST'
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
@@ -228,7 +227,7 @@ describe('NotificationConfigDataComponent', () => {
 
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === API_ENDPOINTS.BACKEND_URL && data.method === 'PUT'
+          data.url === API_ENDPOINTS.ALERTAS && data.method === 'PUT'
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
@@ -247,14 +246,14 @@ describe('NotificationConfigDataComponent', () => {
     it('deve selecionar um alerta especifico', () => {
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === 'http://localhost:8080/1' && data.method === 'GET'
+          data.url === `${API_ENDPOINTS.ALERTAS}/1` && data.method === 'GET'
       );
 
       request.flush(mockOneAlert);
 
       expect(request.request.responseType).toBe('json');
       expect(request.request.method).toBe('GET');
-      expect(request.request.url).toBe('http://localhost:8080/1');
+      expect(request.request.url).toBe(`${API_ENDPOINTS.ALERTAS}/1`);
 
       expect(component.horariosForm.controls.cargaHorariaSelecionada.value?.valor).toEqual(mockOneAlert.workload);
       expect(component.horariosForm.controls.inicioExpediente.value).toEqual(mockOneAlert.workEntry);

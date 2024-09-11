@@ -1,3 +1,5 @@
 export const API_ENDPOINTS = {
-  BACKEND_URL: 'http://localhost:8080',
+  ALERTAS: 'http://localhost:8080/alarms',
+  LOGIN: 'http://localhost:8080/auth/login',
+  SIGNUP: 'http://localhost:8080/auth/signup'
 };

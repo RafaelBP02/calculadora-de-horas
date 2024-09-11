@@ -5,7 +5,6 @@ import { formatDate } from '@angular/common';
   providedIn: 'root'
 })
 export class UtilitariosService {
-
   constructor() { }
 
   static converteStringParaDate(tempo: string): Date {
@@ -21,4 +20,5 @@ export class UtilitariosService {
     if (!value) return '';
     return formatDate(UtilitariosService.converteStringParaDate(value), 'HH:mm:ss', locale);
   }
+
 }
