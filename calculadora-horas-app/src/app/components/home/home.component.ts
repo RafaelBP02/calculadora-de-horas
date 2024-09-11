@@ -15,8 +15,4 @@ export class HomeComponent {
     return this.autorizacaoService.autenticado();
   }
 
-  deslogarUsuario():void{
-    this.browserStorageService.cleanMemory(BrowserStorageService.storageBearerId)
-  }
-
 }

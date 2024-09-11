@@ -8,11 +8,16 @@ figure{
   justify-content: center;
   align-items: center;
 
-  background-color: #365cad;
-  border-radius: 50%;
+  gap: 0.1rem;
+
 }
 figure > i{
-  color: white;
+  color: #365cad;
+}
+figure:hover i,
+figure:hover p {
+  color: red;
+  cursor: pointer;
 }
 
 p {
@@ -29,6 +34,6 @@ p {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
 
 }

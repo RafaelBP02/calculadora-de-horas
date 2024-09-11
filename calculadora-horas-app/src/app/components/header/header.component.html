@@ -3,8 +3,9 @@
     <div>
       <p>{{ mensagemLogin }}</p>
     </div>
-    <figure>
-      <i id="userFig" class="pi pi-user"></i>
+    <figure *ngIf="usuarioLogado()" (click)="deslogarUsuario()">
+      <p class="mouseHover">SAIR</p>
+      <i id="exit" class="pi pi-sign-out mouseHover" ></i>
     </figure>
   </div>
 </div>
