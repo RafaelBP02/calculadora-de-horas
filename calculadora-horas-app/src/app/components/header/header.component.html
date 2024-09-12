@@ -3,7 +3,7 @@
     <div>
       <p>{{ mensagemLogin }}</p>
     </div>
-    <figure *ngIf="usuarioLogado()" (click)="deslogarUsuario()">
+    <figure *ngIf="usuarioLogado()" (click)="deslogarUsuario()" [routerLink]="['']">
       <p class="mouseHover">Sair</p>
       <i id="exit" class="pi pi-sign-out mouseHover" ></i>
     </figure>
