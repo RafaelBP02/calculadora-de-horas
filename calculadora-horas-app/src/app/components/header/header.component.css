@@ -11,12 +11,13 @@ figure{
   gap: 0.1rem;
 
 }
-figure > i{
-  color: #365cad;
+figure > i,
+figure > p{
+  color: red;
 }
 figure:hover i,
 figure:hover p {
-  color: red;
+  color: rgb(167, 0, 0);
   cursor: pointer;
 }
 
