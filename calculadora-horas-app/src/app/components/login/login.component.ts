@@ -1,6 +1,6 @@
 import { BrowserStorageService } from './../../services/browser-storage/browser-storage.service';
 import { UtilitariosService } from './../../services/utilitarios/utilitarios.service';
-import { AutorizacaoService, loginUsuario } from './../../services/autorizacao/autorizacao.service';
+import { AutorizacaoService, LoginUsuario } from './../../services/autorizacao/autorizacao.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -35,7 +35,7 @@ export class LoginComponent {
   }
 
   configuraHeadersAutorizacao():void{
-    const usuario: loginUsuario = {
+    const usuario: LoginUsuario = {
       username: this.loginForm.controls.usuario.value || '',
       password: this.loginForm.controls.senha.value || '',
     };

@@ -24,6 +24,8 @@ export class HeaderComponent {
   }
 
   deslogarUsuario():void{
+    this.autorizacaoService.decodedUser = '';
+    this.autorizacaoService.decodedUserId = 0;
     this.browserStorageService.cleanMemory(BrowserStorageService.storageBearerId)
   }
 

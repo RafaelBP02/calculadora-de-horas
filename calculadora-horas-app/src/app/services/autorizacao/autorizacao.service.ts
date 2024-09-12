@@ -5,16 +5,21 @@ import { Observable } from 'rxjs';
 import { BrowserStorageService } from '../browser-storage/browser-storage.service';
 import { jwtDecode } from "jwt-decode";
 
-export interface loginUsuario{
+export interface SubjectBody{
+  username: string,
+  userId: number
+}
+
+export interface LoginUsuario{
   username: string,
   password: string
 }
 
-export interface loginToken{
+export interface LoginToken{
   token: string
 }
 
-export interface decodedJwt{
+export interface DecodedJwt{
   iss: string,
   sub: string,
   exp: number
@@ -25,12 +30,13 @@ export interface decodedJwt{
 })
 export class AutorizacaoService {
   decodedUser: string = '';
+  decodedUserId: number = 0;
 
   constructor(private http:HttpClient, private browserStorageService:BrowserStorageService) { }
 
   //deve retornar o bearer token
-  efetuarLogin(login: loginUsuario):Observable<loginToken>{
-    return this.http.post<loginToken>(API_ENDPOINTS.LOGIN, login);
+  efetuarLogin(login: LoginUsuario):Observable<LoginToken>{
+    return this.http.post<LoginToken>(API_ENDPOINTS.LOGIN, login);
   }
 
   autenticado(): boolean {
@@ -40,10 +46,12 @@ export class AutorizacaoService {
     }
 
     try {
-      const jwtPayload: decodedJwt = jwtDecode<decodedJwt>(token);
+      const jwtPayload: DecodedJwt = jwtDecode<DecodedJwt>(token);
+      const subObject: SubjectBody = JSON.parse(jwtPayload.sub);
       const currentTime = Math.floor(Date.now() / 1000);
 
-      this.decodedUser = jwtPayload.sub;
+      this.decodedUser = subObject.username;
+      this.decodedUserId = subObject.userId;
 
       return jwtPayload.exp > currentTime;
     } catch (error) {
