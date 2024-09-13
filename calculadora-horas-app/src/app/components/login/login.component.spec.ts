@@ -68,6 +68,7 @@ describe('LoginComponent', () => {
   });
 
   it('deve enviar o formulario', () => {
+    spyOn(autorizacaoService,'autenticado').and.returnValue(true);
     let btnEnviar: HTMLButtonElement = fixture.debugElement.query(
       By.css('#btnLogin')
     ).nativeElement;
