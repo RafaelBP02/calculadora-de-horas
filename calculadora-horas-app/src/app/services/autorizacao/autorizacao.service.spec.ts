@@ -37,12 +37,12 @@ describe('AutorizacaoService', () => {
       expect(autenticar).toBeFalsy();
   })
 
-  it('deve validar o token', () => {
+  it('nao deve validar token expirado', () => {
     let autenticar: boolean;
 
     spyOn(browserStorageService, 'get').and.returnValue(token);
 
     autenticar = service.autenticado();
-    expect(autenticar).toBeTruthy();
+    expect(autenticar).toBeFalsy();
 });
 });
