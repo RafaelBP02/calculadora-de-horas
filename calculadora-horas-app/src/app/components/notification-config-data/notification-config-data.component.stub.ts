@@ -31,5 +31,5 @@ export const mockOneAlert =
     intervalEnd: "12:30:00",
     workEnd: "15:30:00",
     workload: 6,
-    userId: 2
+    userId: 1
   } as ConfigAlerta

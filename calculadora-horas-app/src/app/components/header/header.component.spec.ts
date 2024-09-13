@@ -3,6 +3,7 @@ import { AutorizacaoService } from './../../services/autorizacao/autorizacao.ser
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { RouterModule } from '@angular/router';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,7 +13,10 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports:[HttpClientTestingModule],
+      imports:[
+        RouterModule.forRoot([]),
+        HttpClientTestingModule]
+        ,
       providers:[AutorizacaoService]
     })
     .compileComponents();
