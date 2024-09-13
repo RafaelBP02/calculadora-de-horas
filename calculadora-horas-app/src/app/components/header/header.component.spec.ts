@@ -42,4 +42,16 @@ describe('HeaderComponent', () => {
 
     expect(component.mensagemLogin).toContain('fakeUser');
   })
+
+  it('deve deslogar o usuario', () => {
+    autorizacaoService.decodedUserId = 1;
+    autorizacaoService.decodedUser = 'TestUser';
+    fixture.detectChanges();
+
+    component.deslogarUsuario();
+    fixture.detectChanges();
+
+    expect(autorizacaoService.decodedUserId).toEqual(0);
+    expect(autorizacaoService.decodedUser).toEqual('');
+  })
 });
