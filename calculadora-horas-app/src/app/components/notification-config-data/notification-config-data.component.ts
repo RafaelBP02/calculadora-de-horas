@@ -159,6 +159,8 @@ export class NotificationConfigDataComponent implements OnInit {
             summary: 'Sucesso!',
             detail: 'Configurações atualizadas com sucesso',
           });
+
+          this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
         },
         error: (error: any) => {
           this.messageService.add({
@@ -186,6 +188,8 @@ export class NotificationConfigDataComponent implements OnInit {
             summary: 'Sucesso!',
             detail: 'Configurações salvas com sucesso',
           });
+
+          this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
         },
         error: (error: any) => {
           this.messageService.add({
