@@ -17,12 +17,16 @@ figure ::ng-deep{
   unicode-bidi: normal;
 }
 
+.caixa-calculadora{
+  flex-grow: 0.5;
+}
+
 .login{
-  width: 100%;
 
   display: flex;
   flex-direction: row;
-  gap: 10rem;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .titulo{

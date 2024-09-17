@@ -1,25 +1,33 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-
-//adaptado de: <https://angular.dev/guide/di/di-in-action>
-export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
-  providedIn: 'root',
-  factory: () => sessionStorage
-});
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BrowserStorageService {
   static readonly storageBearerId: string = 'bearerToken';
+  private isBrowser: boolean;
 
-  constructor(@Inject(BROWSER_STORAGE) public storage: Storage) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
   get(key: string) {
-    return this.storage.getItem(key);
+    if (this.isBrowser) {
+      return sessionStorage.getItem(key);
+    }
+    return null;
   }
+
   set(key: string, value: string) {
-    this.storage.setItem(key, value);
+    if (this.isBrowser) {
+      sessionStorage.setItem(key, value);
+    }
   }
-  cleanMemory(key: string):void {
-    this.storage.removeItem(key)
+
+  cleanMemory(key: string): void {
+    if (this.isBrowser) {
+      sessionStorage.removeItem(key);
+    }
   }
 }

@@ -79,9 +79,14 @@ describe('CalculadoraComponent', () => {
     expect(compiled.querySelector('#workloadDropDown>span')?.textContent).toContain('Selecione sua carga horaria');
   });
 
+  it('deve mostrar o dialogo', () => {
+    component.displayDialog();
+    fixture.detectChanges();
+
+    expect(component.visible).toBeTruthy();
+  });
+
   describe('teste dos inputs da aplicação', () => {
-
-
 
     it('deve clicar no input entrada', () => {
       const inputElement = fixture.debugElement.query(
@@ -158,7 +163,7 @@ describe('CalculadoraComponent', () => {
       expect(component.horarioCalculado.getMinutes()).toBe(0);
       expect(component.horaExcedida).toBeTruthy();
     });
-  });
+      });
 
   describe('logica do calculo da hora de entrada', () => {
     beforeEach(() => {

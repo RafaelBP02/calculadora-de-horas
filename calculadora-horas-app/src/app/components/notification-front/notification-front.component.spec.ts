@@ -1,3 +1,4 @@
+import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { UtilitariosService } from './../../services/utilitarios/utilitarios.service';
 import { FormsModule } from '@angular/forms';
 import {
@@ -30,6 +31,7 @@ describe('NotificationFrontComponent', () => {
   let configAlertaService: ConfigAlertaService;
   let fixture: ComponentFixture<NotificationFrontComponent>;
   let utilitariosService: UtilitariosService;
+  let autorizacaoService:AutorizacaoService
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -40,7 +42,12 @@ describe('NotificationFrontComponent', () => {
         HttpClientTestingModule,
       ],
       declarations: [NotificationFrontComponent],
-      providers: [MessageService, UtilitariosService],
+      providers: [
+          MessageService,
+          UtilitariosService,
+          AutorizacaoService,
+          ConfigAlertaService
+        ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotificationFrontComponent);
@@ -48,6 +55,7 @@ describe('NotificationFrontComponent', () => {
     messageService = TestBed.inject(MessageService);
     configAlertaService = TestBed.inject(ConfigAlertaService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    autorizacaoService = TestBed.inject(AutorizacaoService);
 
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -58,13 +66,19 @@ describe('NotificationFrontComponent', () => {
   });
 
   it('deve receber o alerta configurado', () => {
+    autorizacaoService.decodedUserId = 1;
+    autorizacaoService.decodedUser = 'TestUser';
+
+    fixture.detectChanges();
+
+    component.ngOnInit();
+
     const request = httpTestingController.expectOne(
-      (data) => data.url === `${API_ENDPOINTS.ALERTAS}/2` && data.method === 'GET'
+      (data) => data.url === `${API_ENDPOINTS.ALERTAS}/1` && data.method === 'GET'
     );
 
     request.flush(mockOneAlert);
 
-    component.ngOnInit();
     expect(component.configuracoesSalvas).toBeDefined();
     expect(component.botaoVisivel).toBeTrue();
   });

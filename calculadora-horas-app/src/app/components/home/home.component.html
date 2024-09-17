@@ -3,13 +3,12 @@
   <br>
   <div class="home">
     <figure>
-      <img src="homeFigure.svg" alt="homeFigure" width="110%"/>
+      <img src="homeFigure.svg" alt="homeFigure" width="100%"/>
     </figure>
     <div class="caixa-btns">
       <p-button [routerLink]="['/calculadora']">Calculadora de Horas</p-button>
       <p-button *ngIf="usuarioLogado()" [routerLink]="['/notify-config']">Configurar Horarios</p-button>
       <p-button *ngIf="!usuarioLogado()" [routerLink]="['/autenticacao/login']">Login</p-button>
-      <p-button *ngIf="usuarioLogado()" (onClick)="deslogarUsuario()">Logout</p-button>
     </div>
   </div>
 </div>

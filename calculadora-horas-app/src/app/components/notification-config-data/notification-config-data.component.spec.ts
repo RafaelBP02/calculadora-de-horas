@@ -1,3 +1,4 @@
+import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationConfigDataComponent } from './notification-config-data.component';
@@ -36,6 +37,7 @@ describe('NotificationConfigDataComponent', () => {
   let fixture: ComponentFixture<NotificationConfigDataComponent>;
   let httpTestingController: HttpTestingController;
   let configAlertaService: ConfigAlertaService;
+  let autorizacaoService:AutorizacaoService;
 
   beforeEach(async () => {
     registerLocaleData(ptBr);
@@ -61,6 +63,7 @@ describe('NotificationConfigDataComponent', () => {
         ConfirmationService,
         MessageService,
         ConfigAlertaService,
+        AutorizacaoService,
         { provide: LOCALE_ID, useValue: 'pt' },
         //provideHttpClientTesting() > nao funciona o Angular recomenda usar isso no lugar de HttpClientTestingModule
       ],
@@ -73,6 +76,7 @@ describe('NotificationConfigDataComponent', () => {
     messageService = TestBed.inject(MessageService);
     configAlertaService = TestBed.inject(ConfigAlertaService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    autorizacaoService = TestBed.inject(AutorizacaoService);
 
     fixture.detectChanges();
   });
@@ -133,8 +137,9 @@ describe('NotificationConfigDataComponent', () => {
   });
 
   describe('Requisicoes API', () => {
-
+    /* O ENDPOINT DE SELECIONAR TODOS OS ALERTAS FOI DESHABILITADO NO MOMENTO
     it('deve selecionar todas as configuracoes de alertas', () => {
+
       const request = httpTestingController.expectOne(
         (data) =>
           data.url === API_ENDPOINTS.ALERTAS && data.method === 'GET'
@@ -150,7 +155,7 @@ describe('NotificationConfigDataComponent', () => {
         intervalEnd: '14:00:00',
         workEnd: '18:00:00',
         workload: 6,
-        user_id: 1,
+        userId: 1,
       });
       expect(component.alertas[1]).toEqual({
         id: 2,
@@ -159,11 +164,14 @@ describe('NotificationConfigDataComponent', () => {
         intervalEnd: '12:30:00',
         workEnd: '18:00:00',
         workload: 6,
-        user_id: 2,
+        userId: 2,
       });
     });
-
+    */
     it('deve cadastrar um novo alarme', async () => {
+      autorizacaoService.decodedUserId = 1;
+      autorizacaoService.decodedUser = 'TestUser';
+
       component.horariosForm.controls.cargaHorariaSelecionada.setValue({
         nome: '8 horas',
         valor: 8,
@@ -172,6 +180,8 @@ describe('NotificationConfigDataComponent', () => {
       component.horariosForm.controls.inicioIntervalo.setValue('13:00');
       component.horariosForm.controls.fimIntervalo.setValue('14:00');
       component.horariosForm.controls.fimExpediente.setValue('18:00');
+
+      fixture.detectChanges();
 
       spyOn(component, 'confirmaDadosSalvos').and.returnValue(true);
       spyOn(messageService, 'add');
@@ -189,19 +199,20 @@ describe('NotificationConfigDataComponent', () => {
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
-        id: 1,
         workEntry: '11:00:00',
         intervalBeginning: '13:00:00',
         intervalEnd: '14:00:00',
         workEnd: '18:00:00',
         workload: 8,
-        user_id: 1,
+        userId: 1,
       }));
 
       request.flush(0);
     });
 
     it('deve atualizar o formulario existente', () => {
+      autorizacaoService.decodedUserId = 1;
+      autorizacaoService.decodedUser = 'TestUser';
       component.reqAlertaExiste = true;
 
       fixture.detectChanges();
@@ -231,23 +242,30 @@ describe('NotificationConfigDataComponent', () => {
       );
 
       expect(request.request.body).toEqual(jasmine.objectContaining({
-        id: 1,
         workEntry: '11:00:00',
         intervalBeginning: '13:00:00',
         intervalEnd: '14:00:00',
         workEnd: '18:00:00',
         workload: 8,
-        user_id: 1,
+        userId: 1,
       }));
 
       request.flush(0);
     });
 
     it('deve selecionar um alerta especifico', () => {
+      autorizacaoService.decodedUserId = 1;
+      autorizacaoService.decodedUser = 'TestUser';
+
+      fixture.detectChanges();
+
+      component.selecionarAlertaConfigurado(1);
+
       const request = httpTestingController.expectOne(
         (data) =>
           data.url === `${API_ENDPOINTS.ALERTAS}/1` && data.method === 'GET'
       );
+
 
       request.flush(mockOneAlert);
 

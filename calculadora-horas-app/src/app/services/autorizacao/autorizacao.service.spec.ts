@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserStorageService } from '../browser-storage/browser-storage.service';
 
 describe('AutorizacaoService', () => {
-  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IkNlYm9saW5oYSIsImV4cCI6MTcyNTQ2OTY0OX0.2U6q8qvFKDX1kh274jp0A3H6vZWDwB5CRQB_qu0PFo8';
+  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IntcInVzZXJuYW1lXCI6XCJNYWdhbGlcIixcInVzZXJJZFwiOjZ9IiwiZXhwIjoxNzI2MjQxMDMzfQ.C14x07oBcxHe4smj590GAcgvOBQJC2_6cP9L-8pzOOQ';
   let service: AutorizacaoService;
   let browserStorageService:BrowserStorageService
 
@@ -37,7 +37,7 @@ describe('AutorizacaoService', () => {
       expect(autenticar).toBeFalsy();
   })
 
-  it('deve validar o token', () => {
+  it('nao deve validar token expirado', () => {
     let autenticar: boolean;
 
     spyOn(browserStorageService, 'get').and.returnValue(token);

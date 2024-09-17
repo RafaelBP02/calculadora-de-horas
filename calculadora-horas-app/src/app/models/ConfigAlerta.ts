@@ -7,19 +7,18 @@ export class ConfigAlerta{
     intervalEnd:string = '';
     workEnd:string = '';
     workload:number = 0;
-    user_id:number = 0;
+    userId:number = 0;
 
-    static converteFormulario(formulario:FormGroup, id:number, user_id:number):ConfigAlerta{
+    static converteFormulario(formulario:FormGroup, user_id:number):ConfigAlerta{
 
       const dadosConvertidos  = new ConfigAlerta();
 
-      dadosConvertidos.id = id;
       dadosConvertidos.workEntry = UtilitariosService.formatTime(formulario.get('inicioExpediente')?.value || '');
       dadosConvertidos.intervalBeginning = UtilitariosService.formatTime(formulario.get('inicioIntervalo')?.value || '');
       dadosConvertidos.intervalEnd = UtilitariosService.formatTime(formulario.get('fimIntervalo')?.value || '');
       dadosConvertidos.workEnd = UtilitariosService.formatTime(formulario.get('fimExpediente')?.value || '');
       dadosConvertidos.workload = formulario.get('cargaHorariaSelecionada')?.value?.valor || 0;
-      dadosConvertidos.user_id = user_id;
+      dadosConvertidos.userId = user_id;
 
       return dadosConvertidos;
     }

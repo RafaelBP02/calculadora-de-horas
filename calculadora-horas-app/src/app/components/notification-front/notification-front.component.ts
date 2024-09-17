@@ -1,5 +1,12 @@
+import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { MessageService } from 'primeng/api';
-import { AfterViewInit, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  NgZone,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ConfigAlertaService } from '../../services/config-alerta.service';
 import { ConfigAlerta } from '../../models/ConfigAlerta';
 import { UtilitariosService } from '../../services/utilitarios/utilitarios.service';
@@ -11,8 +18,6 @@ import { Subscription, timer } from 'rxjs';
   styleUrl: './notification-front.component.css',
 })
 export class NotificationFrontComponent implements OnInit, OnDestroy {
-  private alertId: number;
-
   intervalID: Subscription = new Subscription();
   configuracoesSalvas: ConfigAlerta = new ConfigAlerta();
   botaoVisivel: boolean = false;
@@ -20,18 +25,16 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
 
   constructor(
     private alertAPI: ConfigAlertaService,
-     private messageService:MessageService
-    ) {
-    this.alertId = 2;
-  }
+    private messageService: MessageService,
+    private autorizacaoService: AutorizacaoService
+  ) {}
 
   ngOnInit(): void {
-    this.alertAPI.selecionarAlerta(this.alertId).subscribe({
+    this.alertAPI.selecionarAlerta(this.autorizacaoService.decodedUserId).subscribe({
       next: (alertas) => {
         this.configuracoesSalvas = alertas;
-        this.botaoVisivel = true
-        console.log(this.configuracoesSalvas)
-
+        this.botaoVisivel = true;
+        console.log(this.configuracoesSalvas);
       },
       error: (erro) => {
         console.log('ERRO: ' + erro.message);
@@ -46,43 +49,74 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
   }
 
   tarefaRelogio(): void {
-    if(this.LigaDesliga){
+    if (this.LigaDesliga) {
       this.intervalID = timer(0, 60000).subscribe(() => {
         this.verificarAlertas();
         console.log('-----------------------------');
       });
-    }
-    else{
+    } else {
       if (this.intervalID) {
-        console.log('alertas desligados')
+        console.log('alertas desligados');
         this.intervalID.unsubscribe();
       }
     }
-
   }
 
-  private verificarAlertas(): void {
-    const agora:Date = new Date()
+  verificarAlertas(): void {
+    const agora: Date = new Date();
 
-    if(this.calculaDiferencaMinutos(
-      UtilitariosService.converteStringParaDate(this.configuracoesSalvas.workEntry), agora, 2)){
-        this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE ENTRADA NO TRABALHO!")
+    if (
+      this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(
+          this.configuracoesSalvas.workEntry
+        ),
+        agora,
+        2
+      )
+    ) {
+      this.showToastMessage(
+        'ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE ENTRADA NO TRABALHO!'
+      );
+    } else if (
+      this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(
+          this.configuracoesSalvas.intervalBeginning
+        ),
+        agora,
+        2
+      )
+    ) {
+      this.showToastMessage(
+        'ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE INICIO DO INTERVALO!'
+      );
+    } else if (
+      this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(
+          this.configuracoesSalvas.intervalEnd
+        ),
+        agora,
+        2
+      )
+    ) {
+      this.showToastMessage(
+        'ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE FIM DO INTERVALO!'
+      );
+    } else if (
+      this.calculaDiferencaMinutos(
+        UtilitariosService.converteStringParaDate(
+          this.configuracoesSalvas.workEnd
+        ),
+        agora,
+        2
+      )
+    ) {
+      this.showToastMessage(
+        'ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE SAÍDA NO TRABALHO!'
+      );
     }
-    else if(this.calculaDiferencaMinutos(
-      UtilitariosService.converteStringParaDate(this.configuracoesSalvas.intervalBeginning), agora, 2)){
-        this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE INICIO DO INTERVALO!")
-    }
-    else if(this.calculaDiferencaMinutos(
-      UtilitariosService.converteStringParaDate(this.configuracoesSalvas.intervalEnd), agora, 2)){
-        this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE FIM DO INTERVALO!")
-    }
-    else if(this.calculaDiferencaMinutos(
-      UtilitariosService.converteStringParaDate(this.configuracoesSalvas.workEnd), agora, 2)){
-        this.showToastMessage("ATENÇÃO! ESTÁ NA HORA DE BATER O PONTO DE SAÍDA NO TRABALHO!")
-      }
   }
 
-  private showToastMessage(mensagem: string): void {
+  showToastMessage(mensagem: string): void {
     this.messageService.add({
       severity: 'info',
       summary: 'Nota:',
@@ -90,7 +124,11 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
     });
   }
 
-  private calculaDiferencaMinutos(horario1: Date, horario2: Date, minutos: number): boolean{
+  calculaDiferencaMinutos(
+    horario1: Date,
+    horario2: Date,
+    minutos: number
+  ): boolean {
     const diffMs = Math.abs(horario1.getTime() - horario2.getTime());
     const diffMins = Math.ceil(diffMs / (1000 * 60));
     console.log('diferenca = ' + diffMins + ' minutos');

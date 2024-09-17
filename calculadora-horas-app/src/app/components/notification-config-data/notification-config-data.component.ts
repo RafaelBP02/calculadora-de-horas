@@ -1,3 +1,4 @@
+import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -26,7 +27,8 @@ export class NotificationConfigDataComponent implements OnInit {
   constructor(
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private confAlertaService: ConfigAlertaService
+    private confAlertaService: ConfigAlertaService,
+    private autorizacaoService: AutorizacaoService
   ) {
     this.cargasHorarias = [
       { nome: '8 horas', valor: 8 },
@@ -36,13 +38,7 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selecionarTodosAlertas();
-    console.log(this.alertas);
-
-    this.reqAlertaConfigurado.id = 1;
-    this.reqAlertaConfigurado.user_id = 1
-
-    this.selecionarAlertaConfigurado(this.reqAlertaConfigurado.id);
+    this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
     console.log(this.reqAlertaExiste);
   }
 
@@ -100,7 +96,7 @@ export class NotificationConfigDataComponent implements OnInit {
     return this.horariosForm.controls;
   }
 
-  private enviaDados(): void {
+  enviaDados(): void {
     if (this.reqAlertaExiste) {
       //Faz requezicao PUT para atulizar as configs de alerta
       console.log('FAZ REQUISICAO');
@@ -111,13 +107,7 @@ export class NotificationConfigDataComponent implements OnInit {
     }
   }
 
-  private selecionarTodosAlertas(): void {
-    this.confAlertaService
-      .selecionarTodosAlertas()
-      .subscribe((dados) => (this.alertas = dados));
-  }
-
-  private selecionarAlertaConfigurado(alerta_id: number): void {
+  selecionarAlertaConfigurado(alerta_id: number): void {
     this.confAlertaService.selecionarAlerta(alerta_id).subscribe({
       next: (dados) => {
         // Atualize os dados com a resposta da API
@@ -133,7 +123,7 @@ export class NotificationConfigDataComponent implements OnInit {
           fimExpediente: this.reqAlertaConfigurado.workEnd,
         });
         this.reqAlertaConfigurado.id = dados.id;
-        this.reqAlertaConfigurado.user_id = dados.user_id;
+        this.reqAlertaConfigurado.userId = dados.userId;
 
         this.reqAlertaExiste = true;
       },
@@ -154,12 +144,12 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   private atualizarAlertaConfigurado(): void {
+    console.log('id usuario: '+ this.autorizacaoService.decodedUserId);
     this.confAlertaService
       .atualizarAlerta(
         ConfigAlerta.converteFormulario(
           this.horariosForm,
-          this.reqAlertaConfigurado.id,
-          this.reqAlertaConfigurado.user_id
+          this.autorizacaoService.decodedUserId
         )
       )
       .subscribe({
@@ -169,6 +159,8 @@ export class NotificationConfigDataComponent implements OnInit {
             summary: 'Sucesso!',
             detail: 'Configurações atualizadas com sucesso',
           });
+
+          this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
         },
         error: (error: any) => {
           this.messageService.add({
@@ -186,8 +178,7 @@ export class NotificationConfigDataComponent implements OnInit {
       .adicionarAlerta(
         ConfigAlerta.converteFormulario(
           this.horariosForm,
-          this.reqAlertaConfigurado.id,
-          this.reqAlertaConfigurado.user_id
+          this.autorizacaoService.decodedUserId
         )
       )
       .subscribe({
@@ -197,6 +188,8 @@ export class NotificationConfigDataComponent implements OnInit {
             summary: 'Sucesso!',
             detail: 'Configurações salvas com sucesso',
           });
+
+          this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
         },
         error: (error: any) => {
           this.messageService.add({

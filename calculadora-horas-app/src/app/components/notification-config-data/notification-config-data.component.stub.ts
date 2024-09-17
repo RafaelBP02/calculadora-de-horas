@@ -10,7 +10,7 @@ export const mockAllAlerts = [
     intervalEnd: "14:00:00",
     workEnd: "18:00:00",
     workload: 6,
-    user_id: 1
+    userId: 1
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ export const mockAllAlerts = [
     intervalEnd: "12:30:00",
     workEnd: "18:00:00",
     workload: 6,
-    user_id: 2
+    userId: 2
   }
 ] as ConfigAlerta[]
 
@@ -31,5 +31,5 @@ export const mockOneAlert =
     intervalEnd: "12:30:00",
     workEnd: "15:30:00",
     workload: 6,
-    user_id: 2
+    userId: 1
   } as ConfigAlerta
