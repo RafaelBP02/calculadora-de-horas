@@ -34,6 +34,7 @@ import { ToastModule } from 'primeng/toast';
 import { HomeComponent } from './components/home/home.component';
 import { RequestInterceptor } from './request-interceptor.interceptor';
 import { HeaderComponent } from './components/header/header.component';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -43,6 +44,7 @@ registerLocaleData(ptBr);
     CalcResultDialogComponent,
     HomeComponent,
     HeaderComponent,
+    CadastroComponent,
   ],
   imports: [
     BrowserModule,
