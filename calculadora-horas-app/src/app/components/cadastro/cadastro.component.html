@@ -1,10 +1,90 @@
 <div>
   <div class="titulo">
-    <div class="voltar" [routerLink]="['autenticacao/login']">
+    <div class="voltar" [routerLink]="['/autenticacao/login']">
       <i class="pi pi-angle-left"></i>
       <span>Voltar</span>
     </div>
     <h1>Cadastro</h1>
   </div>
   <br />
+  <div class="cadastro-box">
+    <div class="caixa-calculadora">
+      <form
+        class="form-config alertas"
+        [formGroup]="cadastroForm"
+        (ngSubmit)="cadastrarUsuario($event)"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> E-mail </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="email" />
+        </p-inputGroup>
+        <span
+          *ngIf=" cadastroFormControl.email.touched
+              && cadastroFormControl.email.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Nome </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="nome" />
+        </p-inputGroup>
+        <span
+          *ngIf=" cadastroFormControl.nome.touched
+              && cadastroFormControl.nome.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Sobrenome </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="sobrenome" />
+        </p-inputGroup>
+        <span
+          *ngIf=" cadastroFormControl.sobrenome.touched
+              && cadastroFormControl.sobrenome.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="localTrabalho" />
+        </p-inputGroup>
+        <span
+          *ngIf=" cadastroFormControl.localTrabalho.touched
+              && cadastroFormControl.localTrabalho.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="senha" />
+        </p-inputGroup>
+        <span
+          *ngIf=" cadastroFormControl.senha.touched
+              && cadastroFormControl.senha.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Confirmar senha </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="confimarSenha" />
+        </p-inputGroup>
+        <span
+          *ngIf=" cadastroFormControl.confimarSenha.touched
+              && cadastroFormControl.confimarSenha.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <div class="btn-caixa">
+          <button
+            id="btnLogin"
+            type="submit"
+            pButton
+            pRipple
+            label="Finalizar"
+            class="p-button-primary"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
