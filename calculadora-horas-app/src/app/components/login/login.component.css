@@ -21,6 +21,18 @@ figure ::ng-deep{
   flex-grow: 0.5;
 }
 
+.cadastro{
+  display: flex;
+  justify-content: center;
+
+  margin: 0rem;
+}
+.cadastro:hover{
+  cursor: pointer;
+  color: #365cad;
+  font-weight: bold;
+}
+
 .login{
 
   display: flex;
