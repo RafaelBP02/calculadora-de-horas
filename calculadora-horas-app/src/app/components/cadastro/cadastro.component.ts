@@ -1,6 +1,6 @@
 import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/Usuario';
 
@@ -12,17 +12,36 @@ import { Usuario } from '../../models/Usuario';
 export class CadastroComponent {
   constructor(private autorizacaoService:AutorizacaoService, private router: Router){}
 
-  cadastroForm = new FormGroup({
-    email: new FormControl<string>('', Validators.required),
-    nome: new FormControl<string>('', Validators.required),
-    sobrenome: new FormControl<string>('', Validators.required),
-    localTrabalho: new FormControl<string>('', Validators.required),
-    senha: new FormControl<string>('', Validators.required),
-    confimarSenha: new FormControl<string>('', Validators.required)
-  })
+  cadastroForm = new FormGroup(
+    {
+      email: new FormControl<string>('', [Validators.required, Validators.email]),
+      nome: new FormControl<string>('', [Validators.required, Validators.pattern('^[A-Za-z]+')]),
+      sobrenome: new FormControl<string>('', [Validators.required, Validators.pattern('^[A-Z a-z]+')]),
+      localTrabalho: new FormControl<string>('', Validators.required),
+      senha: new FormControl<string>('', Validators.required),
+      confimarSenha: new FormControl<string>('', Validators.required)
+    },
+    { validators: this.senhasIguaisValidator}
+  );
 
   get cadastroFormControl() {
     return this.cadastroForm.controls;
+  }
+
+
+  senhasIguaisValidator(control: AbstractControl): ValidationErrors | null {
+    const senha = control.get('senha')?.value;
+    const confirmarSenha = control.get('confimarSenha')?.value;
+
+    if (senha === undefined || confirmarSenha === undefined) {
+      return null;
+    }
+
+    if (senha === confirmarSenha) {
+      return null;
+    }
+
+    return { senhasNaoIguais: true };
   }
 
   cadastrarUsuario(event: Event):void{
@@ -38,14 +57,22 @@ export class CadastroComponent {
     novoUsuario.workPlace = this.cadastroForm.controls.localTrabalho.value ?? '';
     novoUsuario.roleId = 1;
 
-    this.autorizacaoService.efetuarSignup(novoUsuario).subscribe({
-      next: () => {
-        console.log('sucesso');
-        this.router.navigate(['/autenticacao/login']);
-      },
-      error: (e) => {
-        console.error('Erro ao efetuar login:', e);
-      }
-    })
+    if (this.cadastroForm.valid){
+      this.autorizacaoService.efetuarSignup(novoUsuario).subscribe({
+        next: () => {
+          console.log('sucesso');
+          this.router.navigate(['/autenticacao/login']);
+        },
+        error: (e) => {
+          console.error('Erro ao efetuar login:', e);
+        }
+      })
+    }
+    else{
+      this.cadastroForm.markAllAsTouched();
+      console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
+    }
+
+
   }
 }

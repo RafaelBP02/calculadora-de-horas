@@ -20,9 +20,9 @@
         </p-inputGroup>
         <span
           *ngIf=" cadastroFormControl.email.touched
-              && cadastroFormControl.email.errors?.['required']"
+              || cadastroFormControl.email.errors?.['email']"
         >
-          Campo obrigatório!
+          e-mail invalido
         </span>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Nome </p-inputGroupAddon>
@@ -30,9 +30,9 @@
         </p-inputGroup>
         <span
           *ngIf=" cadastroFormControl.nome.touched
-              && cadastroFormControl.nome.errors?.['required']"
+              || cadastroFormControl.nome.errors?.['pattern']"
         >
-          Campo obrigatório!
+          Apenas letras e sem espaço
         </span>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Sobrenome </p-inputGroupAddon>
@@ -40,9 +40,10 @@
         </p-inputGroup>
         <span
           *ngIf=" cadastroFormControl.sobrenome.touched
-              && cadastroFormControl.sobrenome.errors?.['required']"
+              || cadastroFormControl.sobrenome.errors?.['pattern']"
+
         >
-          Campo obrigatório!
+          Apenas letras
         </span>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
@@ -69,10 +70,10 @@
           <input type="text" pInputText formControlName="confimarSenha" />
         </p-inputGroup>
         <span
-          *ngIf=" cadastroFormControl.confimarSenha.touched
-              && cadastroFormControl.confimarSenha.errors?.['required']"
+          *ngIf="cadastroForm.hasError('senhasNaoIguais')
+              || cadastroForm.get('confimarSenha')?.touched"
         >
-          Campo obrigatório!
+          As senhas não coincidem!
         </span>
         <div class="btn-caixa">
           <button
