@@ -1,5 +1,10 @@
 @import '../calculadora/calculadora.component.css';
- .cadastro-box{
+
+.btn-caixa{
+  justify-content: flex-end;
+}
+
+.cadastro-box{
   display: flex;
   flex-direction: row;
  }
