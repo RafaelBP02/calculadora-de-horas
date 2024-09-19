@@ -40,15 +40,7 @@ export class CadastroComponent {
     const senha = control.get('senha')?.value;
     const confirmarSenha = control.get('confimarSenha')?.value;
 
-    if (senha === undefined || confirmarSenha === undefined) {
-      return null;
-    }
-
-    if (senha === confirmarSenha) {
-      return null;
-    }
-
-    return { senhasNaoIguais: true };
+    return senha === confirmarSenha ? null : { senhasNaoIguais: true }
   }
 
   cadastrarUsuario():void{
@@ -62,17 +54,19 @@ export class CadastroComponent {
     novoUsuario.workPlace = this.cadastroForm.controls.localTrabalho.value ?? '';
     novoUsuario.roleId = 1;
 
-    if (this.cadastroForm.valid){
-      this.enviarDadosUsuario(novoUsuario);
-    }
-    else{
-      this.cadastroForm.markAllAsTouched();
-      this.camposIncorretos = true;
-      console.log('ERRO! CAMPOS DEVEM SER PREENCHIDOS');
-    }
+    this.enviarDadosUsuario(novoUsuario);
+
   }
 
   confirmarDados(event:Event):void{
+    if (!this.cadastroForm.valid){
+      this.cadastroForm.markAllAsTouched();
+      this.camposIncorretos = true;
+      console.log('ERRO! CAMPOS DEVEM SER PREENCHIDOS');
+
+      return;
+    }
+
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `<b>${
