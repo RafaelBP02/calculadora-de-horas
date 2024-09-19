@@ -12,10 +12,11 @@
       <img src="loginFigure.svg" alt="loginFigure" width="100%" />
     </figure>
     <div class="caixa-calculadora">
+      <p-confirmDialog />
       <form
         class="form-config alertas"
         [formGroup]="cadastroForm"
-        (ngSubmit)="cadastrarUsuario($event)"
+        (ngSubmit)="confirmarDados($event)"
       >
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> E-mail </p-inputGroupAddon>

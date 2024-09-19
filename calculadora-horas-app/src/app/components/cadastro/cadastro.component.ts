@@ -1,8 +1,9 @@
+import { Usuario } from './../../models/Usuario';
 import { AutorizacaoService } from './../../services/autorizacao/autorizacao.service';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario } from '../../models/Usuario';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,7 +13,11 @@ import { Usuario } from '../../models/Usuario';
 export class CadastroComponent {
   camposIncorretos: boolean = false;
 
-  constructor(private autorizacaoService:AutorizacaoService, private router: Router){}
+  constructor(
+    private autorizacaoService:AutorizacaoService,
+    private router: Router,
+    private confirmationService: ConfirmationService
+  ){}
 
   cadastroForm = new FormGroup(
     {
@@ -46,9 +51,7 @@ export class CadastroComponent {
     return { senhasNaoIguais: true };
   }
 
-  cadastrarUsuario(event: Event):void{
-    event.preventDefault();
-
+  cadastrarUsuario():void{
     let novoUsuario: Usuario = new Usuario;
 
     novoUsuario.id = 0;
@@ -60,25 +63,52 @@ export class CadastroComponent {
     novoUsuario.roleId = 1;
 
     if (this.cadastroForm.valid){
-      this.autorizacaoService.efetuarSignup(novoUsuario).subscribe({
-        next: () => {
-          console.log('sucesso');
-          this.router.navigate(['/autenticacao/login']);
-        },
-        error: (e) => {
-          console.error('Erro ao efetuar login:', e);
-        },
-        complete: () => {
-          this.camposIncorretos = false;
-        }
-      })
+      this.enviarDadosUsuario(novoUsuario);
     }
     else{
       this.cadastroForm.markAllAsTouched();
       this.camposIncorretos = true;
-      console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
+      console.log('ERRO! CAMPOS DEVEM SER PREENCHIDOS');
     }
-
-
   }
+
+  confirmarDados(event:Event):void{
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `<b>${
+          this.cadastroForm.controls.nome.value
+        }</b>, deseja confirmar o e-mail: <b>${
+          this.cadastroForm.controls.email.value
+        }</b>?`,
+      header: 'Revise seus horaios',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'ok',
+      acceptIcon: 'none',
+      rejectLabel: 'cancelar',
+      rejectIcon: 'none',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        this.cadastrarUsuario();
+      },
+      reject: () => {
+        console.log("Operação cancelada");
+      },
+    });
+  }
+
+  enviarDadosUsuario(novoUsuario: Usuario):void{
+    this.autorizacaoService.efetuarSignup(novoUsuario).subscribe({
+      next: () => {
+        console.log('sucesso');
+        this.router.navigate(['/autenticacao/login']);
+      },
+      error: (e) => {
+        console.error('Erro ao efetuar login:', e);
+      },
+      complete: () => {
+        this.camposIncorretos = false;
+      }
+    })
+  }
+
 }
