@@ -35,6 +35,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RequestInterceptor } from './request-interceptor.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -60,12 +61,14 @@ registerLocaleData(ptBr);
     DropdownModule,
     TooltipModule,
     ToastModule,
+    ConfirmDialogModule
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     ConfigAlertaService,
+    ConfirmationService,
     HttpClient,
     UtilitariosService,
     MessageService,
