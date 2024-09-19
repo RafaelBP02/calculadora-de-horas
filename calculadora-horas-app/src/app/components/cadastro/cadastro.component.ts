@@ -10,12 +10,14 @@ import { Usuario } from '../../models/Usuario';
   styleUrl: './cadastro.component.css'
 })
 export class CadastroComponent {
+  camposIncorretos: boolean = false;
+
   constructor(private autorizacaoService:AutorizacaoService, private router: Router){}
 
   cadastroForm = new FormGroup(
     {
       email: new FormControl<string>('', [Validators.required, Validators.email]),
-      nome: new FormControl<string>('', [Validators.required, Validators.pattern('^[A-Za-z]+')]),
+      nome: new FormControl<string>('', [Validators.required, Validators.pattern('^[A-Z a-z]+')]),
       sobrenome: new FormControl<string>('', [Validators.required, Validators.pattern('^[A-Z a-z]+')]),
       localTrabalho: new FormControl<string>('', Validators.required),
       senha: new FormControl<string>('', Validators.required),
@@ -65,11 +67,15 @@ export class CadastroComponent {
         },
         error: (e) => {
           console.error('Erro ao efetuar login:', e);
+        },
+        complete: () => {
+          this.camposIncorretos = false;
         }
       })
     }
     else{
       this.cadastroForm.markAllAsTouched();
+      this.camposIncorretos = true;
       console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
     }
 
