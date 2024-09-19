@@ -1,1 +1,10 @@
 @import '../calculadora/calculadora.component.css';
+ .cadastro-box{
+  display: flex;
+  flex-direction: row;
+ }
+
+ figure{
+  width: 40%;
+  margin: 0;
+ }
