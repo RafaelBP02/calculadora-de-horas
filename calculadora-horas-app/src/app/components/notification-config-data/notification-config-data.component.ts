@@ -59,7 +59,7 @@ export class NotificationConfigDataComponent implements OnInit {
           }<br>
           Fim do Intervalo: ${this.horariosForm.get('fimIntervalo')?.value}<br>
           Fim do Expediente: ${this.horariosForm.get('fimExpediente')?.value}`,
-        header: 'Revise seus horaios',
+        header: 'Revise seus horários',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'confirmar',
         acceptIcon: 'none',

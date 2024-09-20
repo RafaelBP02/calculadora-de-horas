@@ -74,7 +74,7 @@ export class CadastroComponent {
         }</b>, deseja confirmar o e-mail: <b>${
           this.cadastroForm.controls.email.value
         }</b>?`,
-      header: 'Revise seus horaios',
+      header: 'Revise seus dados cadastrais',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'ok',
       acceptIcon: 'none',
