@@ -83,9 +83,12 @@ export class CadastroComponent {
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
         this.cadastrarUsuario();
+
       },
       reject: () => {
+        this.camposIncorretos = false;
         console.log("Operação cancelada");
+
       },
     });
   }
