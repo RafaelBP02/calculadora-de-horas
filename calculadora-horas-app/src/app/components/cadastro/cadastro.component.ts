@@ -3,7 +3,7 @@ import { AutorizacaoService } from './../../services/autorizacao/autorizacao.ser
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro',
@@ -16,7 +16,8 @@ export class CadastroComponent {
   constructor(
     private autorizacaoService:AutorizacaoService,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ){}
 
   cadastroForm = new FormGroup(
@@ -89,6 +90,12 @@ export class CadastroComponent {
         this.camposIncorretos = false;
         console.log("Operação cancelada");
 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro!',
+          detail: 'A Operação foi cancelada',
+          life: 3000,
+        });
       },
     });
   }
@@ -98,9 +105,20 @@ export class CadastroComponent {
       next: () => {
         console.log('sucesso');
         this.router.navigate(['/autenticacao/login']);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso!',
+          detail: 'Cadastro Realizado com sucesso!',
+        });
       },
       error: (e) => {
         console.error('Erro ao efetuar login:', e);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro!',
+          detail: `Houve um erro no cadastro: ${e}`,
+          life: 3000,
+        });
       },
       complete: () => {
         this.camposIncorretos = false;
