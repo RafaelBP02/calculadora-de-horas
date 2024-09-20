@@ -8,7 +8,7 @@ import { BrowserStorageService } from '../../services/browser-storage/browser-st
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from '../../request-interceptor.interceptor';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CommonModule } from '@angular/common';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -20,6 +20,7 @@ describe('CadastroComponent', () => {
   let fixture: ComponentFixture<CadastroComponent>;
   let confirmationService: ConfirmationService;
   let httpTestingController: HttpTestingController;
+  let messageService: MessageService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -37,6 +38,7 @@ describe('CadastroComponent', () => {
         providers:[
           BrowserStorageService,
           ConfirmationService,
+          MessageService,
           provideClientHydration(),
           provideHttpClientTesting(),
           { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
@@ -46,8 +48,9 @@ describe('CadastroComponent', () => {
 
     fixture = TestBed.createComponent(CadastroComponent);
     component = fixture.componentInstance;
-    confirmationService = TestBed.inject(ConfirmationService)
+    confirmationService = TestBed.inject(ConfirmationService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    messageService = TestBed.inject(MessageService);
     fixture.detectChanges();
   });
 
