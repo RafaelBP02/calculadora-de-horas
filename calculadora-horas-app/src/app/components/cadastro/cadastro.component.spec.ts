@@ -1,5 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientTestingModule, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CadastroComponent } from './cadastro.component';
@@ -13,11 +13,13 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CommonModule } from '@angular/common';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { API_ENDPOINTS } from '../../services/api-endpoints';
 
 describe('CadastroComponent', () => {
   let component: CadastroComponent;
   let fixture: ComponentFixture<CadastroComponent>;
   let confirmationService: ConfirmationService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -45,6 +47,7 @@ describe('CadastroComponent', () => {
     fixture = TestBed.createComponent(CadastroComponent);
     component = fixture.componentInstance;
     confirmationService = TestBed.inject(ConfirmationService)
+    httpTestingController = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
   });
 
@@ -79,13 +82,30 @@ describe('CadastroComponent', () => {
         roleId: 1
       }));
     })
+
+    it('deve fazer a requisicao REST', () => {
+      spyOn(component, 'enviarDadosUsuario').and.callThrough();
+
+      component.cadastrarUsuario();
+
+      const request = httpTestingController.expectOne(
+        (data) =>
+          data.url === API_ENDPOINTS.SIGNUP && data.method === 'POST'
+      );
+
+      expect(request.request.body).toEqual(jasmine.objectContaining({
+        username: 'test.user@mail.com',
+        name: 'Test',
+        sureName: 'User Surename',
+        password: 'senha@123',
+        workPlace: 'workplace101',
+      }));
+      expect(component.camposIncorretos).toBeFalsy();
+
+      request.flush(0);
+    })
+
   });
 
-  it('deve fazer a requisicao REST', () => {
-    spyOn(component, 'enviarDadosUsuario').and.callThrough();
 
-    component.cadastrarUsuario();
-
-
-  })
 });
