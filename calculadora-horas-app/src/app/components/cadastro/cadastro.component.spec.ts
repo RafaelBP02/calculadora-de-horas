@@ -105,6 +105,22 @@ describe('CadastroComponent', () => {
       request.flush(0);
     })
 
+    it('deve confirmar a operacao no dialogo', () => {
+      const spy = spyOn(component, 'cadastrarUsuario');
+      spyOn<any>(confirmationService, 'confirm').and.callFake((params: any) => {
+        if (params.accept) {
+          params.accept();
+        }
+      });
+
+      component.confirmarDados(new Event('click'));
+
+      expect(spy).toHaveBeenCalled();
+    })
+    it('deve cancelar a opercao no Dialogo', () => {
+
+    })
+
   });
 
 
