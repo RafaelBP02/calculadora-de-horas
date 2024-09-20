@@ -118,10 +118,29 @@ describe('CadastroComponent', () => {
       expect(spy).toHaveBeenCalled();
     })
     it('deve cancelar a opercao no Dialogo', () => {
+      const consoleLogSpy = spyOn(console, 'log').and.callThrough();
 
+      spyOn<any>(confirmationService, 'confirm').and.callFake((params: any) => {
+        if (params.reject) {
+          params.reject();
+        }
+      });
+
+      component.confirmarDados(new Event('click'));
+
+      expect(consoleLogSpy).toHaveBeenCalledWith('Operação cancelada');
     })
 
   });
+
+  it('deve ser um formulario invalido', () => {
+    const consoleLogSpy = spyOn(console, 'log').and.callThrough();
+
+    component.confirmarDados(new Event('click'));
+
+    expect(consoleLogSpy).toHaveBeenCalledWith('ERRO! CAMPOS DEVEM SER PREENCHIDOS');
+    expect(component.camposIncorretos).toBeTruthy();
+  })
 
 
 });
