@@ -1,5 +1,10 @@
 @import '../calculadora/calculadora.component.css';
 
+figure{
+  width: 40%;
+  margin: 0;
+}
+
 .btn-caixa{
   justify-content: flex-end;
 }
@@ -9,7 +14,17 @@
   flex-direction: row;
  }
 
- figure{
-  width: 40%;
-  margin: 0;
- }
+.form-config{
+  gap: 0rem;
+}
+
+.form-error{
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  color: red;
+  font-size: small;
+  height: 1.5rem;
+}

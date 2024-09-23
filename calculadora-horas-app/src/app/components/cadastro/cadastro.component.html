@@ -22,74 +22,86 @@
           <p-inputGroupAddon class="form-input"> E-mail </p-inputGroupAddon>
           <input type="text" pInputText formControlName="email" />
         </p-inputGroup>
-        <span
-          *ngIf="cadastroFormControl.email.touched
-              && (cadastroFormControl.email.errors?.['email']
-              || cadastroFormControl.email.errors?.['required'])
-              && camposIncorretos"
-        >
-          * E-mail invalido
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf="cadastroFormControl.email.touched
+                && (cadastroFormControl.email.errors?.['email']
+                || cadastroFormControl.email.errors?.['required'])
+                && camposIncorretos"
+          >
+            * E-mail invalido
+          </span>
+        </div>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Nome </p-inputGroupAddon>
           <input type="text" pInputText formControlName="nome" />
         </p-inputGroup>
-        <span
-          *ngIf=" cadastroFormControl.nome.touched
-              && (cadastroFormControl.nome.errors?.['pattern']
-              || cadastroFormControl.nome.errors?.['required'])
-              && camposIncorretos"
-        >
-          * Apenas letras
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.nome.touched
+                && (cadastroFormControl.nome.errors?.['pattern']
+                || cadastroFormControl.nome.errors?.['required'])
+                && camposIncorretos"
+          >
+            * Apenas letras
+          </span>
+        </div>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Sobrenome </p-inputGroupAddon>
           <input type="text" pInputText formControlName="sobrenome" />
         </p-inputGroup>
-        <span
-          *ngIf=" cadastroFormControl.sobrenome.touched
-              && (cadastroFormControl.sobrenome.errors?.['pattern']
-              || cadastroFormControl.sobrenome.errors?.['required'])
-              && camposIncorretos"
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.sobrenome.touched
+                && (cadastroFormControl.sobrenome.errors?.['pattern']
+                || cadastroFormControl.sobrenome.errors?.['required'])
+                && camposIncorretos"
 
-        >
-          * Apenas letras
-        </span>
+          >
+            * Apenas letras
+          </span>
+        </div>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
           <input type="text" pInputText formControlName="localTrabalho" />
         </p-inputGroup>
-        <span
-          *ngIf=" cadastroFormControl.localTrabalho.touched
-              && cadastroFormControl.localTrabalho.errors?.['required']
-              && camposIncorretos"
-        >
-          * Campo obrigatório!
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.localTrabalho.touched
+                && cadastroFormControl.localTrabalho.errors?.['required']
+                && camposIncorretos"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
           <input type="password" pInputText formControlName="senha" />
         </p-inputGroup>
-        <span
-          *ngIf=" cadastroFormControl.senha.touched
-              && cadastroFormControl.senha.errors?.['required']
-              && camposIncorretos"
-        >
-          * Campo obrigatório!
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.senha.touched
+                && cadastroFormControl.senha.errors?.['required']
+                && camposIncorretos"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Confirmar senha </p-inputGroupAddon>
           <input type="password" pInputText formControlName="confimarSenha" />
         </p-inputGroup>
-        <span
-          *ngIf="cadastroFormControl.confimarSenha.touched
-              && (cadastroForm.hasError('senhasNaoIguais')
-              && cadastroForm.get('confimarSenha')?.touched
-              || cadastroFormControl.confimarSenha.errors?.['required'])
-              && camposIncorretos"
-        >
-          * As senhas não coincidem!
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf="cadastroFormControl.confimarSenha.touched
+                && (cadastroForm.hasError('senhasNaoIguais')
+                && cadastroForm.get('confimarSenha')?.touched
+                || cadastroFormControl.confimarSenha.errors?.['required'])
+                && camposIncorretos"
+          >
+            * As senhas não coincidem!
+          </span>
+        </div>
         <div class="btn-caixa">
           <button
             id="btnLogin"
