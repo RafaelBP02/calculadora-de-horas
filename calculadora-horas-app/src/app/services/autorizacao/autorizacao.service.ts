@@ -41,7 +41,7 @@ export class AutorizacaoService {
   }
 
   efetuarSignup(signup: Usuario):Observable<any>{
-    return this.http.post<LoginToken>(API_ENDPOINTS.SIGNUP, signup);
+    return this.http.post<any>(API_ENDPOINTS.SIGNUP, signup);
   }
 
   autenticado(): boolean {
