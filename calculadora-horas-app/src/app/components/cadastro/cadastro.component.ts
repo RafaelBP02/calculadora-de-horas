@@ -60,9 +60,10 @@ export class CadastroComponent {
   }
 
   confirmarDados(event:Event):void{
+    this.camposIncorretos = true;
+
     if (!this.cadastroForm.valid){
       this.cadastroForm.markAllAsTouched();
-      this.camposIncorretos = true;
       console.log('ERRO! CAMPOS DEVEM SER PREENCHIDOS');
 
       return;

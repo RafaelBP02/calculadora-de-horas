@@ -24,7 +24,8 @@
         </p-inputGroup>
         <span
           *ngIf="cadastroFormControl.email.touched
-              && cadastroFormControl.email.errors?.['email']
+              && (cadastroFormControl.email.errors?.['email']
+              || cadastroFormControl.email.errors?.['required'])
               && camposIncorretos"
         >
           * E-mail invalido
@@ -35,7 +36,8 @@
         </p-inputGroup>
         <span
           *ngIf=" cadastroFormControl.nome.touched
-              && cadastroFormControl.nome.errors?.['pattern']
+              && (cadastroFormControl.nome.errors?.['pattern']
+              || cadastroFormControl.nome.errors?.['required'])
               && camposIncorretos"
         >
           * Apenas letras
@@ -46,7 +48,8 @@
         </p-inputGroup>
         <span
           *ngIf=" cadastroFormControl.sobrenome.touched
-              && cadastroFormControl.sobrenome.errors?.['pattern']
+              && (cadastroFormControl.sobrenome.errors?.['pattern']
+              || cadastroFormControl.sobrenome.errors?.['required'])
               && camposIncorretos"
 
         >
@@ -79,15 +82,17 @@
           <input type="password" pInputText formControlName="confimarSenha" />
         </p-inputGroup>
         <span
-          *ngIf="cadastroForm.hasError('senhasNaoIguais')
+          *ngIf="cadastroFormControl.confimarSenha.touched
+              && (cadastroForm.hasError('senhasNaoIguais')
               && cadastroForm.get('confimarSenha')?.touched
+              || cadastroFormControl.confimarSenha.errors?.['required'])
               && camposIncorretos"
         >
           * As senhas não coincidem!
         </span>
         <div class="btn-caixa">
           <button
-            id="btnCadastrar"
+            id="btnLogin"
             type="submit"
             pButton
             pRipple
