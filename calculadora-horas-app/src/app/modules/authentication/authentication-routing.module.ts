@@ -8,9 +8,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { CommonModule } from '@angular/common';
+import { CadastroComponent } from '../../components/cadastro/cadastro.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'cadastro', component: CadastroComponent}
 ];
 
 @NgModule({

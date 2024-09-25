@@ -1,0 +1,118 @@
+<div>
+  <div class="titulo">
+    <div class="voltar" [routerLink]="['/autenticacao/login']">
+      <i class="pi pi-angle-left"></i>
+      <span>Voltar</span>
+    </div>
+    <h1>Cadastro</h1>
+  </div>
+  <br />
+  <div class="cadastro-box">
+    <figure>
+      <img src="loginFigure.svg" alt="loginFigure" width="100%" />
+    </figure>
+    <div class="caixa-calculadora">
+      <p-confirmDialog />
+      <form
+        class="form-config alertas"
+        [formGroup]="cadastroForm"
+        (ngSubmit)="confirmarDados($event)"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> E-mail </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="email" />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf="cadastroFormControl.email.touched
+                && (cadastroFormControl.email.errors?.['email']
+                || cadastroFormControl.email.errors?.['required'])
+                && camposIncorretos"
+          >
+            * E-mail invalido
+          </span>
+        </div>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Nome </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="nome" />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.nome.touched
+                && (cadastroFormControl.nome.errors?.['pattern']
+                || cadastroFormControl.nome.errors?.['required'])
+                && camposIncorretos"
+          >
+            * Apenas letras
+          </span>
+        </div>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Sobrenome </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="sobrenome" />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.sobrenome.touched
+                && (cadastroFormControl.sobrenome.errors?.['pattern']
+                || cadastroFormControl.sobrenome.errors?.['required'])
+                && camposIncorretos"
+
+          >
+            * Apenas letras
+          </span>
+        </div>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
+          <input type="text" pInputText formControlName="localTrabalho" />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.localTrabalho.touched
+                && cadastroFormControl.localTrabalho.errors?.['required']
+                && camposIncorretos"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
+          <input type="password" pInputText formControlName="senha" />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf=" cadastroFormControl.senha.touched
+                && cadastroFormControl.senha.errors?.['required']
+                && camposIncorretos"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Confirmar senha </p-inputGroupAddon>
+          <input type="password" pInputText formControlName="confimarSenha" />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf="cadastroFormControl.confimarSenha.touched
+                && (cadastroForm.hasError('senhasNaoIguais')
+                && cadastroForm.get('confimarSenha')?.touched
+                || cadastroFormControl.confimarSenha.errors?.['required'])
+                && camposIncorretos"
+          >
+            * As senhas não coincidem!
+          </span>
+        </div>
+        <div class="btn-caixa">
+          <button
+            id="btnLogin"
+            type="submit"
+            pButton
+            pRipple
+            label="Cadastrar"
+            class="p-button-primary"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from '../api-endpoints';
 import { Observable } from 'rxjs';
 import { BrowserStorageService } from '../browser-storage/browser-storage.service';
 import { jwtDecode } from "jwt-decode";
+import { Usuario } from '../../models/Usuario';
 
 export interface SubjectBody{
   username: string,
@@ -37,6 +38,10 @@ export class AutorizacaoService {
   //deve retornar o bearer token
   efetuarLogin(login: LoginUsuario):Observable<LoginToken>{
     return this.http.post<LoginToken>(API_ENDPOINTS.LOGIN, login);
+  }
+
+  efetuarSignup(signup: Usuario):Observable<any>{
+    return this.http.post<any>(API_ENDPOINTS.SIGNUP, signup);
   }
 
   autenticado(): boolean {
