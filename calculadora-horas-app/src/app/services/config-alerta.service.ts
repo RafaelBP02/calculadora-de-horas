@@ -27,7 +27,7 @@ export class ConfigAlertaService {
     return this.http.get<ConfigAlerta>(API_ENDPOINTS.ALERTAS + '/' + id);
   }
 
-  selecionarAlertaV2(id: number):Observable<ConfigAlerta>{
+  selecionarAlertaV2():Observable<ConfigAlerta>{
     return this.http.get<ConfigAlerta>(API_ENDPOINTS.ALERTAS + '/v2');
   }
 
