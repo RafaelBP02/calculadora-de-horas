@@ -77,8 +77,6 @@ describe('NotificationConfigDataComponent', () => {
     configAlertaService = TestBed.inject(ConfigAlertaService);
     httpTestingController = TestBed.inject(HttpTestingController);
     autorizacaoService = TestBed.inject(AutorizacaoService);
-
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -255,16 +253,16 @@ describe('NotificationConfigDataComponent', () => {
     });
 
     it('deve selecionar um alerta especifico', () => {
+
       autorizacaoService.decodedUserId = 1;
       autorizacaoService.decodedUser = 'TestUser';
 
-
+      component.selecionarAlertaConfigurado();
 
       const request = httpTestingController.expectOne(
         (data) =>
           data.url === API_ENDPOINTS.ALERTAS_V2 && data.method === 'GET'
       );
-
 
       request.flush(mockOneAlert);
 
