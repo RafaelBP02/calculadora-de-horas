@@ -71,10 +71,8 @@ describe('NotificationFrontComponent', () => {
 
     fixture.detectChanges();
 
-    component.ngOnInit();
-
     const request = httpTestingController.expectOne(
-      (data) => data.url === `${API_ENDPOINTS.ALERTAS}/1` && data.method === 'GET'
+      (data) => data.url === `${API_ENDPOINTS.ALERTAS_V2}` && data.method === 'GET'
     );
 
     request.flush(mockOneAlert);

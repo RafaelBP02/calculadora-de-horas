@@ -19,13 +19,13 @@ export class ConfigAlertaService {
     return this.http.put<ConfigAlerta>(API_ENDPOINTS.ALERTAS, dadosAlerta);
   }
 
-  selecionarTodosAlertas():Observable<ConfigAlerta[]>{
-    return this.http.get<ConfigAlerta[]>(API_ENDPOINTS.ALERTAS);
-  }
+  // selecionarTodosAlertas():Observable<ConfigAlerta[]>{
+  //   return this.http.get<ConfigAlerta[]>(API_ENDPOINTS.ALERTAS);
+  // }
 
-  selecionarAlerta(id: number):Observable<ConfigAlerta>{
-    return this.http.get<ConfigAlerta>(API_ENDPOINTS.ALERTAS + '/' + id);
-  }
+  // selecionarAlerta(id: number):Observable<ConfigAlerta>{
+  //   return this.http.get<ConfigAlerta>(API_ENDPOINTS.ALERTAS + '/' + id);
+  // }
 
   selecionarAlertaV2():Observable<ConfigAlerta>{
     return this.http.get<ConfigAlerta>(API_ENDPOINTS.ALERTAS_V2);
