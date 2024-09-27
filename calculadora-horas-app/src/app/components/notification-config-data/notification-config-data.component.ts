@@ -38,7 +38,7 @@ export class NotificationConfigDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
+    this.selecionarAlertaConfigurado();
     console.log(this.reqAlertaExiste);
   }
 
@@ -107,8 +107,8 @@ export class NotificationConfigDataComponent implements OnInit {
     }
   }
 
-  selecionarAlertaConfigurado(alerta_id: number): void {
-    this.confAlertaService.selecionarAlerta(alerta_id).subscribe({
+  selecionarAlertaConfigurado(): void {
+    this.confAlertaService.selecionarAlertaV2().subscribe({
       next: (dados) => {
         // Atualize os dados com a resposta da API
         this.reqAlertaConfigurado = dados;
@@ -160,7 +160,7 @@ export class NotificationConfigDataComponent implements OnInit {
             detail: 'Configurações atualizadas com sucesso',
           });
 
-          this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
+          this.selecionarAlertaConfigurado();
         },
         error: (error: any) => {
           this.messageService.add({
@@ -189,7 +189,7 @@ export class NotificationConfigDataComponent implements OnInit {
             detail: 'Configurações salvas com sucesso',
           });
 
-          this.selecionarAlertaConfigurado(this.autorizacaoService.decodedUserId);
+          this.selecionarAlertaConfigurado();
         },
         error: (error: any) => {
           this.messageService.add({
