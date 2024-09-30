@@ -77,8 +77,6 @@ describe('NotificationConfigDataComponent', () => {
     configAlertaService = TestBed.inject(ConfigAlertaService);
     httpTestingController = TestBed.inject(HttpTestingController);
     autorizacaoService = TestBed.inject(AutorizacaoService);
-
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -168,6 +166,7 @@ describe('NotificationConfigDataComponent', () => {
       });
     });
     */
+
     it('deve cadastrar um novo alarme', async () => {
       autorizacaoService.decodedUserId = 1;
       autorizacaoService.decodedUser = 'TestUser';
@@ -254,24 +253,22 @@ describe('NotificationConfigDataComponent', () => {
     });
 
     it('deve selecionar um alerta especifico', () => {
+
       autorizacaoService.decodedUserId = 1;
       autorizacaoService.decodedUser = 'TestUser';
 
-      fixture.detectChanges();
-
-      component.selecionarAlertaConfigurado(1);
+      component.selecionarAlertaConfigurado();
 
       const request = httpTestingController.expectOne(
         (data) =>
-          data.url === `${API_ENDPOINTS.ALERTAS}/1` && data.method === 'GET'
+          data.url === API_ENDPOINTS.ALERTAS_V2 && data.method === 'GET'
       );
-
 
       request.flush(mockOneAlert);
 
       expect(request.request.responseType).toBe('json');
       expect(request.request.method).toBe('GET');
-      expect(request.request.url).toBe(`${API_ENDPOINTS.ALERTAS}/1`);
+      expect(request.request.url).toBe(API_ENDPOINTS.ALERTAS_V2);
 
       expect(component.horariosForm.controls.cargaHorariaSelecionada.value?.valor).toEqual(mockOneAlert.workload);
       expect(component.horariosForm.controls.inicioExpediente.value).toEqual(mockOneAlert.workEntry);

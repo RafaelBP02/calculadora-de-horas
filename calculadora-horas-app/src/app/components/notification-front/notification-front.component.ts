@@ -30,7 +30,7 @@ export class NotificationFrontComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.alertAPI.selecionarAlerta(this.autorizacaoService.decodedUserId).subscribe({
+    this.alertAPI.selecionarAlertaV2().subscribe({
       next: (alertas) => {
         this.configuracoesSalvas = alertas;
         this.botaoVisivel = true;
