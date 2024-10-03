@@ -1,0 +1,10 @@
+@import '../calculadora/calculadora.component.css';
+
+.pagina-corpo{
+  width: 95vw;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
