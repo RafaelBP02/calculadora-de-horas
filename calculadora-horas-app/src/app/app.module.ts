@@ -47,7 +47,6 @@ registerLocaleData(ptBr);
     HomeComponent,
     HeaderComponent,
     CadastroComponent,
-    AdmGerenciaUsuarioComponent,
   ],
   imports: [
     BrowserModule,
