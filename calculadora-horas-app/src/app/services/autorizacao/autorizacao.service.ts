@@ -23,6 +23,7 @@ export interface LoginToken{
 export interface DecodedJwt{
   iss: string,
   sub: string,
+  papel: string,
   exp: number
 }
 
@@ -30,6 +31,8 @@ export interface DecodedJwt{
   providedIn: 'root'
 })
 export class AutorizacaoService {
+  private decodedUserRole: string = ''
+
   decodedUser: string = '';
   decodedUserId: number = 0;
 
@@ -55,6 +58,7 @@ export class AutorizacaoService {
       const subObject: SubjectBody = JSON.parse(jwtPayload.sub);
       const currentTime = Math.floor(Date.now() / 1000);
 
+      this.decodedUserRole = jwtPayload.papel;
       this.decodedUser = subObject.username;
       this.decodedUserId = subObject.userId;
 
@@ -63,5 +67,12 @@ export class AutorizacaoService {
       console.error('Erro ao decodificar o JWT:', error);
       return false;
     }
+  }
+
+  getNivelAcesso():string{
+    if(this.autenticado())
+      return  this.decodedUserRole;
+    else
+      return 'deslogado'
   }
 }

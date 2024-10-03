@@ -15,4 +15,8 @@ export class HomeComponent {
     return this.autorizacaoService.autenticado();
   }
 
+  verificaPapelUsuario(): boolean{
+    return this.autorizacaoService.getNivelAcesso() === 'ADMINISTRADOR';
+  }
+
 }
