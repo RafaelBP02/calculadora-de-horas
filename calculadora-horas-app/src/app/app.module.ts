@@ -36,6 +36,7 @@ import { RequestInterceptor } from './request-interceptor.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { AdmGerenciaUsuarioComponent } from './components/adm-gerencia-usuario/adm-gerencia-usuario.component';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -46,6 +47,7 @@ registerLocaleData(ptBr);
     HomeComponent,
     HeaderComponent,
     CadastroComponent,
+    AdmGerenciaUsuarioComponent,
   ],
   imports: [
     BrowserModule,
