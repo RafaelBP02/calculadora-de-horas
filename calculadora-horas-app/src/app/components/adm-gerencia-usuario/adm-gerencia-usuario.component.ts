@@ -1,5 +1,7 @@
+import { SortEvent } from 'primeng/api';
 import { UserDTO, UsuarioService } from './../../services/usuario/usuario.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-adm-gerencia-usuario',
@@ -7,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './adm-gerencia-usuario.component.css'
 })
 export class AdmGerenciaUsuarioComponent implements OnInit{
+  @ViewChild('dt') dt!: Table;
 
   allUsers: UserDTO[] = [];
+
+  isSorted: boolean = false;
 
   constructor(private usuarioService:UsuarioService){};
 
