@@ -1,5 +1,9 @@
 @import '../calculadora/calculadora.component.css';
 
+::ng-deep .p-inputgroup {
+  justify-content: flex-end;
+}
+
 .pagina-corpo{
   width: 95vw;
 

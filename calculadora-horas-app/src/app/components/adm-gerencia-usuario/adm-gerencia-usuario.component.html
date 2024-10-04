@@ -25,19 +25,17 @@
     ]"
   >
     <ng-template pTemplate="caption">
-      <div class="flex">
-        <p-inputGroup>
-          <p-inputGroupAddon class="form-input">
-            <i class="pi pi-search"></i>
-          </p-inputGroupAddon>
-          <input
-            pInputText
-            type="text"
-            (input)="filterInput($event)"
-            placeholder="Palavra Chave"
-          />
-        </p-inputGroup>
-      </div>
+      <p-inputGroup>
+        <p-inputGroupAddon >
+          <i class="pi pi-search"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          type="text"
+          (input)="filterInput($event)"
+          placeholder=" Palavra Chave"
+        />
+      </p-inputGroup>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
