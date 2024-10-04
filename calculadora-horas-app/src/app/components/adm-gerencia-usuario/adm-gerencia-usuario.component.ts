@@ -9,7 +9,7 @@ import { Table } from 'primeng/table';
   styleUrl: './adm-gerencia-usuario.component.css'
 })
 export class AdmGerenciaUsuarioComponent implements OnInit{
-  @ViewChild('dt') dt!: Table;
+  @ViewChild('dt2') dt2!: Table;
 
   allUsers: UserDTO[] = [];
 
@@ -34,6 +34,12 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
 
       }
     })
+  }
+
+  filterInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const value = inputElement.value;
+    this.dt2.filterGlobal(value, 'contains');
   }
 
 }

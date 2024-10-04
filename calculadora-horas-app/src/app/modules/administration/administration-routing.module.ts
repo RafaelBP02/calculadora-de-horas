@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdmGerenciaUsuarioComponent } from '../../components/adm-gerencia-usuario/adm-gerencia-usuario.component';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 const routes: Routes = [
   {path:'editar-usuarios', component: AdmGerenciaUsuarioComponent}
@@ -15,7 +17,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     ToastModule,
-    TableModule
+    TableModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
   exports: [RouterModule],
 })
