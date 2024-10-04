@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_ENDPOINTS } from '../services/api-endpoints';
+import { API_ENDPOINTS } from '../api-endpoints';
 
 export interface Role{
   id: number,
