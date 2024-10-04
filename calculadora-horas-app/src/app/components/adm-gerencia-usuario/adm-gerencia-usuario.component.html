@@ -18,10 +18,10 @@
     [rowsPerPageOptions]="[5, 10, 25]"
     [paginator]="true"
     [globalFilterFields]="[
-      'allUsers.eMail',
-      'allUsers.name',
-      'allUsers.surename',
-      'allUsers.workplace'
+      'eMail',
+      'name',
+      'surename',
+      'workplace'
     ]"
   >
     <ng-template pTemplate="caption">
@@ -34,7 +34,7 @@
             pInputText
             type="text"
             (input)="filterInput($event)"
-            placeholder="Search keyword"
+            placeholder="Palavra Chave"
           />
         </p-inputGroup>
       </div>
