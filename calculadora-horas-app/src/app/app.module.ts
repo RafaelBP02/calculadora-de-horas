@@ -1,3 +1,4 @@
+import { TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +37,6 @@ import { RequestInterceptor } from './request-interceptor.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { AdmGerenciaUsuarioComponent } from './components/adm-gerencia-usuario/adm-gerencia-usuario.component';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -62,6 +62,7 @@ registerLocaleData(ptBr);
     DropdownModule,
     TooltipModule,
     ToastModule,
+    TableModule,
     ConfirmDialogModule
   ],
   providers: [

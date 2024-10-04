@@ -9,4 +9,27 @@
   <figure>
     <img src="admUserEditionFigure.svg" alt="userEditorFigure" width="100%"/>
   </figure>
+
+  <p-table [value]="allUsers">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Sure Name</th>
+        <th>Work Place</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-allUsers>
+      <tr>
+        <td>{{ allUsers.eMail }}</td>
+        <td>{{ allUsers.name }}</td>
+        <td>{{ allUsers.surename }}</td>
+        <td>{{ allUsers.workplace }}</td>
+        <td>
+          <i class="pi pi-pencil"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>

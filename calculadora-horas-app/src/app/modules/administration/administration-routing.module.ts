@@ -1,3 +1,4 @@
+import { TableModule } from 'primeng/table';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdmGerenciaUsuarioComponent } from '../../components/adm-gerencia-usuario/adm-gerencia-usuario.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     ToastModule,
+    TableModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AdministrationRoutingModule { }
