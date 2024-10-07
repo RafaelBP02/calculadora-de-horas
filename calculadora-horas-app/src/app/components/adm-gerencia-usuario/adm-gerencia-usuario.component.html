@@ -17,16 +17,11 @@
     [rows]="5"
     [rowsPerPageOptions]="[5, 10, 25]"
     [paginator]="true"
-    [globalFilterFields]="[
-      'eMail',
-      'name',
-      'surename',
-      'workplace'
-    ]"
+    [globalFilterFields]="['eMail', 'name', 'surename', 'workplace']"
   >
     <ng-template pTemplate="caption">
       <p-inputGroup>
-        <p-inputGroupAddon >
+        <p-inputGroupAddon>
           <i class="pi pi-search"></i>
         </p-inputGroupAddon>
         <input
@@ -46,14 +41,50 @@
         <th>Opções</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-allUsers>
+    <ng-template pTemplate="body" let-user>
       <tr>
-        <td>{{ allUsers.eMail }}</td>
-        <td>{{ allUsers.name }}</td>
-        <td>{{ allUsers.surename }}</td>
-        <td>{{ allUsers.workplace }}</td>
-        <td><i class="pi pi-pencil"></i></td>
+        <td>{{ user.eMail }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.surename }}</td>
+        <td>{{ user.workplace }}</td>
+        <td>
+          <i class="pi pi-pencil btn-editar" (click)="showDialog(user)"></i>
+        </td>
       </tr>
     </ng-template>
   </p-table>
+  <p-dialog
+    header="Edição de Usuario"
+    [modal]="true"
+    [(visible)]="visivel"
+    [style]="{ width: '25rem' }"
+  >
+    <span class="p-text-secondary block mb-5"
+      >Deseja atualizar dados de {{ usuarioSelecionado.name }}?
+    </span>
+    <div class="flex justify-content-end gap-2">
+      <form
+        class="form-config alertas"
+        [formGroup]="editForm"
+        (ngSubmit)="editarUsuario($event)"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
+          <input type="text" [placeholder]="usuarioSelecionado.workPlace" pInputText formControlName="localTrabalho" />
+        </p-inputGroup>
+        <span
+          *ngIf=" editFormControl.localTrabalho.touched
+              && editFormControl.localTrabalho.errors?.['required']"
+        >
+          Campo obrigatório!
+        </span>
+        <p-button
+          label="cancelar"
+          severity="secondary"
+          (onClick)="visivel = false"
+        />
+        <p-button label="salvar" (onClick)="visivel = false" />
+      </form>
+    </div>
+  </p-dialog>
 </div>

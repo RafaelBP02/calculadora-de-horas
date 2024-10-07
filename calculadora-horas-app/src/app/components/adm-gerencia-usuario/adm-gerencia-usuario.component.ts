@@ -2,18 +2,34 @@ import { SortEvent } from 'primeng/api';
 import { UserDTO, UsuarioService } from './../../services/usuario/usuario.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-adm-gerencia-usuario',
   templateUrl: './adm-gerencia-usuario.component.html',
   styleUrl: './adm-gerencia-usuario.component.css'
 })
+
 export class AdmGerenciaUsuarioComponent implements OnInit{
   @ViewChild('dt2') dt2!: Table;
 
-  allUsers: UserDTO[] = [];
+  visivel: boolean = false;
 
-  isSorted: boolean = false;
+  editForm = new FormGroup({
+    localTrabalho: new FormControl<string>('', Validators.required)
+  });
+
+
+  usuarioSelecionado: UserDTO = {
+    id: 0,
+    eMail: 'none',
+    name: 'none',
+    sureName: 'none',
+    workPlace: 'none',
+    role: {id: 0, details: 'none', roleName: 'none' }
+  };
+
+  allUsers: UserDTO[] = [];
 
   constructor(private usuarioService:UsuarioService){};
 
@@ -42,6 +58,29 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
     this.dt2.filterGlobal(value, 'contains');
   }
 
+  showDialog(user: UserDTO){
+
+    this.usuarioSelecionado = user;
+
+    console.log(this.usuarioSelecionado);
+    this.visivel = true;
+  }
+
+  get editFormControl() {
+    return this.editForm.controls;
+  }
+
+  editarUsuario(event: Event):void{
+    event.preventDefault();
+
+    if(this.editForm.valid){
+      //TODO request
+    }
+    else{
+      console.log('preencha os dados obrigatorios')
+    }
+
+  }
 }
 
 
