@@ -6,6 +6,9 @@ import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path:'editar-usuarios', component: AdmGerenciaUsuarioComponent}
@@ -18,6 +21,11 @@ const routes: Routes = [
     CommonModule,
     ToastModule,
     TableModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    DialogModule,
+    ButtonModule,
+    ReactiveFormsModule,
     InputGroupModule,
     InputGroupAddonModule
   ],
