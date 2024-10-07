@@ -1,4 +1,4 @@
-import { SortEvent } from 'primeng/api';
+import { SortEvent, MessageService } from 'primeng/api';
 import { UserDTO, UsuarioService } from './../../services/usuario/usuario.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
@@ -24,7 +24,7 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
 
   allUsers: UserDTO[] = [];
 
-  constructor(private usuarioService:UsuarioService){};
+  constructor(private usuarioService:UsuarioService, private messageService: MessageService){};
 
   ngOnInit(): void {
     this.listarTodosUsuarios();
@@ -85,8 +85,14 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
         next:() => {
           console.log('sucesso');
           this.listarTodosUsuarios();
-          this.visivel = false;
           this.limparUsuarioSelecionado();
+          this.visivel = false;
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: `Usuario ${this.usuarioSelecionado.eMail} atualizado com sucesso!`,
+          });
         },
         error:(e)=>{
           console.log(e.getMessage);

@@ -58,33 +58,42 @@
     header="Edição de Usuario"
     [modal]="true"
     [(visible)]="visivel"
-    [style]="{ width: '25rem' }"
+    [style]="{ width: '24rem' }"
   >
     <span class="p-text-secondary block mb-5"
       >Deseja atualizar dados de {{ usuarioSelecionado.name }}?
     </span>
-    <div class="flex justify-content-end gap-2">
+    <div class=>
       <form
-        class="form-config alertas"
+        class="form-config"
         [formGroup]="editForm"
         (ngSubmit)="editarUsuario($event)"
       >
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
-          <input type="text" [placeholder]="usuarioSelecionado.workplace" pInputText formControlName="localTrabalho" />
+          <input type="text" [placeholder]=" ' ' + usuarioSelecionado.workplace" pInputText formControlName="localTrabalho" />
         </p-inputGroup>
-        <span
-          *ngIf=" editFormControl.localTrabalho.touched
-              && editFormControl.localTrabalho.errors?.['required']"
-        >
-          Campo obrigatório!
-        </span>
-        <p-button
-          label="cancelar"
-          severity="secondary"
-          (onClick)="visivel = false; limparUsuarioSelecionado()"
-        />
-        <p-button label="salvar" (onClick)="editarUsuario($event)" />
+        <div class="form-error">
+          <span
+            *ngIf=" editFormControl.localTrabalho.touched
+                && editFormControl.localTrabalho.errors?.['required']"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
+        <div class="caixa-btns">
+          <p-button
+            type="button"
+            label="cancelar"
+            severity="secondary"
+            (onClick)="visivel = false; limparUsuarioSelecionado()"
+          />
+          <p-button
+            type="submit"
+            label="salvar"
+            (onClick)="editarUsuario($event)"
+          />
+      </div>
       </form>
     </div>
   </p-dialog>

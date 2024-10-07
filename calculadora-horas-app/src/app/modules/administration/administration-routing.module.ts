@@ -27,7 +27,8 @@ const routes: Routes = [
     ButtonModule,
     ReactiveFormsModule,
     InputGroupModule,
-    InputGroupAddonModule
+    InputGroupAddonModule,
+    ToastModule
   ],
   exports: [RouterModule],
 })
