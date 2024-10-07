@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
+  erroLogin:boolean = false;
+  erroMensagem: string = '';
+
   constructor(private autorizacaoService: AutorizacaoService, private browserStorageService:BrowserStorageService, private router: Router){}
 
   loginForm = new FormGroup({
@@ -47,7 +50,9 @@ export class LoginComponent {
         console.log('bearer: ' + this.browserStorageService.get(BrowserStorageService.storageBearerId));
       },
       error: (e: any) => {
-        console.error('Erro ao efetuar login:', e);
+        this.erroLogin = true;
+        this.erroMensagem = 'Usuario inexistente ou senha incorreta!';
+        console.error('Erro ao efetuar login:', e.error.message);
 
       },
       complete: () => {

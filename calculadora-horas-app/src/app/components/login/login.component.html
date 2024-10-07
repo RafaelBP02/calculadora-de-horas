@@ -21,22 +21,27 @@
           <p-inputGroupAddon class="form-input"> Usuario </p-inputGroupAddon>
           <input type="text" pInputText formControlName="usuario" />
         </p-inputGroup>
-        <span
-          *ngIf=" loginFormControl.usuario.touched
-                && loginFormControl.usuario.errors?.['required']"
-        >
-          Campo obrigatório!
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf=" loginFormControl.usuario.touched
+                  && loginFormControl.usuario.errors?.['required']"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Senha </p-inputGroupAddon>
           <input type="password" pInputText formControlName="senha" />
         </p-inputGroup>
-        <span
-          *ngIf=" loginFormControl.senha.touched
-                && loginFormControl.senha.errors?.['required']"
-        >
-          Campo obrigatório!
-        </span>
+        <div class="form-error">
+          <span
+            *ngIf=" loginFormControl.senha.touched
+                  && loginFormControl.senha.errors?.['required']"
+          >
+            * Campo obrigatório!
+          </span>
+          <span *ngIf="erroLogin"><b>{{erroMensagem}}</b></span>
+        </div>
         <p class="cadastro" routerLink="/autenticacao/cadastro">Não possui um cadastro?</p>
         <div class="btn-caixa">
           <button
