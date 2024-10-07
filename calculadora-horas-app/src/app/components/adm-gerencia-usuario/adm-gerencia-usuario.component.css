@@ -4,13 +4,20 @@
   justify-content: flex-end;
 }
 
+.titulo{
+  width: 95vw;
+
+}
+
 .pagina-corpo{
   width: 95vw;
 
   display: flex;
-  flex-direction: column;
-
+  flex-direction: row-reverse;
   align-items: center;
+  justify-content: flex-end;
+
+  gap: 2rem;
 }
 
 .btn-editar{
