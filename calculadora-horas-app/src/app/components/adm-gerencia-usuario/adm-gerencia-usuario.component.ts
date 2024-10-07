@@ -44,6 +44,7 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
       workplace: 'none',
       role: {id: 0, details: 'none', roleName: 'none' }
     };
+    this.editForm.markAsUntouched();
   }
 
   filterInput(event: Event): void {
