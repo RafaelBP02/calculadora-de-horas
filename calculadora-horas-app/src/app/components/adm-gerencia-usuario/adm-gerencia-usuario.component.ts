@@ -74,7 +74,18 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
     event.preventDefault();
 
     if(this.editForm.valid){
-      //TODO request
+      this.usuarioSelecionado.workplace = this.editFormControl.localTrabalho.value || '';
+
+      this.usuarioService.atualizarDadosUsuarios(this.usuarioSelecionado).subscribe({
+        next:() => {
+          console.log('sucesso');
+          this.listarTodosUsuarios();
+          this.visivel = false;
+        },
+        error:(e)=>{
+          console.log(e.getMessage);
+        }
+      })
     }
     else{
       console.log('preencha os dados obrigatorios')
