@@ -24,8 +24,8 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
     id: 0,
     eMail: 'none',
     name: 'none',
-    sureName: 'none',
-    workPlace: 'none',
+    surename: 'none',
+    workplace: 'none',
     role: {id: 0, details: 'none', roleName: 'none' }
   };
 

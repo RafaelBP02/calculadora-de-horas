@@ -13,8 +13,8 @@ export interface UserDTO{
   id: number,
   eMail: string,
   name: string,
-  sureName: string,
-  workPlace: string,
+  surename: string,
+  workplace: string,
   role: Role
 }
 
