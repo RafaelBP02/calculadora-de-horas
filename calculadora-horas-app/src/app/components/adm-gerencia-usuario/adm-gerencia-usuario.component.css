@@ -12,3 +12,11 @@
 
   align-items: center;
 }
+
+.btn-editar{
+  font-size: 1.2rem;
+}
+.btn-editar:hover{
+  cursor: pointer;
+  color: #407cff;
+}
