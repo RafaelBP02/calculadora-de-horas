@@ -20,14 +20,7 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
   });
 
 
-  usuarioSelecionado: UserDTO = {
-    id: 0,
-    eMail: 'none',
-    name: 'none',
-    surename: 'none',
-    workplace: 'none',
-    role: {id: 0, details: 'none', roleName: 'none' }
-  };
+  usuarioSelecionado!: UserDTO;
 
   allUsers: UserDTO[] = [];
 
@@ -35,21 +28,22 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
 
   ngOnInit(): void {
     this.listarTodosUsuarios();
+    this.limparUsuarioSelecionado();
   };
 
-  listarTodosUsuarios() {
-    this.usuarioService.listarUsuarios().subscribe({
-      next: (usuarios) => {
-        this.allUsers = usuarios;
-      },
-      error: (e) => {
-        console.log("Erro na listagem dos usuarios" + e.getMessage)
-      },
-      complete: () => {
-        console.log(this.allUsers);
+  get editFormControl() {
+    return this.editForm.controls;
+  }
 
-      }
-    })
+  limparUsuarioSelecionado():void{
+    this.usuarioSelecionado = {
+      id: 0,
+      eMail: 'none',
+      name: 'none',
+      surename: 'none',
+      workplace: 'none',
+      role: {id: 0, details: 'none', roleName: 'none' }
+    };
   }
 
   filterInput(event: Event): void {
@@ -66,8 +60,19 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
     this.visivel = true;
   }
 
-  get editFormControl() {
-    return this.editForm.controls;
+  listarTodosUsuarios() {
+    this.usuarioService.listarUsuarios().subscribe({
+      next: (usuarios) => {
+        this.allUsers = usuarios;
+      },
+      error: (e) => {
+        console.log("Erro na listagem dos usuarios" + e.getMessage)
+      },
+      complete: () => {
+        console.log(this.allUsers);
+
+      }
+    })
   }
 
   editarUsuario(event: Event):void{
@@ -81,6 +86,7 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
           console.log('sucesso');
           this.listarTodosUsuarios();
           this.visivel = false;
+          this.limparUsuarioSelecionado();
         },
         error:(e)=>{
           console.log(e.getMessage);

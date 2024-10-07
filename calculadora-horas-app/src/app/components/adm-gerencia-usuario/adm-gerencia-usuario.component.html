@@ -81,7 +81,7 @@
         <p-button
           label="cancelar"
           severity="secondary"
-          (onClick)="visivel = false"
+          (onClick)="visivel = false; limparUsuarioSelecionado()"
         />
         <p-button label="salvar" (onClick)="editarUsuario($event)" />
       </form>
