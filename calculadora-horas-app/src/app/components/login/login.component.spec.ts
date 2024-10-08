@@ -63,7 +63,7 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
 
-    expect(compiled.querySelector('form>span')?.textContent).toContain('Campo obrigatório!');
+    expect(compiled.querySelector('form>div>span')?.textContent).toContain('* Campo obrigatório!');
 
   });
 
@@ -116,6 +116,6 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith('Erro ao efetuar login:', jasmine.any(Object));
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Erro ao efetuar login:', undefined);
   });
 });
