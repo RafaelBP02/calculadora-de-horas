@@ -111,7 +111,7 @@ describe('AdmGerenciaUsuarioComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('deveUtilizarFiltroGlobal', () => {
+  it('deve Utilizar o Filtro Global', () => {
 
     const inputElement: HTMLInputElement = fixture.nativeElement.querySelector('input[type="text"]');
     const filterGlobalSpy = spyOn(component.dt2, 'filterGlobal').and.callThrough();
@@ -136,4 +136,38 @@ describe('AdmGerenciaUsuarioComponent', () => {
     expect(component.allUsers).toEqual(dadosUsuariosTeste);
 
   })
+
+  it('deve mostrar o dialog', () => {
+    component.showDialog(testeUsuarioSelecionado);
+
+    expect(component.usuarioSelecionado).toEqual(testeUsuarioSelecionado);
+    expect(component.visivel).toBeTruthy();
+
+  })
+
+  it('deve editar o usuario', () => {
+    spyOn(component, 'listarTodosUsuarios');
+    spyOn(component, 'limparUsuarioSelecionado');
+    spyOn(messageService, 'add').and.callThrough();
+
+
+    component.editFormControl.localTrabalho.setValue('outro local');
+    component.usuarioSelecionado = testeUsuarioSelecionado;
+
+    component.editarUsuario(new Event('click'));
+
+    const request = httpTestingController.expectOne(
+      (data) =>
+        data.url === API_ENDPOINTS.EDITAR_USUARIO && data.method === 'PUT'
+    );
+    request.flush({});
+
+    expect(component.visivel).toBeFalsy();
+    expect(messageService.add).toHaveBeenCalledWith({
+      severity: 'success',
+      summary: 'Sucesso!',
+      detail: 'Usuario tester.tres@mail.com atualizado com sucesso!',
+    });
+
+  });
 });
