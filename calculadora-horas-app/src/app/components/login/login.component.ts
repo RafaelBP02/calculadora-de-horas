@@ -12,13 +12,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  erroLogin:boolean = false;
   erroMensagem: string = '';
 
   constructor(private autorizacaoService: AutorizacaoService, private browserStorageService:BrowserStorageService, private router: Router){}
 
   loginForm = new FormGroup({
-    usuario: new FormControl<string>('', Validators.required),
+    usuario: new FormControl<string>('', [Validators.required, Validators.email]),
     senha: new FormControl<string>('', Validators.required)
   })
 
@@ -50,7 +49,6 @@ export class LoginComponent {
         console.log('bearer: ' + this.browserStorageService.get(BrowserStorageService.storageBearerId));
       },
       error: (e) => {
-        this.erroLogin = true;
         this.erroMensagem = e.error.errorMessage;
         console.log(e);
 
@@ -59,6 +57,7 @@ export class LoginComponent {
         if (this.autorizacaoService.autenticado()) {
           this.router.navigate(['/']);
         }
+        this.erroMensagem = '';
       }
     });
   }

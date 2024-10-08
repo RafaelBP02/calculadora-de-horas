@@ -24,9 +24,9 @@
         <div class="form-error">
           <span
             *ngIf=" loginFormControl.usuario.touched
-                  && loginFormControl.usuario.errors?.['required']"
+                  && (loginFormControl.usuario.errors?.['required'] || loginFormControl.usuario.errors?.['email'])"
           >
-            * Campo obrigatório!
+            * O e-mail deve ser válido
           </span>
         </div>
         <p-inputGroup>
@@ -40,7 +40,9 @@
           >
             * Campo obrigatório!
           </span>
-          <span *ngIf="erroLogin"><b>{{erroMensagem}}</b></span>
+        </div>
+        <div class="form-error">
+          <span *ngIf="erroMensagem"><b>{{erroMensagem}}</b></span>
         </div>
         <p class="cadastro" routerLink="/autenticacao/cadastro">Não possui um cadastro?</p>
         <div class="btn-caixa">
