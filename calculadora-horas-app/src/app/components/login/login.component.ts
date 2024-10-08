@@ -49,10 +49,10 @@ export class LoginComponent {
 
         console.log('bearer: ' + this.browserStorageService.get(BrowserStorageService.storageBearerId));
       },
-      error: (e: any) => {
+      error: (e) => {
         this.erroLogin = true;
-        this.erroMensagem = 'Usuario inexistente ou senha incorreta!';
-        console.error('Erro ao efetuar login:', e.error.message);
+        this.erroMensagem = e.error.errorMessage;
+        console.log(e);
 
       },
       complete: () => {

@@ -56,6 +56,7 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
   showDialog(user: UserDTO){
 
     this.usuarioSelecionado = user;
+    this.editFormControl.localTrabalho.setValue(user.workplace);
 
     console.log(this.usuarioSelecionado);
     this.visivel = true;
