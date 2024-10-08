@@ -87,7 +87,6 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
         next:() => {
           console.log('sucesso');
           this.listarTodosUsuarios();
-          this.limparUsuarioSelecionado();
           this.visivel = false;
 
           this.messageService.add({
@@ -95,6 +94,8 @@ export class AdmGerenciaUsuarioComponent implements OnInit{
             summary: 'Sucesso!',
             detail: `Usuario ${this.usuarioSelecionado.eMail} atualizado com sucesso!`,
           });
+
+          this.limparUsuarioSelecionado();
         },
         error:(e)=>{
           console.log(e.getMessage);
