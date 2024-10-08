@@ -5,12 +5,14 @@
 }
 
 .titulo{
-  width: 95vw;
+  width: 80vw;
+  gap: 20rem;
+  justify-content: space-around;
 
 }
 
 .pagina-corpo{
-  width: 95vw;
+  width: 80vw;
 
   display: flex;
   flex-direction: row-reverse;
