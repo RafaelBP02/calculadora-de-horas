@@ -57,7 +57,6 @@ export class LoginComponent {
         if (this.autorizacaoService.autenticado()) {
           this.router.navigate(['/']);
         }
-        this.erroMensagem = '';
       }
     });
   }
