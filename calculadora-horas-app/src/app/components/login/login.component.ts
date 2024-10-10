@@ -28,6 +28,7 @@ export class LoginComponent {
       this.configuraHeadersAutorizacao();
     } else {
       this.loginForm.markAllAsTouched();
+      this.erroMensagem = '';
       console.log('EERO! CAMPOS DEVEM SER PREENCHIDOS');
     }
   }
