@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/notify-config/notify-config.module').then(m => m.NotifyConfigModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'adm',
+    loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule),
+    canActivate: [AuthGuard]
+  },
   {path: 'autenticacao', loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule)}
 ];
 

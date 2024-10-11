@@ -1,3 +1,4 @@
+import { TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { NotifyConfigRoutingModule } from './modules/notify-config/notify-config-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -61,6 +62,7 @@ registerLocaleData(ptBr);
     DropdownModule,
     TooltipModule,
     ToastModule,
+    TableModule,
     ConfirmDialogModule
   ],
   providers: [

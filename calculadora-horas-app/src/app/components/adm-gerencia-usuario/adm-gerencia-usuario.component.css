@@ -1,0 +1,71 @@
+@import '../calculadora/calculadora.component.css';
+
+::ng-deep .p-inputgroup {
+  justify-content: flex-end;
+}
+
+figure{
+  margin: 0;
+  margin-left: 5rem;
+}
+
+.custom-input{
+  padding-left: 0.8rem;
+}
+
+.titulo{
+  width: 90vw;
+  gap: 8rem;
+  justify-content: start;
+
+}
+
+.pagina-corpo{
+  width: 90vw;
+
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: start;
+}
+
+.btn-editar{
+  font-size: 1.2rem;
+}
+.btn-editar:hover{
+  cursor: pointer;
+  color: #407cff;
+}
+
+.caixa-btns{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.form-config ::ng-deep  > .p-inputgroup{
+  width: fit-content;
+}
+.form-config ::ng-deep  > p-inputgroup > div >  p-inputgroupaddon{
+  border-radius: 0%;
+}
+.form-config ::ng-deep  > p-inputgroup > div >  input{
+  border-radius: 0%;
+}
+
+.form-error{
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  color: red;
+  font-size: small;
+  height: 0.6rem;
+}
+
+.form-input{
+  min-width: 10rem;
+}
+

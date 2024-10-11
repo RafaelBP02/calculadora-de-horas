@@ -63,59 +63,46 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
 
-    expect(compiled.querySelector('form>span')?.textContent).toContain('Campo obrigatório!');
+    expect(compiled.querySelector('form>div>span')?.textContent).toContain('* O e-mail deve ser válido');
 
   });
 
   it('deve enviar o formulario', () => {
+
     spyOn(autorizacaoService,'autenticado').and.returnValue(true);
-    let btnEnviar: HTMLButtonElement = fixture.debugElement.query(
-      By.css('#btnLogin')
-    ).nativeElement;
 
     component.loginForm.controls.usuario.setValue('UsusarioTest');
     component.loginForm.controls.senha.setValue('testPass123');
 
-    fixture.detectChanges();
-
-    btnEnviar.click();
+    component.configuraHeadersAutorizacao();
 
     const request = httpTestingController.expectOne(
       (data) =>
         data.url === API_ENDPOINTS.LOGIN && data.method === 'POST'
     );
+
+    request.flush(0);
 
     expect(request.request.body).toEqual(jasmine.objectContaining({
       username: 'UsusarioTest',
       password: 'testPass123',
     }));
 
-    request.flush(0);
   });
 
   it('deve tratar o erro do formulario', () => {
-    const consoleErrorSpy = spyOn(console, 'error').and.callThrough();
-
-    let btnEnviar: HTMLButtonElement = fixture.debugElement.query(
-      By.css('#btnLogin')
-    ).nativeElement;
 
     component.loginForm.controls.usuario.setValue('fakeUser');
     component.loginForm.controls.senha.setValue('fakePass');
 
-    fixture.detectChanges();
-
-    btnEnviar.click();
-
+    component.configuraHeadersAutorizacao();
     const request = httpTestingController.expectOne(
       (data) =>
         data.url === API_ENDPOINTS.LOGIN && data.method === 'POST'
     );
 
-    request.flush('Login failed', { status: 401, statusText: 'Unauthorized' });
+    request.flush({ errorMessage: 'login falhou' }, { status: 401, statusText: 'Unauthorized' });
 
-    fixture.detectChanges();
-
-    expect(consoleErrorSpy).toHaveBeenCalledWith('Erro ao efetuar login:', jasmine.any(Object));
+    expect(component.erroMensagem).toEqual('login falhou')
   });
 });
