@@ -26,10 +26,11 @@
           <i class="pi pi-search"></i>
         </p-inputGroupAddon>
         <input
+          class="custom-input"
           pInputText
           type="text"
           (input)="filterInput($event)"
-          placeholder=" Palavra Chave"
+          placeholder="Palavra Chave"
         />
       </p-inputGroup>
     </ng-template>
@@ -58,7 +59,7 @@
     header="Edição de Usuario"
     [modal]="true"
     [(visible)]="visivel"
-    [style]="{ width: '24rem' }"
+    [style]="{ width: '25rem' }"
   >
     <span class="p-text-secondary block mb-5"
       >Deseja atualizar dados de {{ usuarioSelecionado.name }}?
@@ -71,7 +72,12 @@
       >
         <p-inputGroup>
           <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
-          <input type="text"  pInputText formControlName="localTrabalho" />
+          <input
+            class="custom-input"
+            type="text"
+            pInputText
+            formControlName="localTrabalho"
+          />
         </p-inputGroup>
         <div class="form-error">
           <span

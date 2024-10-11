@@ -9,6 +9,10 @@ figure{
   margin-left: 5rem;
 }
 
+.custom-input{
+  padding-left: 0.8rem;
+}
+
 .titulo{
   width: 90vw;
   gap: 8rem;
