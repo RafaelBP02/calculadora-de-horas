@@ -11,7 +11,8 @@ export class RequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const ignorePattern = /^auth\//;
 
-    if (!ignorePattern.test(request.url)) {
+    if (!request.url.includes('auth')) {
+      console.log('entrou! url:'+ request.url)
       const token = this.browserStorageService.get(BrowserStorageService.storageBearerId);
       if (token) {
         request = request.clone({

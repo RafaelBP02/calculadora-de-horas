@@ -100,7 +100,8 @@ h1{
 .titulo{
   display: flex;
   align-items: center;
-  gap: 15rem;
+  justify-content: start;
+  gap: 8rem;
 }
 .titulo > div {
   font-family: 'Poppins';
