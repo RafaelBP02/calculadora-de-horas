@@ -1,20 +1,12 @@
-:host ::ng-deep .dropdown-config{
-  width:  -webkit-fill-available;
-  border-radius: 0%;
+:host ::ng-deep .dropdown-config,
+:host ::ng-deep button,
+.caixa-calculadora ::ng-deep form p-inputgroup input,
+.caixa-calculadora ::ng-deep form p-inputgroup p-inputgroupaddon {
+  border-radius: 0;
 }
 
-:host ::ng-deep button{
-  border-radius: 0%;
-}
-
-h1{
-  font-style: normal;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 30px;
-  letter-spacing: -0.02em;
-
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+:host ::ng-deep .dropdown-config {
+  width: 100%;
 }
 
 .alertas > span{
@@ -44,24 +36,21 @@ h1{
 }
 .btn-config > i{
   font-size: 1.5rem;
-  color: #355AAD;
+  color: var(--bright-blue);
+  transition: color 0.3s ease;
 }
 .btn-config > i:hover{
   cursor: pointer;
-  color: #bcd9e8;
+  color: var(--gray-400);
 }
-
-
 
 .caixa-calculadora {
   min-width: 22rem;
   height: fit-content;
-  /* min-height: 26rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
-
   background: #FFFFFF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 15px;
@@ -79,7 +68,6 @@ h1{
   flex-wrap: wrap;
   flex-direction: row;
   align-items: flex-end;
-
   gap: 5rem;
 }
 
@@ -87,8 +75,6 @@ h1{
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
-
-
   gap: 1rem;
 }
 
@@ -96,25 +82,3 @@ h1{
   min-width: 12rem;
   min-height: 0.5rem;
 }
-
-.titulo{
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 8rem;
-}
-.titulo > div {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  letter-spacing: -0.02em;
-}
-.titulo:hover > div > span{
-  cursor: pointer;
-}
-.titulo:hover > div > i{
-  cursor: pointer;
-}
-
