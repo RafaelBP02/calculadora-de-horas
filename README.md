@@ -8,3 +8,10 @@ Este projeto visa documentar os aprendizados da mentoria na Stefanini a partir d
 | ----- | ----------- |
 | Frontend | /calculadora-horas-app |
 | Backend  | [link](https://github.com/RafaelBP02/calculadora-de-horas-back) |
+
+## Tecnologias Utilizadas
+
+Para o desenvolvimento deste projeto utilizou-se as seguintes tecnologias
+
+- Angular
+- TypeScript
