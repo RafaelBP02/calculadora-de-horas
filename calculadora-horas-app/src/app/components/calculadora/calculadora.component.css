@@ -1,0 +1,84 @@
+:host ::ng-deep .dropdown-config,
+:host ::ng-deep button,
+.caixa-calculadora ::ng-deep form p-inputgroup input,
+.caixa-calculadora ::ng-deep form p-inputgroup p-inputgroupaddon {
+  border-radius: 0;
+}
+
+:host ::ng-deep .dropdown-config {
+  width: 100%;
+}
+
+.alertas > span{
+  color: red;
+}
+
+.btn-caixa {
+  display: flex;
+  gap: 5px;
+  margin-top: 1vh;
+  min-width: 100%;
+  justify-content: space-between;
+}
+.btn-caixa > button{
+  background-color: #365cad;
+  border-color: #365cad;
+}
+.btn-caixa ::ng-deep > p-button > button {
+  background-color: #6694ff;
+  border-color: #6694ff;
+}
+
+.btn-config{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-config > i{
+  font-size: 1.5rem;
+  color: var(--bright-blue);
+  transition: color 0.3s ease;
+}
+.btn-config > i:hover{
+  cursor: pointer;
+  color: var(--gray-400);
+}
+
+.caixa-calculadora {
+  min-width: 22rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+
+}
+.caixa-calculadora ::ng-deep > form > p-inputgroup > div >  p-inputgroupaddon{
+  border-radius: 0%;
+}
+.caixa-calculadora ::ng-deep > form > p-inputgroup > div >  input{
+  border-radius: 0%;
+}
+
+.calculadora-pagina{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 5rem;
+}
+
+.form-config{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  gap: 1rem;
+}
+
+.form-input{
+  min-width: 12rem;
+  min-height: 0.5rem;
+}

@@ -1,0 +1,149 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CadastroComponent } from './cadastro.component';
+import { RouterModule } from '@angular/router';
+import { BrowserStorageService } from '../../services/browser-storage/browser-storage.service';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from '../../request-interceptor.interceptor';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CommonModule } from '@angular/common';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { API_ENDPOINTS } from '../../services/api-endpoints';
+
+describe('CadastroComponent', () => {
+  let component: CadastroComponent;
+  let fixture: ComponentFixture<CadastroComponent>;
+  let confirmationService: ConfirmationService;
+  let httpTestingController: HttpTestingController;
+  let messageService: MessageService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+        declarations:[CadastroComponent],
+        imports:[
+          RouterModule.forRoot([]),
+          HttpClientTestingModule,
+          CommonModule,
+          BrowserModule,
+          ConfirmDialogModule,
+          InputGroupModule,
+          InputGroupAddonModule,
+          ReactiveFormsModule
+        ],
+        providers:[
+          BrowserStorageService,
+          ConfirmationService,
+          MessageService,
+          provideClientHydration(),
+          provideHttpClientTesting(),
+          { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+        ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CadastroComponent);
+    component = fixture.componentInstance;
+    confirmationService = TestBed.inject(ConfirmationService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    messageService = TestBed.inject(MessageService);
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  describe('formulario valido', () => {
+    beforeEach(() => {
+      component.cadastroForm.controls.email.setValue('test.user@mail.com');
+      component.cadastroForm.controls.nome.setValue('Test');
+      component.cadastroForm.controls.sobrenome.setValue('User Surename');
+      component.cadastroForm.controls.localTrabalho.setValue('workplace101');
+      component.cadastroForm.controls.senha.setValue('senha@123');
+      component.cadastroForm.controls.confimarSenha.setValue('senha@123');
+    });
+
+    it('deve preparar os dados do formulario', () => {
+      const spy = spyOn(component, 'enviarDadosUsuario');
+
+      component.cadastrarUsuario();
+
+      expect(spy).toHaveBeenCalled();
+
+      expect(spy).toHaveBeenCalledWith(jasmine.objectContaining({
+        id: 0,
+        username: 'test.user@mail.com',
+        name: 'Test',
+        sureName: 'User Surename',
+        password: 'senha@123',
+        workPlace: 'workplace101',
+        roleId: 1
+      }));
+    })
+
+    it('deve fazer a requisicao REST', () => {
+      spyOn(component, 'enviarDadosUsuario').and.callThrough();
+
+      component.cadastrarUsuario();
+
+      const request = httpTestingController.expectOne(
+        (data) =>
+          data.url === API_ENDPOINTS.SIGNUP && data.method === 'POST'
+      );
+
+      expect(request.request.body).toEqual(jasmine.objectContaining({
+        username: 'test.user@mail.com',
+        name: 'Test',
+        sureName: 'User Surename',
+        password: 'senha@123',
+        workPlace: 'workplace101',
+      }));
+      expect(component.camposIncorretos).toBeFalsy();
+
+      request.flush(0);
+    })
+
+    it('deve confirmar a operacao no dialogo', () => {
+      const spy = spyOn(component, 'cadastrarUsuario');
+      spyOn<any>(confirmationService, 'confirm').and.callFake((params: any) => {
+        if (params.accept) {
+          params.accept();
+        }
+      });
+
+      component.confirmarDados(new Event('click'));
+
+      expect(spy).toHaveBeenCalled();
+    })
+    it('deve cancelar a opercao no Dialogo', () => {
+      const consoleLogSpy = spyOn(console, 'log').and.callThrough();
+
+      spyOn<any>(confirmationService, 'confirm').and.callFake((params: any) => {
+        if (params.reject) {
+          params.reject();
+        }
+      });
+
+      component.confirmarDados(new Event('click'));
+
+      expect(consoleLogSpy).toHaveBeenCalledWith('Operação cancelada');
+    })
+
+  });
+
+  it('deve ser um formulario invalido', () => {
+    const consoleLogSpy = spyOn(console, 'log').and.callThrough();
+
+    component.confirmarDados(new Event('click'));
+
+    expect(consoleLogSpy).toHaveBeenCalledWith('ERRO! CAMPOS DEVEM SER PREENCHIDOS');
+    expect(component.camposIncorretos).toBeTruthy();
+  })
+
+
+});

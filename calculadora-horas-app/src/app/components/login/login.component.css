@@ -1,0 +1,70 @@
+@import '../calculadora/calculadora.component.css';
+
+h1{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 82px;
+  letter-spacing: -0.02em;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+figure ::ng-deep{
+
+  display: contents;
+  unicode-bidi: normal;
+}
+
+.caixa-calculadora{
+  flex-grow: 0.5;
+}
+
+.cadastro{
+  display: flex;
+  justify-content: center;
+
+  margin: 0rem;
+}
+.cadastro:hover{
+  cursor: pointer;
+  color: #365cad;
+  font-weight: bold;
+}
+
+.form-error{
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  color: red;
+  font-size: small;
+  height: 0.6rem;
+}
+
+.login{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.titulo{
+  display: flex;
+  align-items: center;
+}
+
+.voltar {
+  display: flex;
+  align-items: center;
+}
+.voltar:hover{
+  cursor: pointer;
+}
+
+.btn-caixa{
+  justify-content: center;
+}

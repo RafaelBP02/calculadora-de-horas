@@ -1,0 +1,40 @@
+
+figure{
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.1rem;
+
+}
+figure > i,
+figure > p{
+  color: red;
+}
+figure:hover i,
+figure:hover p {
+  color: rgb(167, 0, 0);
+  cursor: pointer;
+}
+
+p {
+  margin: 0;
+  font-weight: bold;
+  color: #365cad;
+}
+
+.app-header > div{
+
+  width: 95vw;
+  height: fit-content;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+
+}

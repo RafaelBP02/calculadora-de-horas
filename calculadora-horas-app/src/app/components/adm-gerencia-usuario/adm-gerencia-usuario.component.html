@@ -1,0 +1,106 @@
+<div class="titulo">
+  <div [routerLink]="['']">
+    <i class="pi pi-angle-left"></i>
+    <span>Voltar</span>
+  </div>
+  <h1>Gerência de Usuários</h1>
+</div>
+<div class="pagina-corpo">
+
+  <figure>
+    <img src="admUserEditionFigure.svg" alt="userEditorFigure" width="150%" />
+  </figure>
+
+  <p-table
+    #dt2
+    [value]="allUsers"
+    dataKey="id"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 25]"
+    [paginator]="true"
+    [globalFilterFields]="['eMail', 'name', 'surename', 'workplace']"
+  >
+    <ng-template pTemplate="caption">
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-search"></i>
+        </p-inputGroupAddon>
+        <input
+          class="custom-input"
+          pInputText
+          type="text"
+          (input)="filterInput($event)"
+          placeholder="Palavra Chave"
+        />
+      </p-inputGroup>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="eMail">E-mail<p-sortIcon field="eMail" /></th>
+        <th pSortableColumn="name">Name<p-sortIcon field="name" /></th>
+        <th pSortableColumn="surename">Sobrenome<p-sortIcon field="surename" /></th>
+        <th pSortableColumn="workplace">Local de Trabalho<p-sortIcon field="workplace" /></th>
+        <th>Opções</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.eMail }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.surename }}</td>
+        <td>{{ user.workplace }}</td>
+        <td>
+          <i class="pi pi-pencil btn-editar" (click)="showDialog(user)"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-dialog
+    header="Edição de Usuario"
+    [modal]="true"
+    [(visible)]="visivel"
+    [style]="{ width: '25rem' }"
+  >
+    <span class="p-text-secondary block mb-5"
+      >Deseja atualizar dados de {{ usuarioSelecionado.name }}?
+    </span>
+    <div class=>
+      <form
+        class="form-config"
+        [formGroup]="editForm"
+        (ngSubmit)="editarUsuario($event)"
+      >
+        <p-inputGroup>
+          <p-inputGroupAddon class="form-input"> Local de Trabalho </p-inputGroupAddon>
+          <input
+            class="custom-input"
+            type="text"
+            pInputText
+            formControlName="localTrabalho"
+          />
+        </p-inputGroup>
+        <div class="form-error">
+          <span
+            *ngIf=" editFormControl.localTrabalho.touched
+                && editFormControl.localTrabalho.errors?.['required']"
+          >
+            * Campo obrigatório!
+          </span>
+        </div>
+        <div class="caixa-btns">
+          <p-button
+            type="button"
+            label="cancelar"
+            severity="secondary"
+            (onClick)="visivel = false; limparUsuarioSelecionado()"
+          />
+          <p-button
+            type="submit"
+            label="salvar"
+            (onClick)="editarUsuario($event)"
+          />
+      </div>
+      </form>
+    </div>
+  </p-dialog>
+</div>

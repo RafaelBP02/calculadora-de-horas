@@ -1,0 +1,34 @@
+@import '../calculadora/calculadora.component.css';
+
+.alertas > div > span{
+  color: red;
+}
+.alertas > div{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.btn-seta{
+  font-size: 2rem;
+}
+.btn-seta:hover{
+  cursor: pointer;
+  color: #3B82F6;
+}
+
+.config-pagina{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 5rem;
+}
+
+.estilo-forms{
+  min-width: 60%;
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
